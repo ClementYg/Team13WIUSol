@@ -1,4 +1,6 @@
 #include "NPC.h"
+#include <chrono>
+#include <thread>
 #include <string>
 #include <iostream>
 
@@ -44,5 +46,18 @@ int NPC::getY() const
 // function that make the NPC talk
 void NPC::NPCtalk()
 {
-	std::cout << "(Mission Talk)" << std::endl;
+	std::string text;
+
+	if (name == "Old villager") {
+		text = "I am very very old, you have to get me some water and i will give you money";
+	}
+	else {
+		text = "I am not Old villager, you find the wrong person";
+	}
+
+	for (char c : text) {
+		std::cout << c << std::flush;          // print one character
+		std::this_thread::sleep_for(std::chrono::milliseconds(30)); // wait 50ms
+	}
+	std::cout << std::endl;
 }
