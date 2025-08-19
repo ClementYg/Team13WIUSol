@@ -9,5 +9,4 @@ int main() {
 	villager.setX(1);
 	villager.setY(5);
 	villager.NPCtalk();
-	villager2.NPCtalk();
 }
