@@ -127,11 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BMOrganiser.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Master.cpp" />
+    <ClCompile Include="Merchant.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Position.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BMOrganiser.h" />
+    <ClInclude Include="Master.h" />
+    <ClInclude Include="Merchant.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Position.h" />
   </ItemGroup>

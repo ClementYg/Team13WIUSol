@@ -5,9 +5,10 @@
 #include <iostream>
 
 // Create a NPC and tell its position
-NPC::NPC(std::string n, int x, int y)
+NPC::NPC(std::string n, int x, int y, std::vector<std::string> lines)
 {
 	name = n;
+	dialogue = lines;
 	NPCspos.x = x;
 	NPCspos.y = y;
 	std::cout << name << " spawned at (" << NPCspos.x << ',' << NPCspos.y << ")\n";
@@ -16,7 +17,7 @@ NPC::NPC(std::string n, int x, int y)
 // Destroy NPC to free memory
 NPC::~NPC()
 {
-	std::cout << name << " at " << '(' << NPCspos.x << ',' << NPCspos.y << ')' << " is deleted\n";
+	//std::cout << name << " at " << '(' << NPCspos.x << ',' << NPCspos.y << ')' << " is deleted\n";
 }
 
 // function to set X position
@@ -46,21 +47,17 @@ int NPC::getY() const
 // function that make the NPC talk
 void NPC::NPCtalk()
 {
-	std::string text;
+	for (size_t i = 0; i < dialogue.size(); i++) {
+		std::string& line = dialogue[i];
 
-	if (name == "Old villager") {
-		text = "I am very very old, you have to get me some water and i will give you money";
-	}
-	else {
-		text = "I am not Old villager, you find the wrong person";
-	}
+		// Those weird code is to make it blue
+		std::cout << "\033[1;34m" << name << ": " << "\033[0m";
 
-	// Those weird code is to make it blue
-	std::cout << "\033[1;34m" << name << ": " << "\033[0m";
-
-	for (char c : text) {
-		std::cout << c << std::flush;          // print one character
-		std::this_thread::sleep_for(std::chrono::milliseconds(40)); // wait 50ms
+		for (char c : line) {
+			std::cout << c << std::flush;          // print one character
+			std::this_thread::sleep_for(std::chrono::milliseconds(20)); // wait 50ms
+		}
+		std::cout << std::endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	}
-	std::cout << std::endl;
 }
