@@ -1,14 +1,15 @@
+#include "Game.h"
 #include <iostream>
 
 int main() {
 
-	for (int i = 0; i < 120; i++) {
-		std::cout << '-';
+	
+
+	Game game;
+	game.initGame();
+
+	while (true) {
+		game.doTurn();
 	}
-	for (int i = 0; i < 24; i++) {
-		std::cout << std::endl;
-	}
-	for (int i = 0; i < 120; i++) {
-		std::cout << '-';
-	}
+	return 0;
 }
