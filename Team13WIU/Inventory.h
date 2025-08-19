@@ -7,9 +7,9 @@ private:
 public: 
 
 	void showInventory();
+	void selectItem();
 
 	void addItem(Item* itemObj);
-
 	void removeItem(Item* itemObj);
 
 	Inventory();

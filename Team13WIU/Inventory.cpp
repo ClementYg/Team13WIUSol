@@ -7,8 +7,8 @@ void Inventory::showInventory()
 {
 
 	for (int i = 0; i < 10; i++) {
-		if (itemSelected) {
-			std::cout << ">> "; //Show visually that item is selected
+		if (container[i] != nullptr && container[i]->checkItemSelect()) {
+			std::cout << ">> ";
 		}
 		if (container[i] != nullptr) {
 			std::cout << "[" << container[i]->getItemID() << "]" << container[i]->getItemName();
@@ -20,11 +20,12 @@ void Inventory::showInventory()
 
 void Inventory::selectItem()
 {
-	std::cout << "Which Item do you want to select: \n";
-	int pickedItem = 0; //this is for std::cin, user choice
-	std::cin >> pickedItem;
+	int choice;
+	std::cout << "select Item\n";
+	std::cin >> choice;
 
 }
+
 
 void Inventory::addItem(Item* itemObj)
 {

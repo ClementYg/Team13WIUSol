@@ -17,8 +17,10 @@ private:
 	std::string itemDesc;
 public: 	
 	bool checkItemSelect();
+
 	int getItemID();
 	std::string getItemName(); 
+	std::string getItemDesc;
 
 	Item(std::string name);
 	~Item();

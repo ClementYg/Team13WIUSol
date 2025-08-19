@@ -6,9 +6,9 @@ int Item::getItemID()
 	return itemID;
 }
 
-void Item::selectItem()
+bool Item::checkItemSelect()
 {
-	isitemSelected = true;
+	return isitemSelected;
 }
 
 std::string Item::getItemName()
