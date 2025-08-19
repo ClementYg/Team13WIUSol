@@ -55,9 +55,12 @@ void NPC::NPCtalk()
 		text = "I am not Old villager, you find the wrong person";
 	}
 
+	// Those weird code is to make it blue
+	std::cout << "\033[1;34m" << name << ": " << "\033[0m";
+
 	for (char c : text) {
 		std::cout << c << std::flush;          // print one character
-		std::this_thread::sleep_for(std::chrono::milliseconds(30)); // wait 50ms
+		std::this_thread::sleep_for(std::chrono::milliseconds(40)); // wait 50ms
 	}
 	std::cout << std::endl;
 }
