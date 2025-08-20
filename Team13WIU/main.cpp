@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Item.h"
 #include "Inventory.h"
+#include "Map.h"
 
 int main() {
 
@@ -26,6 +27,11 @@ int main() {
 
 	Sword->addDesc("This is a wooden sword. This deals -5 HP to enemies."); // use inside () to add Description of item.
 	
+	Map test;
+
+	test.townMap(); 
+
+
 	Container.showInventory();
 	Container.showInventory();
 
@@ -33,6 +39,8 @@ int main() {
 	delete Sword1;
 	delete Sword2;
 	delete Sword3;
+
+	
 
 
 }
