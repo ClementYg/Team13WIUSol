@@ -1,7 +1,7 @@
-#include "Consumable.h"
+#include "Armour.h"
 #include <iostream>
 
-Consumable::Consumable()
+Armour::Armour()
 {
 	std::cout << "A created\n";
 }

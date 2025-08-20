@@ -29,7 +29,8 @@ public:
 	void addDesc(std::string description);
 	void select(int selected); //function to change isitemSelected of that object to be true
 	Item* create(Types itemtype);
-	Item(std::string name);
+	Item(std::string name, Types itemtype); //When creating, need specify name of Item, and ITEMTYPE
+	Item(); //default constructor
 	~Item();
 	
 private:

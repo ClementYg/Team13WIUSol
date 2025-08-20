@@ -1,5 +1,5 @@
-﻿  Inventory.cpp
-  Item.cpp
-  main.cpp
+﻿  Item.cpp
+  Weapon.cpp
   Generating Code...
+C:\Users\Cleme\Documents\GitHub\Team13WIUSol\Team13WIU\Item.cpp(73,1): warning C4715: 'Item::create': not all control paths return a value
   Team13WIU.vcxproj -> C:\Users\Cleme\Documents\GitHub\Team13WIUSol\x64\Debug\Team13WIU.exe

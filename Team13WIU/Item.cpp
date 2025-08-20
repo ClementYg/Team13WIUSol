@@ -1,5 +1,7 @@
 #include "Item.h"
 #include "Consumable.h"
+#include "Weapon.h"
+#include "Armour.h"
 #include <iostream>
 
 int Item::getItemID()
@@ -30,12 +32,18 @@ void Item::addDesc(std::string description) {
 
 int Item::IDCounter = 0;
 
-Item::Item(std::string name)
+Item::Item(std::string name, Types itemtype)
 {
 	isitemSelected = false;
 	itemID = IDCounter; 
 	IDCounter++;
 	this->name = name; //Assigns object name to be the function parameter name.	
+	create(itemtype);
+}
+
+Item::Item()
+{
+	std::cout << "A normal item created\n";
 }
 
 Item* Item::create(Types itemtype) {
@@ -54,8 +62,7 @@ Item* Item::create(Types itemtype) {
 		break;
 	}
 	case ARMOUR:
-		std::cout << 
-			;
+		std::cout << "Armour Item created\n";
 		return new Armour;
 		break;
 
