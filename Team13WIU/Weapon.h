@@ -3,7 +3,9 @@
 class Weapon : public Item
 {
 public:
-	Weapon();
-	~Weapon();
+	std::string getItemName();
+
+	Weapon(std::string n);
+	virtual ~Weapon();
 };
 

@@ -3,16 +3,16 @@
 class Item
 {
 private:
-	std::string name;
 	std::string itemDesc;
 	int itemID;
-	static int IDCounter;
+	static int IDCounter; //used to assign each ID to each Item based on order that is added to Inventory.
 	bool isitemSelected;
 
+protected:
+	std::string name;
 public: 	
 	enum Types {
 		CONSUMABLES,
-		//ANYTHING BELOW IS SUBJECT TO CHANGE. ONLY CONFIRMED IS CONSUMABLES
 		WEAPON,
 		ARMOUR
 	};
@@ -20,7 +20,7 @@ public:
 
 	//GETTERS
 	int getItemID();
-	std::string getItemName(); 
+	virtual std::string getItemName(); 
 	std::string getItemDesc();
 	bool checkItemSelect(); // returns isitemSelected
 
@@ -28,12 +28,7 @@ public:
 	//SETTERS
 	void addDesc(std::string description);
 	void select(int selected); //function to change isitemSelected of that object to be true
-	Item* create(Types itemtype);
-	Item(std::string name, Types itemtype); //When creating, need specify name of Item, and ITEMTYPE
+	static Item* create(std::string name, Types itemtype); //made static so that you can create specific item object outside of class
 	Item(); //default constructor
 	~Item();
-	
-private:
-	Types createType;
-
 };

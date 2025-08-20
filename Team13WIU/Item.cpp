@@ -32,38 +32,28 @@ void Item::addDesc(std::string description) {
 
 int Item::IDCounter = 0;
 
-Item::Item(std::string name, Types itemtype)
-{
-	isitemSelected = false;
-	itemID = IDCounter; 
-	IDCounter++;
-	this->name = name; //Assigns object name to be the function parameter name.	
-	create(itemtype);
-}
-
 Item::Item()
 {
+	isitemSelected = false;
+	itemID = IDCounter;
 	std::cout << "A normal item created\n";
 }
 
-Item* Item::create(Types itemtype) {
-	createType = itemtype;
-	switch (createType) {
+Item* Item::create(std::string name, Types itemtype) {
+	IDCounter++;
+	switch (itemtype) {
 	case CONSUMABLES:
 	{
-		std::cout << "Consumable Item created\n";
-		return new Consumable; 
+		return new Consumable(name); 
 		break;
 	}
 	case WEAPON:
 	{
-		std::cout << "Weapon Item created\n";
-		return new Weapon;
+		return new Weapon(name);
 		break;
 	}
 	case ARMOUR:
-		std::cout << "Armour Item created\n";
-		return new Armour;
+		return new Armour(name);
 		break;
 
 	default:

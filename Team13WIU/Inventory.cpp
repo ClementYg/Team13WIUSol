@@ -5,7 +5,8 @@
 
 void Inventory::showInventory()
 {
-	while (true) {
+	bool exitInventory = false;
+	while (!exitInventory) {
 		for (int i = 0; i < 10; i++) { // SET TO 10 BECAUSE THATS TOTAL SLOTS SO FAR
 			if (container[i] != nullptr) { //check that this slot has an item
 				{
@@ -31,7 +32,7 @@ void Inventory::selectItem()
 	int choice;
 	std::cout << "Do you want to select an item?\n";
 	std::cin >> choice; //used for container ID.
-	if (container[choice] != nullptr && choice < 4) { //DOESNT HAVE TO BE 4, TEMPORARY TOTAL AMOUNT OF ITEMS
+	if (container[choice] != nullptr && choice < 5) { //DOESNT HAVE TO BE 4, TEMPORARY TOTAL AMOUNT OF ITEMS
 		if (prevChoice != -1 && container[prevChoice] != nullptr) { // if previous Choice exists, run this code
 			container[prevChoice]->select(0); // change selection to false, DESELECT
 		}
@@ -45,9 +46,6 @@ void Inventory::addItem(Item* itemObj)
 {
 	container[itemObj->getItemID()] = itemObj; // get itemID and assign item pointer to container ID.
 }
-
-
-
 void Inventory::removeItem(Item* itemObj) {
 	container[itemObj->getItemID()] = nullptr; 
 	delete itemObj; 

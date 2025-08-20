@@ -4,7 +4,9 @@ class Armour : public Item
 {
 
 public:
-	Armour();
-	~Armour();
+
+	std::string getItemName();
+	Armour(std::string n);
+	virtual ~Armour();
 };
 

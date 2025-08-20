@@ -13,10 +13,10 @@ int main() {
 	//for (int i = 0; i < 120; i++) {
 	//	std::cout << '-';
 	//}
-	Item* Sword = new Item("Sword", Item::WEAPON);
-	Item* Sword1 = new Item("Sword1", Item::WEAPON);
-	Item* Sword2 = new Item("Sword2", Item::WEAPON);
-	Item* Sword3 = new Item("Sword3", Item::WEAPON);
+	Item* Sword = Item::create("Sword", Item::WEAPON); //create new weapon item.
+	Item* Sword1 = Item::create("Chestplate", Item::ARMOUR);
+	Item* Sword2 = Item::create("Helmet", Item::ARMOUR);
+	Item* Sword3 = Item::create("HealthPot", Item::CONSUMABLES);
 
 	Inventory Container; 
 	Container.addItem(Sword);

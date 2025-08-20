@@ -1,10 +1,13 @@
 #pragma once
 #include "Item.h"
+
 class Consumable : public Item
 {
 private:
 public:
-	Consumable();
-	~Consumable();
+	std::string getItemName();
+
+	Consumable(std::string n);
+	virtual ~Consumable();
 };
 

@@ -1,7 +1,15 @@
 #include "Armour.h"
 #include <iostream>
 
-Armour::Armour()
+std::string Armour::getItemName()
 {
-	std::cout << "A created\n";
+	return name;
 }
+
+Armour::Armour(std::string n)
+{
+	name = n;
+	std::cout << "Armour created\n";
+}
+
+Armour::~Armour() {}
