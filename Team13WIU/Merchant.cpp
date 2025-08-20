@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 
+// The : NPC(n, x, y, lines) is needed because the NPC has no default constructor (NPC())
+// It simply means "When creating a Merchant, call the NPC constructor with these arguments."
 Merchant::Merchant(std::string n, int x, int y, std::vector<std::string> lines) : NPC(n, x, y, lines)
 {
 
@@ -11,7 +13,17 @@ Merchant::Merchant(std::string n, int x, int y, std::vector<std::string> lines) 
 
 void Merchant::trade()
 {
-	std::cout << "You want to trade?\n";
+	std::cout << "\033[1;32m" << name << ": " << "\033[0m";
+	typeLine("You want to trade? (Y/N): ", 20);
+	std::cin >> IsTrade;
+	if (IsTrade == 'Y') {
+		std::cout << "\033[1;32m" << name << ": " << "\033[0m";
+		typeLine("(The items he sell)\n", 20);
+	}
+	else {
+		std::cout << "\033[1;32m" << name << ": " << "\033[0m";
+		typeLine("Okay! come back later then.\n", 20);
+	}
 }
 
 void Merchant::NPCtalk()
@@ -19,14 +31,11 @@ void Merchant::NPCtalk()
 	for (size_t i = 0; i < dialogue.size(); i++) {
 		std::string& line = dialogue[i];
 
-		// Those weird code is to make it green
+		// make name green
 		std::cout << "\033[1;32m" << name << ": " << "\033[0m";
+		typeLine(line, 20);
 
-		for (char c : line) {
-			std::cout << c << std::flush;          // print one character
-			std::this_thread::sleep_for(std::chrono::milliseconds(20)); // change speed
-		}
-		std::cout << std::endl;
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	}
+	std::cout << std::endl;
 }

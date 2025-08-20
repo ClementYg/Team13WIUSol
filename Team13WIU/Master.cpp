@@ -20,14 +20,11 @@ void Master::NPCtalk()
 	for (size_t i = 0; i < dialogue.size(); i++) {
 		std::string& line = dialogue[i];
 
-		// Those weird code is to make it green
+		// make name orange
 		std::cout << "\033[38;5;214m" << name << ": " << "\033[0m";
 
-		for (char c : line) {
-			std::cout << c << std::flush;          // print one character
-			std::this_thread::sleep_for(std::chrono::milliseconds(20)); // change speed
-		}
-		std::cout << std::endl;
+		typeLine(line, 20);
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	}
+	std::cout << std::endl;
 }

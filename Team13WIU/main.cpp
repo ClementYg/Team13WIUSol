@@ -7,6 +7,7 @@
 #include "Position.h"
 
 int main() {
+	// make sure define every NPC's speech before hand
 	std::vector<std::string> OldVillagerlines =
 	{
 		"Hey hey, small boy!",
@@ -35,13 +36,18 @@ int main() {
 		"Join this competition, if you win I will reward you something crazy"
 	};
 
+	// create NPC type and the informations(name, x, y, speech)
 	NPC villager("Old villager", 5, 1, OldVillagerlines);
 	Merchant clement("Clement", 2, 4, Merchantlines);
 	Master Spencer("Spencer", 3, 4, Masterlines);
 	BMOrganiser KaiZher("KaiZher", 4, 4, BMOlines);
+
+	// make them talk or do something like trade()
 	villager.NPCtalk();
 	clement.NPCtalk();
+	clement.trade();
 	Spencer.NPCtalk();
 	KaiZher.NPCtalk();
+	KaiZher.setX(5);
 
 }

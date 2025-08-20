@@ -17,6 +17,7 @@ public:
 	void setY(int y);
 	int getX() const;
 	int getY() const;
+	void typeLine(const std::string& text, int delay);
 
 	virtual void NPCtalk();
 };
