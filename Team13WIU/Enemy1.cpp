@@ -1,4 +1,6 @@
 #include "Enemy1.h"
+#include <iostream>
+using namespace std;
 
 Enemy1::Enemy1(int row, int col) : Entity(row, col, '%') {
 }
@@ -10,7 +12,22 @@ void Enemy1::move(Entity* gameObjects[], int entityCount) {
     // Not used in this implementation
 }
 
-void Enemy1::move(Position playerPos, Entity* gameObjects[], int entityCount)
+
+void Enemy1::move(Position playerPos, Entity* gameobjects[], int entityCount)
+{
+    /*int curRow = pos.getRow();
+	int curCol = pos.getCol();
+
+    if (playerPos.getRow() <= curRow + 1 && playerPos.getRow() >= curRow - 1) {
+        if (playerPos.getCol() <= curCol + 1 && playerPos.getCol() >= curCol - 1) {
+            cout << "Interacting with bro" << endl;
+        }
+    }*/
+
+}
+
+//void Enemy1::move(Position playerPos, Entity* gameObjects[], int entityCount) {};
+/*void Enemy1::move(Position playerPos, Entity* gameObjects[], int entityCount)
 {
     int curRow = pos.getRow();
     int curCol = pos.getCol();
@@ -73,4 +90,4 @@ void Enemy1::move(Position playerPos, Entity* gameObjects[], int entityCount)
     }
 
     pos.setPosition(newRow, newCol);
-}
+}*/

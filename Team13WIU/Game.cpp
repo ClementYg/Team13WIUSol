@@ -20,7 +20,7 @@ Game::~Game() {
 
 void Game::initGame() {
     gameObjects[0] = new Player(0, 0);
-    gameObjects[1] = new Enemy1(20, 50);
+    gameObjects[1] = new Enemy1(5, 10);
 }
 
 void Game::drawWorld() {
@@ -52,7 +52,13 @@ void Game::drawWorld() {
 
 	for (int i = 0; i < 120; i++) {
         cout << '-';
+		if (i == 119) cout << "\n"; // New line after the border
     }
+
+	cout << dingle << "\n";
+ 
+
+    
 }
 
 void Game::doTurn() {
@@ -85,10 +91,14 @@ void Game::doTurn() {
     for (int i = 1; i < 2; ++i) {
         if (gameObjects[i] != nullptr && gameObjects[0] != nullptr) {
             if (gameObjects[i]->getPosition().equals(gameObjects[0]->getPosition())) {
-                cout << "Game Over! The enemy caught you!\n";
-                delete gameObjects[0];
-                gameObjects[0] = nullptr;
-                exit(0);
+                continue;   
+            }
+        }
+    }
+    if (gameObjects[0] != nullptr && gameObjects[1] != nullptr) {
+        if (gameObjects[0]->getPosition().getRow() <= gameObjects[1]->getPosition().getRow() + 1 && gameObjects[0]->getPosition().getRow() >= gameObjects[1]->getPosition().getRow() - 1) {
+            if (gameObjects[0]->getPosition().getCol() <= gameObjects[1]->getPosition().getCol() + 1 && gameObjects[0]->getPosition().getCol() >= gameObjects[1]->getPosition().getCol() - 1) {
+                dingle = "Interacting with bro";
             }
         }
     }
