@@ -1,8 +1,13 @@
 #include "Game.h"
 #include <iostream>
+#include <string>
+#include "NPC.h"
+#include "BMOrganiser.h"
+#include "Master.h"
+#include "Merchant.h"
+#include "Position.h"
 
 int main() {
-<<<<<<< HEAD
 	// make sure define every NPC's speech before hand
 	std::vector<std::string> OldVillagerlines =
 	{
@@ -46,13 +51,4 @@ int main() {
 	KaiZher.NPCtalk();
 	KaiZher.setX(5);
 
-=======
-	Game game;
-	game.initGame();
-
-	while (true) {
-		game.doTurn();
-	}
-	return 0;
->>>>>>> parent of f56483a (Update main.cpp)
 }
