@@ -9,17 +9,16 @@ void Inventory::showInventory()
 
 	while (!exitInventory) {
 		printInventory();
-		selectItem(); //Ask user if want to select item.
-		printInventory();
-
 
 		char userChoice = ' ';
-		std::cout << "Do you wish to close your backpack? [Y/N]\n";
-		std::cin >> userChoice;
-		if (userChoice == 'Y' || userChoice == 'y') {
+		std::cout << "What do you wish to do with your backpack?\n" << "Press X to close your Bag.\nPress C to select an item.\n";
+		std::cin >> userChoice; 
+		if (userChoice == 'X' || userChoice == 'x') {
 			exitInventory = true;
 		}
-		else { exitInventory = false; }
+		else if (userChoice == 'C' || userChoice == 'c') {
+			selectItem();
+		}
 	}
 }
 
@@ -36,7 +35,7 @@ void Inventory::requestInventory() {
 void Inventory::selectItem()
 {
 	int choice;
-	std::cout << "Do you want to select an item?\n";
+	std::cout << "Pick the ID of the item you wish to select\n";
 	std::cin >> choice; //used for container ID.
 	if (container[choice] != nullptr && choice < 5) { //DOESNT HAVE TO BE 4, TEMPORARY TOTAL AMOUNT OF ITEMS
 		if (prevChoice != -1 && container[prevChoice] != nullptr) { // if previous Choice exists, run this code
