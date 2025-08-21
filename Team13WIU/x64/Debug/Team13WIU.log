@@ -1,9 +1,2 @@
-﻿  BMOrganiser.cpp
-  Master.cpp
-  Merchant.cpp
-  NPC.cpp
-  Position.cpp
-  main.cpp
-  Generating Code...
-  LINK : C:\zher personal\school\WIU\Team13WIUSol\x64\Debug\Team13WIU.exe not found or not built by the last incremental link; performing full link
+﻿  Merchant.cpp
   Team13WIU.vcxproj -> C:\zher personal\school\WIU\Team13WIUSol\x64\Debug\Team13WIU.exe

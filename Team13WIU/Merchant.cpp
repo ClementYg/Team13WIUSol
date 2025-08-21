@@ -14,7 +14,8 @@ Merchant::Merchant(std::string n, int x, int y, std::vector<std::string> lines) 
 void Merchant::trade()
 {
 	std::cout << "\033[1;32m" << name << ": " << "\033[0m";
-	typeLine("You want to trade? (Y/N): ", 20);
+	typeLine("You want to trade?", 20);
+	std::cout << "Do you want to trade? (Y/N): ";
 	std::cin >> IsTrade;
 	if (IsTrade == 'Y') {
 		std::cout << "\033[1;32m" << name << ": " << "\033[0m";
