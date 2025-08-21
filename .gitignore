@@ -55,8 +55,3 @@
 *.psess
 *.vsp
 *.vspscc
-
-*.pdb
-*.idb
-*.lastbuildstate
-*.tlog
