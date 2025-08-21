@@ -1,14 +1,20 @@
 #include "Position.h"
 
-// When a position created, x and y set to 0
-Position::Position()
-{
-	x = 0;
-	y = 0;
+
+Position::Position(int r, int c) : row(r), col(c) {}
+
+int Position::getRow() const { return row; }
+int Position::getCol() const { return col; }
+
+
+
+
+void Position::setPosition(int r, int c) {
+	row = r;
+	col = c;
 }
 
-// Destroy Position to free memory
-Position::~Position()
-{
-
+bool Position::equals(const Position& other) const {
+	return row == other.row && col == other.col;
 }
+
