@@ -128,17 +128,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BMOrganiser.cpp" />
+    <ClCompile Include="Enemy1.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Master.cpp" />
     <ClCompile Include="Merchant.cpp" />
     <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Position.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BMOrganiser.h" />
+    <ClInclude Include="Enemy1.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Master.h" />
     <ClInclude Include="Merchant.h" />
     <ClInclude Include="NPC.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Position.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

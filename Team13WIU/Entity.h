@@ -3,16 +3,18 @@
 #include <string>
 
 
-class Entity : public Position
+class Entity
 {
 protected:
 	Position pos;
 	char symbol;
 
 public:
-	Entity(int row, int col, char s);
-	const Position& getPosition() const;
-	void setPosition(Position p);
+	Entity();
+	~Entity();
+	int getX() const;
+	int getY() const;
+	void setPosition(int x, int y);
 	char getSymbol() const;
 	void setSymbol(char s);
 	virtual void move(Entity* gameObjects[], int size) = 0;
