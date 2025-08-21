@@ -30,10 +30,7 @@ int main() {
 	Map test;
 
 	test.printTMap(); 
-
-
-	Container.showInventory();
-	Container.showInventory();
+	Container.requestInventory();
 
 	delete Sword;
 	delete Sword1;

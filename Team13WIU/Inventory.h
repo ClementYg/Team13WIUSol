@@ -8,10 +8,13 @@ private:
 public: 
 
 	void showInventory();
+	void requestInventory();
 	void selectItem();
+	void printInventory();
 
 	void addItem(Item* itemObj);
 	void removeItem(Item* itemObj);
+	
 
 	Inventory();
 };

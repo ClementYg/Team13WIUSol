@@ -5,26 +5,32 @@
 
 void Inventory::showInventory()
 {
-	bool exitInventory = false;
+	bool exitInventory = false; //local variable declaration
+
 	while (!exitInventory) {
-		for (int i = 0; i < 10; i++) { // SET TO 10 BECAUSE THATS TOTAL SLOTS SO FAR
-			if (container[i] != nullptr) { //check that this slot has an item
-				{
-					if (container[i]->checkItemSelect()) {
-						std::cout << ">> ";
-					}
-					std::cout << "[" << container[i]->getItemID() << "] " << container[i]->getItemName();
-					std::cout << std::endl;
-
-
-					if (container[i]->checkItemSelect()) {
-						std::cout << "Description: " << container[i]->getItemDesc() << '\n' << '\n';
-					}
-				}
-			}
-		}
+		printInventory();
 		selectItem(); //Ask user if want to select item.
+		printInventory();
+
+
+		char userChoice = ' ';
+		std::cout << "Do you wish to close your backpack? [Y/N]\n";
+		std::cin >> userChoice;
+		if (userChoice == 'Y' || userChoice == 'y') {
+			exitInventory = true;
+		}
+		else { exitInventory = false; }
 	}
+}
+
+void Inventory::requestInventory() {
+	char userChoice = ' ';
+	std::cout << "What do you wish to do with your backpack? Press E to Open, Press X to Close.\n";
+	std::cin >> userChoice;
+	if (userChoice == 'E' || userChoice == 'e') {
+		showInventory(); //signify open 
+	}
+	else {}
 }
 
 void Inventory::selectItem()
@@ -40,6 +46,26 @@ void Inventory::selectItem()
 		prevChoice = choice;
 	}
 } //tells user to select and also deselects previously selected
+
+void Inventory::printInventory()
+{
+	for (int i = 0; i < 10; i++) { // SET TO 10 BECAUSE THATS TOTAL SLOTS SO FAR
+		if (container[i] != nullptr) { //check that this slot has an item
+			{
+				if (container[i]->checkItemSelect()) {
+					std::cout << ">> ";
+				}
+				std::cout << "[" << container[i]->getItemID() << "] " << container[i]->getItemName();
+				std::cout << std::endl;
+
+
+				if (container[i]->checkItemSelect()) {
+					std::cout << "Description: " << container[i]->getItemDesc() << '\n' << '\n';
+				}
+			}
+		}
+	}
+}
 
 
 void Inventory::addItem(Item* itemObj)

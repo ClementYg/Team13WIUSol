@@ -47,60 +47,62 @@ void Map::townMap() {
 
 	std::fstream townMap; //creates fstream variable townMap
 	townMap.open("townMap.csv", std::fstream::in); //uses townMap to open townMap.csv file and allow for output.
-	if (townMap.is_open()) {
-		
-		std::string TMtiles = " ";
-
-		while (getline(townMap, TMtiles)) //while program can extract from townMap.csv and input into TMFiles. (TLDR: When there is still lines in .csv)
-		{
-			std::stringstream tiles(TMtiles); //creates a stringstream variable tiles, while passing in lines in TMtiles to tiles.
-			std::string mapIndex;
-
-			while (std::getline(tiles, mapIndex, ','))//gets the line from TILES, then places it in mapIndex string. Last parameter tells function to stop getting line at each comma, as this is a CSV file
-			{
-				Map::textType tile = translateText(mapIndex);
-				switch (tile) {
-				case Map::HYPHEN:
-					std::cout << '-';
-					break;
-				case Map::STRAIGHT:
-					std::cout << '|';
-					break;
-				case Map::HASH:
-					std::cout << '#';
-					break;
-				case Map::UNDERSCORE:
-					std::cout << '_';
-					break;
-				case Map::EQUAL:
-					std::cout << '=';
-					break;
-				case Map::SLASH:
-					std::cout << '/';
-					break;
-				case Map::BACKSLASH:
-					std::cout << "\\";
-					break;
-				case Map::ASTERISK:
-					std::cout << '*';
-					break;
-				case Map::SPACE:
-					std::cout << ' ';
-					break;
-				case Map::CARET:
-					std::cout << '^';
-					break;
-				case Map::LETTERO: 
-					std::cout << 'o';
-					break;
-				default:
-					std::cout << "error";
-				}
-			}
-			std::cout << std::endl;
-		}
-
+	if (!townMap.is_open()) { //if couldn't open map then dont print anything
+		return;
 	}
+
+	std::string TMtiles = " "; // initialise
+
+	while (getline(townMap, TMtiles)) //while program can extract from townMap.csv and input into TMFiles. (TLDR: When there is still lines in .csv)
+	{
+		std::stringstream tiles(TMtiles); //creates a stringstream variable tiles, while passing in lines in TMtiles to tiles.
+		std::string mapIndex;
+
+		while (std::getline(tiles, mapIndex, ','))//gets the line from TILES, then places it in mapIndex string. Last parameter tells function to stop getting line at each comma, as this is a CSV file
+		{
+			Map::textType tile = translateText(mapIndex);
+			switch (tile) {
+			case Map::HYPHEN:
+				std::cout << '-';
+				break;
+			case Map::STRAIGHT:
+				std::cout << '|';
+				break;
+			case Map::HASH:
+				std::cout << '#';
+				break;
+			case Map::UNDERSCORE:
+				std::cout << '_';
+				break;
+			case Map::EQUAL:
+				std::cout << '=';
+				break;
+			case Map::SLASH:
+				std::cout << '/';
+				break;
+			case Map::BACKSLASH:
+				std::cout << "\\";
+				break;
+			case Map::ASTERISK:
+				std::cout << '*';
+				break;
+			case Map::SPACE:
+				std::cout << ' ';
+				break;
+			case Map::CARET:
+				std::cout << '^';
+				break;
+			case Map::LETTERO:
+				std::cout << 'o';
+				break;
+			default:
+				std::cout << "error";
+			}
+		}
+		std::cout << std::endl;
+	}
+
+
 
 
 
@@ -108,8 +110,8 @@ void Map::townMap() {
 
 }
 
-void Map::printTMap() {
-	std::cout << "-------------------------------------------------\n";
+void Map::printTMap() { //TownSquareArea
+	std::cout << "-------------------------------------------------\n"; //FRAMING
 	townMap();
 	townGameArea();
 	std::cout << "-------------------------------------------------\n";
@@ -118,7 +120,6 @@ void Map::printTMap() {
 void Map::townGameArea() { //PLAYER CAN MOVE AREA
 	for (int row = 0; row < 5; row++) {
 		for (int col = 0; col < 49; col++) {
-			townGameMap[row][col] = ' ';
 			std::cout << townGameMap[row][col];
 		}
 		std::cout << std::endl;
@@ -129,6 +130,12 @@ void Map::townGameArea() { //PLAYER CAN MOVE AREA
 }
 
 Map::Map() {
+	//INITIALISATION
+	for (int row = 0; row < 5; row++) {
+		for (int col = 0; col < 49; col++) {
+			townGameMap[row][col] = ' ';
+		}
+	}
 
 }
 
