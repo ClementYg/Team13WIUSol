@@ -116,9 +116,5 @@ void Game::doTurn() {
         }
     }
 
-	if (gameObjects[0] != nullptr && gameObjects[1] != nullptr) {
-		if (gameObjects[0]->getPosition().equals(gameObjects[1]->getPosition())) {
-			
-		}
-	}
+
 }
