@@ -71,6 +71,9 @@ void Game::doTurn() {
     // Move player (guard the cast)
     Player* player = static_cast<Player*>(gameObjects[0]);
 
+    Position oldPos = player->getPosition();
+
+
     if (player != nullptr) {
         player->move(gameObjects, 2);
     }
@@ -89,17 +92,33 @@ void Game::doTurn() {
 
     // Check collisions
     for (int i = 1; i < 2; ++i) {
-        if (gameObjects[i] != nullptr && gameObjects[0] != nullptr) {
-            if (gameObjects[i]->getPosition().equals(gameObjects[0]->getPosition())) {
-                continue;   
+        if (gameObjects[i] != nullptr && player != nullptr) {
+            if (gameObjects[i]->getPosition().equals(player->getPosition())) {
+                player->setPosition(oldPos);
+                dingle = "You bump into the enemy!";
+                break;
             }
         }
     }
+
+
     if (gameObjects[0] != nullptr && gameObjects[1] != nullptr) {
         if (gameObjects[0]->getPosition().getRow() <= gameObjects[1]->getPosition().getRow() + 1 && gameObjects[0]->getPosition().getRow() >= gameObjects[1]->getPosition().getRow() - 1) {
             if (gameObjects[0]->getPosition().getCol() <= gameObjects[1]->getPosition().getCol() + 1 && gameObjects[0]->getPosition().getCol() >= gameObjects[1]->getPosition().getCol() - 1) {
                 dingle = "Interacting with bro";
+			}
+			else {
+                dingle = " ";
             }
+		}
+        else {
+            dingle = " ";
         }
     }
+
+	if (gameObjects[0] != nullptr && gameObjects[1] != nullptr) {
+		if (gameObjects[0]->getPosition().equals(gameObjects[1]->getPosition())) {
+			
+		}
+	}
 }

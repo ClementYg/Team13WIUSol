@@ -26,6 +26,7 @@ void Player::move(Entity* gameObjects[], int entityCount) {
 	if (newRow >= 0 && newRow < 20 && newCol >= 0 && newCol < 60) {
 		pos.setPosition(newRow, newCol);
 	}
+	
 
 
 
