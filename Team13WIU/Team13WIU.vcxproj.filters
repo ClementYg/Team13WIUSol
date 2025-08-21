@@ -18,42 +18,36 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
+    <ClCompile Include="NPC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Inventory.cpp">
+    <ClCompile Include="Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Consumable.cpp">
+    <ClCompile Include="Merchant.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Armour.cpp">
+    <ClCompile Include="Master.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Weapon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
+    <ClCompile Include="BMOrganiser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Item.h">
+    <ClInclude Include="NPC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Inventory.h">
+    <ClInclude Include="Position.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Consumable.h">
+    <ClInclude Include="Merchant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Armour.h">
+    <ClInclude Include="Master.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Weapon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
+    <ClInclude Include="BMOrganiser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
