@@ -32,8 +32,8 @@ void Game::drawWorld() {
 
     for (int i = 0; i < 2; ++i) {
         if (gameObjects[i] != nullptr) {
-            int r = gameObjects[i]->getPosition().getRow();
-            int c = gameObjects[i]->getPosition().getCol();
+            int r = gameObjects[i]->getPosition().getY();
+            int c = gameObjects[i]->getPosition().getX();
             if (r >= 0 && r < 24 && c >= 0 && c < 60) {
                 grid[r][c] = gameObjects[i]->getSymbol();
             }
@@ -101,10 +101,10 @@ void Game::doTurn() {
         }
     }
 
-
+        
     if (gameObjects[0] != nullptr && gameObjects[1] != nullptr) {
-        if (gameObjects[0]->getPosition().getRow() <= gameObjects[1]->getPosition().getRow() + 1 && gameObjects[0]->getPosition().getRow() >= gameObjects[1]->getPosition().getRow() - 1) {
-            if (gameObjects[0]->getPosition().getCol() <= gameObjects[1]->getPosition().getCol() + 1 && gameObjects[0]->getPosition().getCol() >= gameObjects[1]->getPosition().getCol() - 1) {
+        if (gameObjects[0]->getPosition().getY() <= gameObjects[1]->getPosition().getY() + 1 && gameObjects[0]->getPosition().getY() >= gameObjects[1]->getPosition().getY() - 1) {
+            if (gameObjects[0]->getPosition().getX() <= gameObjects[1]->getPosition().getX() + 1 && gameObjects[0]->getPosition().getX() >= gameObjects[1]->getPosition().getX() - 1) {
                 dingle = "Interacting with bro";
 			}
 			else {
