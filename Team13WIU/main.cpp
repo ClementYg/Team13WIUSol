@@ -29,7 +29,7 @@ int main() {
 	
 	Map test;
 
-	test.townMap(); 
+	test.printTMap(); 
 
 
 	Container.showInventory();

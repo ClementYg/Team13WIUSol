@@ -32,27 +32,23 @@ Map::textType Map::translateText(std::string string) { //return enum textType. T
 	if (string == "1") { return Map::HYPHEN; } // DOUBLE QUOTATIONS USED AS STRING VARIABLE CNT USE ''.
 	else if (string == "2") { return Map::STRAIGHT; }
 	else if (string == "3") { return Map::HASH; }
-
 	else if (string == "4") { return Map::UNDERSCORE; }
-
-
 	else if (string == "5") { return Map::EQUAL; }
 	else if (string == "6") { return Map::SLASH; }
 	else if (string == "7") { return Map::BACKSLASH; }
 	else if (string == "8") { return Map::ASTERISK; }
-
-
-
-
+	else if (string == "9") { return Map::CARET; }
+	else if (string == "10") { return Map::LETTERO; }
 	else return Map::SPACE;
 }
 
 
 void Map::townMap() {
+
 	std::fstream townMap; //creates fstream variable townMap
 	townMap.open("townMap.csv", std::fstream::in); //uses townMap to open townMap.csv file and allow for output.
 	if (townMap.is_open()) {
-
+		
 		std::string TMtiles = " ";
 
 		while (getline(townMap, TMtiles)) //while program can extract from townMap.csv and input into TMFiles. (TLDR: When there is still lines in .csv)
@@ -91,6 +87,14 @@ void Map::townMap() {
 				case Map::SPACE:
 					std::cout << ' ';
 					break;
+				case Map::CARET:
+					std::cout << '^';
+					break;
+				case Map::LETTERO: 
+					std::cout << 'o';
+					break;
+				default:
+					std::cout << "error";
 				}
 			}
 			std::cout << std::endl;
@@ -101,6 +105,26 @@ void Map::townMap() {
 
 
 	townMap.close(); // closes file successfully
+
+}
+
+void Map::printTMap() {
+	std::cout << "-------------------------------------------------\n";
+	townMap();
+	townGameArea();
+	std::cout << "-------------------------------------------------\n";
+}
+
+void Map::townGameArea() { //PLAYER CAN MOVE AREA
+	for (int row = 0; row < 5; row++) {
+		for (int col = 0; col < 49; col++) {
+			townGameMap[row][col] = ' ';
+			std::cout << townGameMap[row][col];
+		}
+		std::cout << std::endl;
+	}
+
+	//FOR PLAYER POSITIONING STUFF, ADD HERE
 
 }
 

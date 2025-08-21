@@ -7,6 +7,7 @@ class Map
 private:
 	int mapMAX_ROW = 35;
 	int mapMAX_COL = 28; 
+	char townGameMap[5][49];
 public:
 	enum textType {
 		HYPHEN,
@@ -17,10 +18,16 @@ public:
 		SLASH,
 		BACKSLASH,
 		ASTERISK,
+		LETTERO,
+		CARET,
 		SPACE
 	};
 
 	void townMap(); 
+
+	void printTMap();
+
+	void townGameArea(); 
 
 	Map();
 	~Map();
