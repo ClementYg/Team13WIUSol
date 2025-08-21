@@ -33,3 +33,9 @@
 
 
 .vs
+
+.tlog
+.log
+.lastbuildstate
+.idb
+.pdb
