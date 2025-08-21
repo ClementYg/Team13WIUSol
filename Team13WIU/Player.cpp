@@ -14,8 +14,8 @@ Player::~Player() {
 
 void Player::move(Entity* gameObjects[], int entityCount) {
 	char input = _getch();
-	int newRow = pos.getRow();
-	int newCol = pos.getCol();
+	int newRow = pos.getY();
+	int newCol = pos.getX();
 
 	if (input == 'w') newRow--;
 	else if (input == 's') newRow++;

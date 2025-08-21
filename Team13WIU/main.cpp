@@ -50,5 +50,11 @@ int main() {
 	Spencer.NPCtalk();
 	KaiZher.NPCtalk();
 	KaiZher.setX(5);
+	Game game;
+	game.initGame();
+
+	while (true) {
+		game.doTurn();
+	}
 
 }
