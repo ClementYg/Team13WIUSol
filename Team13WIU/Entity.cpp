@@ -1,18 +1,33 @@
 #include "Entity.h"
+#include <iostream>
 
 
 
-Entity::Entity(int row, int col, char s) : pos(row, col), symbol(s) {}
-
-
-const Position& Entity::getPosition() const
+Entity::Entity()
 {
-    return pos;
+
+}
+
+Entity::~Entity()
+{
+
 }
 
 
-void Entity::setPosition(Position p) {
-    pos = p;
+int Entity::getX() const
+{
+    return pos.x;
+}
+
+int Entity::getY() const
+{
+    return pos.y;
+}
+
+
+void Entity::setPosition(int x, int y) {
+    pos.x = x;
+    pos.y = y;
 }
 
 char Entity::getSymbol() const {

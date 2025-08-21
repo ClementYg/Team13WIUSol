@@ -2,10 +2,17 @@
 #include <iostream>
 using namespace std;
 
-Enemy1::Enemy1(int row, int col) : Entity(row, col, '%') {
+Enemy1::Enemy1(std::string n, int y, int x, char s)
+{
+    name = n;
+    pos.x = x;
+    pos.y = y;
+    symbol = s;
 }
 
-Enemy1::~Enemy1() {
+Enemy1::~Enemy1()
+{
+
 }
 
 void Enemy1::move(Entity* gameObjects[], int entityCount) {
