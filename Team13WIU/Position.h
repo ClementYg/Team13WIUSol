@@ -7,3 +7,4 @@ public:
 	Position();
 	~Position();
 };
+// This is safe, anything go wrong undo to this
