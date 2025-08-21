@@ -1,7 +1,7 @@
-# Prerequisites
+#Prerequisites
 *.d
 
-# Compiled Object files
+#Compiled Object files
 *.slo
 *.lo
 *.o
@@ -26,10 +26,37 @@
 *.a
 *.lib
 
-# Executables
-*.exe
-*.out
-*.app
+# Visual Studio cache and settings
+.vs/
+*.vcxproj.user
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
+# MSVC build artifacts (ignore inside build dirs, but keep dirs themselves)
+*.idb
+*.pdb
+*.tlog
+*.ipdb
+*.iobj
+*.ilk
+*.log
 
-.vs
+# Visual Studio database files
+*.VC.db
+*.VC.VC.opendb
+*.opendb
+*.sdf
+
+# Other generated files
+*.cache
+*.ncb
+*.psess
+*.vsp
+*.vspscc
+
+*.pdb
+*.idb
+*.lastbuildstate
+*.tlog
