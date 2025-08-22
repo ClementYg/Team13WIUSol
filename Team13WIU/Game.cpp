@@ -14,7 +14,6 @@ using namespace std;
 
 Game::Game()
 {
-	turn = 0;
 	for (int i = 0; i < 2; ++i)
 	{
 		gameObjects[i] = nullptr;
@@ -99,8 +98,6 @@ void Game::doTurn() {
 	}
 	
 	drawWorld();
-	++turn;
-	cout << "Turn: " << turn << "\n";
 	
 	// Move player (guard the cast)
 	Player* player = static_cast<Player*>(gameObjects[0]);
