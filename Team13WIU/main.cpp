@@ -70,11 +70,13 @@ int main() {
 	//MapObj.printTMap();
 	//
 
+	Inventory Inv;
 	Game game;
 	game.initGame();
 
 	while (true) {
-		game.doTurn();
+		//game.doTurn();
+		Inv.requestInventory();
 	}
 
 }
