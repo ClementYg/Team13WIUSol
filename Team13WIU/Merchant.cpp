@@ -34,7 +34,7 @@ void Merchant::NPCtalk()
 
 		// make name green
 		std::cout << "\033[1;32m" << name << ": " << "\033[0m";
-		typeLine(line, 20);
+		typeLine(line, 1);
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	}

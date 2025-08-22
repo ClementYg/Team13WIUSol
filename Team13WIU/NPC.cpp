@@ -12,14 +12,14 @@ NPC::NPC(std::string n, int x, int y, std::vector<std::string> lines)
 	NPCspos.x = x;
 	NPCspos.y = y;
 	// this massage can be comment away as it is for debugging or checking
-	std::cout << name << " spawned at (" << NPCspos.x << ',' << NPCspos.y << ")\n";
+	//std::cout << name << " spawned at (" << NPCspos.x << ',' << NPCspos.y << ")\n";
 }
 
 // Destroy NPC to free memory
 NPC::~NPC()
 {
 	// this can be comment away as it is for debugging or checking
-	std::cout << name << " at " << '(' << NPCspos.x << ',' << NPCspos.y << ')' << " is deleted\n";
+	//std::cout << name << " at " << '(' << NPCspos.x << ',' << NPCspos.y << ')' << " is deleted\n";
 }
 
 // function to set X position
@@ -66,7 +66,7 @@ void NPC::NPCtalk()
 
 		// make name blue
 		std::cout << "\033[1;34m" << name << ": " << "\033[0m";
-		typeLine(line, 20);
+		typeLine(line, 1);
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));  // wait for 300ms before printing next line
 	}
 	// one blank line after every line finish, more neat

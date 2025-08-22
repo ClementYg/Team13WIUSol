@@ -7,10 +7,11 @@ class NPC
 {
 protected:
 	Position NPCspos;
-	std::string name;
+	
 	std::vector<std::string> dialogue;
 
 public:
+	std::string name;
 	NPC(std::string n, int x, int y, std::vector<std::string> lines = {});
 	virtual ~NPC();
 	void setX(int x);
