@@ -29,15 +29,16 @@ int main() {
 	//// STEPS FOR MAP 
 	Map MapObj;
 	MapObj.HarbourMap();
+	MapObj.InnerCaveMap();
 
-	startScreen();
+	/*startScreen();
 
 	Game game;
 	game.initGame();
 
 	while (true) {
 		game.doTurn();
-	}
+	}*/
 
 }
 //                      _
