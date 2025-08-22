@@ -180,10 +180,7 @@ void Map::printTMap() { //TownSquareArea
 }
 
 void Map::printFMap() {
-	std::cout << "-------------------------------------------------\n"; //FRAMING
 	ForestMap();
-	townGameArea();
-	std::cout << "-------------------------------------------------\n"; //FRAMING
 
 }
 

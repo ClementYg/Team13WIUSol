@@ -56,20 +56,20 @@ int main() {
 	//KaiZher.setX(5);
 
 	// STEPS FOR INVENTORY 
-	Item* sword = Item::create("HP_Potion", Item::HP_POT); //Declare name, ItemType, SpecificItem
-	Item* sword1 = Item::create("Sword", Item::WOOD_SWORD);
+	//Item* sword = Item::create("HP_Potion", Item::HP_POT); //Declare name, ItemType, SpecificItem
+	//Item* sword1 = Item::create("Sword", Item::WOOD_SWORD);
 
-	Inventory Bag;
+	//Inventory Bag;
 
-	Bag.addItem(sword); 
-	Bag.addItem(sword1);
-	sword->useItem();
-	sword1->useItem();
-	sword->addDesc("SWORD");
-	
-	Bag.requestInventory();
+	//Bag.addItem(sword); 
+	//Bag.addItem(sword1);
+	//sword->useItem();
+	//sword1->useItem();
+	//sword->addDesc("SWORD");
+	//
+	//Bag.requestInventory();
 
-	// STEPS FOR MAP 
+	//// STEPS FOR MAP 
 	Map MapObj;
 	MapObj.printTMap();
 	MapObj.printFMap();
