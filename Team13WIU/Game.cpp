@@ -40,8 +40,10 @@ void Game::GtypeLine(const std::string& text, int delay)
 }
 
 void Game::initGame() {
-	gameObjects[0] = new Player("MC", 0, 0, 'p');
-	gameObjects[1] = new Enemy1("Knight", 1, 10, 'e');
+	gameObjects[0] = new Player("MC", 0, 10, 'p');
+	if (InTown == true) {
+		gameObjects[1] = new Enemy1("Knight", 2, 44, 'e');
+	}
 }
 
 void Game::drawWorld() {
@@ -75,11 +77,6 @@ void Game::drawWorld() {
 		cout << '-';
 		if (i == 97) cout << "\n"; // New line after the border
 	}
-
-	cout << dingle << "\n";
-
-
-
 }
 
 void Game::doTurn() {
@@ -96,7 +93,12 @@ void Game::doTurn() {
 
 	// If player is gone, end game
 	system("cls");
-	mapObj.townMap();
+	if (InTown == true) 
+	{
+		mapObj.townMap();
+	}
+	
+	drawWorld();
 	++turn;
 	cout << "Turn: " << turn << "\n";
 	
