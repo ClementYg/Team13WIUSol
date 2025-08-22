@@ -70,16 +70,16 @@ int main() {
 	//Bag.requestInventory();
 
 	//// STEPS FOR MAP 
-	Map MapObj;
+	/*Map MapObj;
 	MapObj.printTMap();
 	MapObj.printFMap();
-	
+	*/
 
-	/*Game game;
+	Game game;
 	game.initGame();
 
 	while (true) {
 		game.doTurn();
-	}*/
+	}
 
 }

@@ -175,24 +175,10 @@ void Map::ForestMap() {
 void Map::printTMap() { //TownSquareArea
 	std::cout << "-------------------------------------------------\n"; //FRAMING
 	townMap();
-	townGameArea();
-	std::cout << "-------------------------------------------------\n";
 }
 
 void Map::printFMap() {
 	ForestMap();
-
-}
-
-void Map::townGameArea() { //PLAYER CAN MOVE AREA
-	for (int row = 0; row < 5; row++) {
-		for (int col = 0; col < 49; col++) {
-			std::cout << townGameMap[row][col];
-		}
-		std::cout << std::endl;
-	}
-
-	//FOR PLAYER POSITIONING STUFF, ADD HERE
 
 }
 
