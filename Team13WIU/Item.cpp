@@ -39,31 +39,26 @@ Item::Item()
 	std::cout << "A normal item created\n";
 }
 
-Item* Item::create(std::string name, Types itemtype) {
+Item* Item::create(std::string name, consumeType consumableType)
+{ //If no type is declared of Consumable, i.e Item is not consumable, then it will default to unknown
 	IDCounter++;
-	switch (itemtype) {
-	case CONSUMABLES:
-	{
-		return new Consumable(name); 
-		break;
-	}
-	case WEAPON:
-	{
-		return new Weapon(name);
-		break;
-	}
-	case ARMOUR:
-		return new Armour(name);
-		break;
+	return new Consumable(name, consumableType); 
+}
 
-	default:
-		std::cout << "No identifiable item-type\n";
-	}
+Item* Item::create(std::string name, weaponType wType) {
+	IDCounter++;
+	return new Weapon(name, wType);
+}
 
+Item* Item::create(std::string name, armourType aType) {
+	IDCounter++;
+	return new Armour(name, aType);
 }
 
 
 Item::~Item() {
 	std::cout << "item deleted\n";
 }
+
+void Item::useItem() {}
 

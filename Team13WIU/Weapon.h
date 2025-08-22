@@ -3,9 +3,14 @@
 class Weapon : public Item
 {
 public:
+
 	std::string getItemName();
 
-	Weapon(std::string n);
+	void useItem();
+
+	Weapon(std::string n, weaponType);
 	virtual ~Weapon();
+private:
+	weaponType itemWType; 
 };
 
