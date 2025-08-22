@@ -30,17 +30,16 @@ int main() {
 	Map MapObj;
 	MapObj.HarbourMap();
 
-	/*startScreen();
+	startScreen();
 
 	Game game;
 	game.initGame();
 
 	while (true) {
-		//game.doTurn();
+		game.doTurn();
 	}
 
 }
-
 //                      _
 //                     / \
 //                    /|-|\
