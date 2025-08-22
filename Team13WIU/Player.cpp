@@ -29,7 +29,7 @@ void Player::move(Entity* gameObjects[], int entityCount) {
 	else if (input == 'k') interaction = true;
 	else return;//go back to game.cpp (forefeit turn)
 
-	if (newRow >= 0 && newRow < 20 && newCol >= 0 && newCol < 60) {
+	if (newRow >= 0 && newRow < 5 && newCol >= 0 && newCol < 49) {
 		pos.x = newCol;
 		pos.y = newRow;
 	}
