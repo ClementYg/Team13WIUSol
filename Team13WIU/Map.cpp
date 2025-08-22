@@ -3,9 +3,6 @@
 #include <fstream>
 #include <sstream> //stringstreams, allows strings to be used for reading/writing. similar to fstream for strings
 //------------------------------------------------
-//                                                
-//
-//                      _
 //                     / \
 //                    /|-|\
 //  ____________     /_|_|_\
