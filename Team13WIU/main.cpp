@@ -3,6 +3,7 @@
 #include "Item.h"
 #include "Inventory.h"
 #include "Map.h"
+#include "startScreen.h"
 
 #include <string>
 #include "NPC.h"
@@ -68,6 +69,8 @@ int main() {
 	//Map MapObj;
 	//MapObj.printTMap();
 	//
+
+	startScreen();
 
 	Game game;
 	game.initGame();
