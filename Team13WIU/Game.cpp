@@ -39,8 +39,8 @@ void Game::GtypeLine(const std::string& text, int delay)
 }
 
 void Game::initGame() {
-	gameObjects[0] = new Player("MC", 0, 0, 'p');
-	gameObjects[1] = new Enemy1("Knight", 5, 10, 'e');
+	gameObjects[0] = new Player("MC", 0, 0, 'P');
+	gameObjects[1] = new Enemy1("Knight", 5, 10, 'E');
 }
 
 void Game::drawWorld() {

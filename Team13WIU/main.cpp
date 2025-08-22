@@ -70,7 +70,7 @@ int main() {
 	//MapObj.printTMap();
 	//
 
-	startScreen();
+	//startScreen();
 
 	Game game;
 	game.initGame();
