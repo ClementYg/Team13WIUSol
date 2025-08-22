@@ -1,5 +1,9 @@
 #include "Game.h"
 #include <iostream>
+#include "Item.h"
+#include "Inventory.h"
+#include "Map.h"
+
 #include <string>
 #include "NPC.h"
 #include "BMOrganiser.h"
@@ -50,6 +54,22 @@ int main() {
 	//Spencer.NPCtalk();
 	//KaiZher.NPCtalk();
 	//KaiZher.setX(5);
+
+	// STEPS FOR INVENTORY 
+	/*Item* sword = Item::create("sword", Item::WEAPON);
+
+	Inventory Bag;
+
+	Bag.addItem(sword); 
+	sword->addDesc("SWORD");
+	
+	Bag.requestInventory();*/
+
+	// STEPS FOR MAP 
+	//Map MapObj;
+	//MapObj.printTMap();
+	//
+
 	Game game;
 	game.initGame();
 
