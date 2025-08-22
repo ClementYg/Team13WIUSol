@@ -72,6 +72,7 @@ int main() {
 	// STEPS FOR MAP 
 	Map MapObj;
 	MapObj.printTMap();
+	MapObj.printFMap();
 	
 
 	/*Game game;

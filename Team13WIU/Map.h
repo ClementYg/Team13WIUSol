@@ -21,9 +21,13 @@ public:
 		SPACE
 	};
 
-	void townMap(); 
+	void townMap();
+	void ForestMap();
+
 
 	void printTMap();
+
+	void printFMap();
 
 	void townGameArea(); 
 
