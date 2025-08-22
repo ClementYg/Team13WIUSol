@@ -6,7 +6,8 @@ private:
 	Entity* gameObjects[2];
 	std::string dingle;
 	Position playerPos;
-	bool InTown = true;
+	bool InTown;
+	bool InForest;
 
 public:
 	Game();

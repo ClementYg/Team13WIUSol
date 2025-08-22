@@ -27,16 +27,16 @@ int main() {
 	//Bag.requestInventory();
 
 	//// STEPS FOR MAP 
-	Map MapObj;
-	MapObj.HarbourMap();
+	//Map MapObj;
+	//MapObj.HarbourMap();
 
-	/*startScreen();
+	/*startScreen();*/
 
 	Game game;
 	game.initGame();
 
 	while (true) {
-		//game.doTurn();
+		game.doTurn();
 	}
 
 }

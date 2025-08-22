@@ -12,7 +12,7 @@ using namespace std;
 
 
 
-Game::Game()
+Game::Game():InTown(true)
 {
 	for (int i = 0; i < 2; ++i)
 	{
@@ -39,9 +39,9 @@ void Game::GtypeLine(const std::string& text, int delay)
 }
 
 void Game::initGame() {
-	gameObjects[0] = new Player("MC", 0, 10, 'p');
+	gameObjects[0] = new Player("MC", 0, 10, 'P');
 	if (InTown == true) {
-		gameObjects[1] = new Enemy1("Knight", 2, 44, 'e');
+		gameObjects[1] = new Enemy1("Knight", 2, 44, 'E');
 	}
 }
 
@@ -56,7 +56,7 @@ void Game::drawWorld() {
 		if (gameObjects[i] != nullptr) {
 			int r = gameObjects[i]->getY();
 			int c = gameObjects[i]->getX();
-			if (r >= 0 && r < 5 && c >= 0 && c < 49) {
+			if (/*r >= 0 && r < 5 &&*/ c >= 0 && c < 49) {
 				grid[r][c] = gameObjects[i]->getSymbol();
 			}
 		}
@@ -92,11 +92,22 @@ void Game::doTurn() {
 
 	// If player is gone, end game
 	system("cls");
-	if (InTown == true) 
+	
+	if (InTown == true && gameObjects[0]->getX() > 0)
 	{
 		mapObj.townMap();
 	}
+	else{
+		mapObj.ForestMap();
+	}
+	if (gameObjects[0]->getX() < 1) {
+			InTown = false;
+			InForest = true;
+		}
 	
+
+
+
 	drawWorld();
 	
 	// Move player (guard the cast)
@@ -152,6 +163,10 @@ void Game::doTurn() {
 
 	if (player != nullptr) {
 		player->move(gameObjects, 2);
+		if (player->getX() < 1 && InTown == true) {
+			InTown = false;
+			InForest = true;
+		}
 	}
 
 	// Move enemies

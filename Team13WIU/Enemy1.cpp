@@ -54,7 +54,8 @@ void Enemy1::move(Position playerPos, Entity* gameobjects[], int entityCount)
 
         bool verticalBlocked = false;
         for (int i = 0; i < entityCount; i++) {
-            if (gameObjects[i] != nullptr && gameObjects[i] != this) {
+            if (
+            != nullptr && gameObjects[i] != this) {
                 Position otherPos = gameObjects[i]->getPosition();
                 if (otherPos.getRow() == targetRow && otherPos.getCol() == curCol) {
                     // allow capture: don’t treat as blocked if it’s the player’s tile
