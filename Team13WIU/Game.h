@@ -7,6 +7,7 @@ private:
 	int turn;
 	std::string dingle;
 	Position playerPos;
+	bool InTown = true;
 
 public:
 	Game();

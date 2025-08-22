@@ -3,6 +3,7 @@
 #include "Enemy1.h"
 #include "NPC.h"
 #include "Merchant.h"
+#include "Map.h"
 #include <chrono>
 #include <thread>
 #include <iostream>
@@ -39,46 +40,43 @@ void Game::GtypeLine(const std::string& text, int delay)
 }
 
 void Game::initGame() {
-	gameObjects[0] = new Player("MC", 0, 0, 'P');
-	gameObjects[1] = new Enemy1("Knight", 5, 10, 'E');
+	gameObjects[0] = new Player("MC", 0, 10, 'p');
+	if (InTown == true) {
+		gameObjects[1] = new Enemy1("Knight", 2, 44, 'e');
+	}
 }
 
 void Game::drawWorld() {
 
-	char grid[24][60];
-	for (int r = 0; r < 24; ++r)
-		for (int c = 0; c < 60; ++c)
+	char grid[5][49];
+	for (int r = 0; r < 5; ++r)
+		for (int c = 0; c < 49; ++c)
 			grid[r][c] = ' ';
 
 	for (int i = 0; i < 2; ++i) {
 		if (gameObjects[i] != nullptr) {
 			int r = gameObjects[i]->getY();
 			int c = gameObjects[i]->getX();
-			if (r >= 0 && r < 24 && c >= 0 && c < 60) {
+			if (r >= 0 && r < 5 && c >= 0 && c < 49) {
 				grid[r][c] = gameObjects[i]->getSymbol();
 			}
 		}
 	}
 
-	for (int i = 0; i < 120; i++) {
+	for (int i = 0; i < 98; i++) {
 		cout << '-';
-		if (i == 119) cout << "\n"; // New line after the border
+		if (i == 97) cout << "\n"; // New line after the border
 	}
 
-	for (int r = 0; r < 24; ++r) {
-		for (int c = 0; c < 60; ++c) cout << " " << grid[r][c];
+	for (int r = 0; r < 5; ++r) {
+		for (int c = 0; c < 49; ++c) cout << " " << grid[r][c];
 		cout << " \n";
 	}
 
-	for (int i = 0; i < 120; i++) {
+	for (int i = 0; i < 98; i++) {
 		cout << '-';
-		if (i == 119) cout << "\n"; // New line after the border
+		if (i == 97) cout << "\n"; // New line after the border
 	}
-
-	cout << dingle << "\n";
-
-
-
 }
 
 void Game::doTurn() {
@@ -90,10 +88,16 @@ void Game::doTurn() {
 	};
 
 	char Isbuy;
-	Merchant john("John", 5, 5, johnsspeech);
+	Merchant john("John", 1, 5, johnsspeech);
+	Map mapObj;
 
 	// If player is gone, end game
 	system("cls");
+	if (InTown == true) 
+	{
+		mapObj.townMap();
+	}
+	
 	drawWorld();
 	++turn;
 	cout << "Turn: " << turn << "\n";
