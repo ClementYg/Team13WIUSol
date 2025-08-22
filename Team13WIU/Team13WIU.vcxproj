@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Armour.cpp" />
-    <ClCompile Include="BMOrganiser.cpp" />
     <ClCompile Include="Consumable.cpp" />
     <ClCompile Include="Enemy1.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -142,11 +141,11 @@
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="startScreen.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Armour.h" />
-    <ClInclude Include="BMOrganiser.h" />
     <ClInclude Include="Consumable.h" />
     <ClInclude Include="Enemy1.h" />
     <ClInclude Include="Entity.h" />
@@ -159,6 +158,7 @@
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="startScreen.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

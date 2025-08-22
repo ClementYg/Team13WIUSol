@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy1.h"
 #include "NPC.h"
+#include "Merchant.h"
 #include <chrono>
 #include <thread>
 #include <iostream>
@@ -81,6 +82,16 @@ void Game::drawWorld() {
 }
 
 void Game::doTurn() {
+	std::vector<std::string> johnsspeech =
+	{
+		"Hi! I am John, A merchant.",
+		"I sell some interesting things.",
+		"Do you want to take a look?"
+	};
+
+	char Isbuy;
+	Merchant john("John", 5, 5, johnsspeech);
+
 	// If player is gone, end game
 	system("cls");
 	drawWorld();
@@ -99,14 +110,38 @@ void Game::doTurn() {
 		if (gameObjects[0]->getY() == gameObjects[1]->getY() && (gameObjects[0]->getX() == gameObjects[1]->getX() + 1 || gameObjects[0]->getX() == gameObjects[1]->getX() - 1)) {
 			if (player->interactionGet())
 			{
-				std::cout << "Interaction with bro";
+				//std::cout << "Interaction with bro";
+				john.NPCtalk();
+				std::cout << "Do you want to buy anything from him? (Y/N): ";
+				std::cin >> Isbuy;
+				if (Isbuy == 'Y') {
+					std::cout << "\033[1;32m" << john.name << ":" << "\033[0m";
+					john.typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
+				}
+				else
+				{
+					std::cout << "\033[1;32m" << john.name << ": " << "\033[0m";
+					john.typeLine("Alright man, stay safe out there.", 1);
+				}
 			}
 		}
 		else if (gameObjects[0]->getX() == gameObjects[1]->getX() && (gameObjects[0]->getY() == gameObjects[1]->getY() + 1 || gameObjects[0]->getY() == gameObjects[1]->getY() - 1)) {
 			//dingle = "Interacting with bro";
 			if (player->interactionGet())
 			{
-				std::cout << "Interaction with bro";
+				//std::cout << "Interaction with bro";
+				john.NPCtalk();
+				std::cout << "Do you want to buy anything from him? (Y/N): ";
+				std::cin >> Isbuy;
+				if (Isbuy == 'Y') {
+					std::cout << "\033[1;32m" << john.name << ":" << "\033[0m";
+					john.typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
+				}
+				else
+				{
+					std::cout << "\033[1;32m" << john.name << ": " << "\033[0m";
+					john.typeLine("Alright man, stay safe out there.", 1);
+				}
 			}
 		}
 	}

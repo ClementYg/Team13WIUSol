@@ -23,7 +23,7 @@ void Master::NPCtalk()
 		// make name orange
 		std::cout << "\033[38;5;214m" << name << ": " << "\033[0m";
 
-		typeLine(line, 20);
+		typeLine(line, 1);
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	}
 	std::cout << std::endl;
