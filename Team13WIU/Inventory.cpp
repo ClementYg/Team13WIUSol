@@ -21,7 +21,7 @@ void Inventory::showInventory()
 		}
 	}
 }
-
+	
 void Inventory::requestInventory() {
 	char userChoice = ' ';
 	std::cout << "What do you wish to do with your backpack? Press E to Open, Press X to Close.\n";
@@ -74,6 +74,15 @@ void Inventory::addItem(Item* itemObj)
 void Inventory::removeItem(Item* itemObj) {
 	container[itemObj->getItemID()] = nullptr; 
 	delete itemObj; 
+}
+
+int Inventory::getGold()
+{
+	return goldStored;
+}
+
+void Inventory::setGold(int amountChanged) {
+	goldStored += amountChanged;
 }
 
 Inventory::Inventory() {

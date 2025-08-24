@@ -5,6 +5,7 @@ class Inventory // is just a storage of items
 private:
 	Item* container[10]; // storage container for items
 	int prevChoice;
+	int goldStored = 0; 
 public: 
 
 	void showInventory();
@@ -15,7 +16,8 @@ public:
 	void addItem(Item* itemObj);
 	void removeItem(Item* itemObj);
 	
-
+	int getGold();
+	void setGold(int);
 	Inventory();
 };
 

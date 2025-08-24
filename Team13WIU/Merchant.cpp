@@ -25,6 +25,8 @@ void Merchant::trade()
 		std::cout << "\033[1;32m" << name << ": " << "\033[0m";
 		typeLine("Okay! come back later then.\n", 20);
 	}
+
+
 }
 
 void Merchant::NPCtalk()
@@ -39,4 +41,27 @@ void Merchant::NPCtalk()
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	}
 	std::cout << std::endl;
+}
+
+void Merchant::addStock(Item* item)
+{
+	stock.push_back(item);
+}
+
+void Merchant::sellStock(int ID, Inventory& playerInv, int qty = 1) // What item to buy, put into player bag, default amount of 1. 
+{
+	if (ID < 0 || ID > stock.size()) return; //if player choose ID that is not within what Merchant has, return since invalid choice
+
+
+	Item* itemBought = stock[ID];
+
+
+	if (playerInv.getGold() > itemBought->price()) {
+
+		playerInv.setGold(itemBought->price() * -1);  //set to deduct player gold by price of item bought. 
+
+		playerInv.addItem(itemBought);
+		stock.erase(stock.begin() + ID); //erase element data of vector at that ID since now bought. 
+	}
+
 }

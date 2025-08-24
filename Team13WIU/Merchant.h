@@ -1,13 +1,23 @@
 #pragma once
 #include "NPC.h"
+#include <vector>
+#include "Item.h"
+#include "Inventory.h"
 class Merchant : public NPC
 {
+private:
+	std::vector<Item*> stock; //Merchant's inventory of items
+
 public:
 	char IsTrade = ' ';
 	Merchant(std::string n, int x, int y, std::vector<std::string> lines = {});
 	
 
 	virtual void NPCtalk();
+	void addStock(Item*); //add in the item u want into the bag
+	void sellStock(int, Inventory&, int); //use inventory& as we want to slightly modify bag to hold new items
+	void showStock();
+
 	void trade();
 };
 
