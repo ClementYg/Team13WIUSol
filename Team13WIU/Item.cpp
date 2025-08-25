@@ -48,6 +48,7 @@ int Item::IDCounter = 0;
 Item::Item()
 {
 	price = 0;
+	quantity = 0;
 	isitemSelected = false;
 	itemID = IDCounter;
 	IDCounter++;

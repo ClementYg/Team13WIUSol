@@ -111,6 +111,25 @@ void Game::initGame() {
 	gameObjects[0] = new Player("MC", 0, 10, 'P');
 	gameObjects[1] = new Merchant("John", 2, 44, 'M', johnSpeech);
 	gameObjects[2] = new Enemy1("Bear", 2, 30, 'B');
+
+	Merchant* john = static_cast<Merchant*>(gameObjects[1]);
+
+	Inventory playerInv;
+
+	Item* test1 = Item::create("Sword", Item::FIRE_SWORD, 10, 3);
+	Item* test2 = Item::create("Chestplate", Item::WOOD_CHEST, 10, 1);
+
+	playerInv.setGold(500);
+
+	john->addStock(test1);
+	john->addStock(test2);
+
+	john->sellStock(0, playerInv, 1);
+
+		playerInv.requestInventory();
+
+
+
 }
 
 void Game::drawWorld() {
@@ -153,19 +172,6 @@ void Game::doTurn() {
 
 	char Isbuy;
 	Map mapObj;
-	Inventory playerInv;
-
-	Item* test1 = Item::create("Sword", Item::FIRE_SWORD, 10, 3);
-	Item* test2 = Item::create("Chestplate", Item::WOOD_CHEST, 10, 1);
-
-	playerInv.setGold(500); 
-	john.addStock(test1);
-	john.addStock(test2);
-
-	john.sellStock(0, playerInv, 1);
-
-
-
 
 	// If player is gone, end game
 	system("cls");
@@ -256,42 +262,42 @@ void Game::doTurn() {
 	if (player != nullptr) {
 		player->move(gameObjects, 3);
 	}
-		//if (player->getX() < 1 && InTown == true) {
-		//	InTown = false;
-		//	InForest = true;
-		//}
-		//else if (player->getX() < 1 && InForest == true) {
-		//	InForest = false;
-		//	InTown = true;
+	//if (player->getX() < 1 && InTown == true) {
+	//	InTown = false;
+	//	InForest = true;
+	//}
+	//else if (player->getX() < 1 && InForest == true) {
+	//	InForest = false;
+	//	InTown = true;
 
 
-		// Move enemies
-		for (int i = 1; i < 3; ++i) {
-			if (gameObjects[i] != nullptr && player != nullptr) {
-				Enemy1* enemy1 = static_cast<Enemy1*>(gameObjects[i]);
-				// capture player's position before any possible deletion later
-				int playerX = player->getX();
-				int playerY = player->getY();
-				enemy1->move(playerPos, gameObjects, 3);
-			}
+	// Move enemies
+	for (int i = 1; i < 3; ++i) {
+		if (gameObjects[i] != nullptr && player != nullptr) {
+			Enemy1* enemy1 = static_cast<Enemy1*>(gameObjects[i]);
+			// capture player's position before any possible deletion later
+			int playerX = player->getX();
+			int playerY = player->getY();
+			enemy1->move(playerPos, gameObjects, 3);
 		}
+	}
 
-		// Check collisions
-		for (int i = 1; i < 3; ++i) {
-			if (gameObjects[i] != nullptr && player != nullptr) {
-				if (gameObjects[i]->getActive()) {
-					if (gameObjects[i]->getX() == (player->getX()) && gameObjects[i]->getY() == (player->getY())) {
-						player->setPosition(oldX, oldY);
-						break;
-					}
+	// Check collisions
+	for (int i = 1; i < 3; ++i) {
+		if (gameObjects[i] != nullptr && player != nullptr) {
+			if (gameObjects[i]->getActive()) {
+				if (gameObjects[i]->getX() == (player->getX()) && gameObjects[i]->getY() == (player->getY())) {
+					player->setPosition(oldX, oldY);
+					break;
 				}
 			}
 		}
-
-
-
-		// Clear console (Windows)
-	   //if (gameObjects[0]->getY() == (gameObjects[1]->getY() - 1) || gameObjects[0]->getY() == (gameObjects[1]->getY() + 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() - 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() + 1))
-	   //{
-	   //}
 	}
+
+
+
+	// Clear console (Windows)
+   //if (gameObjects[0]->getY() == (gameObjects[1]->getY() - 1) || gameObjects[0]->getY() == (gameObjects[1]->getY() + 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() - 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() + 1))
+   //{
+   //}
+}

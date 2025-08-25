@@ -33,8 +33,8 @@ void Inventory::requestInventory() {
 void Inventory::selectItem()
 {
 	std::cout << "Pick the ID of the item you wish to select\n"; //used for container ID.
-	int choice = _getch();
-	if (container[choice] != nullptr && choice < 5) { //DOESNT HAVE TO BE 4, TEMPORARY TOTAL AMOUNT OF ITEMS
+	int choice = _getch() - 48;
+	if (container[choice] != nullptr && choice < 10) { //DOESNT HAVE TO BE 4, TEMPORARY TOTAL AMOUNT OF ITEMS. MINUS 48 BECAUSE OF ASCII
 		if (prevChoice != -1 && container[prevChoice] != nullptr) { // if previous Choice exists, run this code
 			container[prevChoice]->select(0); // change selection to false, DESELECT
 		}
