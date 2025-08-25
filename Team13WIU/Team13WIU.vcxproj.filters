@@ -27,9 +27,6 @@
     <ClCompile Include="Merchant.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Master.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Consumable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,9 +69,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Merchant.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Master.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Armour.h">

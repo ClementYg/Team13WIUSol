@@ -136,7 +136,6 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Master.cpp" />
     <ClCompile Include="Merchant.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -153,7 +152,6 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="Master.h" />
     <ClInclude Include="Merchant.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Player.h" />

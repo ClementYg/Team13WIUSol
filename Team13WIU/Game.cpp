@@ -12,8 +12,15 @@ using namespace std;
 
 
 
-Game::Game() :InTown(true), InForest(false)
+Game::Game()
 {
+	InInn = true;
+	InTown = false;
+	InForest = false;
+	InHarbour = false;
+	InOusideCave = false;
+	InInsideCave = false;
+	
 	for (int i = 0; i < 3; ++i)
 	{
 		gameObjects[i] = nullptr;
@@ -67,7 +74,7 @@ void Game::initGame() {
 		// MC run into forest to avoid getting arrest
 	};
 
-	std::vector<std::string>  KidSpeech =
+	std::vector<std::string> KidSpeech =
 	{
 		"OH MY GOD! That was so scary",
 		"Thank you my hero, can you bring me back to my village?",
@@ -108,7 +115,7 @@ void Game::initGame() {
 		"Make your choice now, or die by my hands!"
 	};
 
-	gameObjects[0] = new Player("MC", 0, 10, 'P');
+	gameObjects[0] = new Player("MC", 0, 8, 'P');
 	gameObjects[1] = new Merchant("John", 2, 44, 'M', johnSpeech);
 	gameObjects[2] = new Enemy1("Bear", 2, 30, 'B');
 
@@ -180,31 +187,98 @@ void Game::doTurn() {
 	Player* player = static_cast<Player*>(gameObjects[0]);
 	Merchant* john = static_cast<Merchant*>(gameObjects[1]);
 
-
-	if (InTown == true && gameObjects[0]->getX() < 1) {
+	// gameObjects[0] = player
+	// gameObjects[1] = Merchant (john)
+	// gameObjects[2] = Enemy1 (bear)
+	if (InInn == true && gameObjects[0]->getX() > 47)
+	{
+		InInn = false;
+		InTown = true;
+		gameObjects[0]->setPosition(9, 0); // Set player position in forest
+	}
+	else if (InTown == true && gameObjects[0]->getX() < 1)
+	{
 		InTown = false;
 		InForest = true;
 		gameObjects[0]->setPosition(47, gameObjects[0]->getY()); // Set player position in forest
 	}
-	else if (InForest == true && gameObjects[0]->getX() > 47) {
+	else if (InForest == true && gameObjects[0]->getX() > 47)
+	{
 		InForest = false;
 		InTown = true;
 		gameObjects[0]->setPosition(1, gameObjects[0]->getY()); // Set player position in town
 	}
-	if (InTown == true)
+	else if (InForest == true && gameObjects[0]->getX() < 1)
+	{
+		InForest = false;
+		InHarbour = true;
+		gameObjects[0]->setPosition(47, gameObjects[0]->getY()); // Set player position in town
+	}
+	else if (InHarbour == true && gameObjects[0]->getY() == 0 && gameObjects[0]->getX() == 10)
+	{
+		std::cout << "Press SPACE to enter" << std::endl;
+		InHarbour = false;
+		InOusideCave = true;
+		gameObjects[0]->setPosition(1, 3); // Set player position in town
+	}
+
+
+	if (InInn == true)
+	{
+		mapObj.Inn();
+		gameObjects[0]->setActive(true);
+		gameObjects[1]->setActive(false);
+		gameObjects[2]->setActive(false);
+	}
+	else if (InTown == true)
 	{
 		mapObj.townMap();
 		gameObjects[0]->setActive(true);
 		gameObjects[1]->setActive(true);
 		gameObjects[2]->setActive(false);
 	}
-	else {
+	else if (InForest == true)
+	{
 		mapObj.ForestMap();
 		gameObjects[0]->setActive(true);
 		gameObjects[1]->setActive(false);
 		gameObjects[2]->setActive(true);
 	}
+	else if (InHarbour == true)
+	{
+		mapObj.HarbourMap();
+		gameObjects[0]->setActive(true);
+		gameObjects[1]->setActive(false);
+		gameObjects[2]->setActive(false);
+	}
+	else if (InOusideCave == true)
+	{
+		mapObj.EntranceCaveMap();
+		gameObjects[0]->setActive(true);
+		gameObjects[1]->setActive(false);
+		gameObjects[2]->setActive(false);
+	}
+	else if (InInsideCave == true)
+	{
+		mapObj.InnerCaveMap();
+		gameObjects[0]->setActive(true);
+		gameObjects[1]->setActive(false);
+		gameObjects[2]->setActive(false);
+	}
 
+	// check for going back to Inn
+	if (gameObjects[0] != nullptr && InTown == true) {
+		if (gameObjects[0]->getActive()) {
+			if (gameObjects[0]->getX() == 9 && gameObjects[0]->getY() == 0) {
+				if (player->movingGet()) {
+					InTown = false;
+					InInn = true;
+					gameObjects[0]->setPosition(47, 2);
+					return;
+				}
+			}
+		}
+	}
 
 
 	drawWorld();
@@ -255,6 +329,8 @@ void Game::doTurn() {
 			}
 		}
 	}
+
+
 
 
 
