@@ -12,7 +12,7 @@ using namespace std;
 
 
 
-Game::Game()
+Game::Game() :InTown(true), InForest(false)
 {
 	for (int i = 0; i < 3; ++i)
 	{
@@ -89,10 +89,8 @@ void Game::initGame() {
 	};
 
 	gameObjects[0] = new Player("MC", 0, 10, 'P');
-	if (InTown == true) {
-		gameObjects[1] = new Enemy1("Knight", 2, 44, 'K');
-		gameObjects[2] = new Merchant("John", 3, 3, 'M', johnSpeech);
-	}
+	gameObjects[1] = new Enemy1("Merchant", 2, 44, 'M');
+	gameObjects[2] = new Enemy1("Bear", 2, 30, 'B');
 }
 
 void Game::drawWorld() {
@@ -104,10 +102,13 @@ void Game::drawWorld() {
 
 	for (int i = 0; i < 3; ++i) {
 		if (gameObjects[i] != nullptr) {
-			int r = gameObjects[i]->getY();
-			int c = gameObjects[i]->getX();
-			if (r >= 0 && r < 5 && c >= 0 && c < 49) {
-				grid[r][c] = gameObjects[i]->getSymbol();
+			if (gameObjects[i]->getActive())
+			{
+				int r = gameObjects[i]->getY();
+				int c = gameObjects[i]->getX();
+				if (r >= 0 && r < 5 && c >= 0 && c < 49) {
+					grid[r][c] = gameObjects[i]->getSymbol();
+				}
 			}
 		}
 	}
@@ -133,59 +134,83 @@ void Game::doTurn() {
 	char Isbuy;
 	Map mapObj;
 
+
 	// If player is gone, end game
 	system("cls");
-	if (InTown == true) 
+
+
+	Player* player = static_cast<Player*>(gameObjects[0]);
+	
+
+	if (InTown == true && gameObjects[0]->getX() < 1) {
+		InTown = false;
+		InForest = true;
+		gameObjects[0]->setPosition(47, gameObjects[0]->getY()); // Set player position in forest
+	}
+	else if (InForest == true && gameObjects[0]->getX() > 47) {
+		InForest = false;
+		InTown = true;
+		gameObjects[0]->setPosition(1, gameObjects[0]->getY()); // Set player position in town
+	}
+	if (InTown == true)
 	{
 		mapObj.townMap();
+		gameObjects[0]->setActive(true);
+		gameObjects[1]->setActive(true);
+		gameObjects[2]->setActive(false);
 	}
-	
+	else {
+		mapObj.ForestMap();
+		gameObjects[0]->setActive(true);
+		gameObjects[1]->setActive(false);
+		gameObjects[2]->setActive(true);
+	}
+
+
+
 	drawWorld();
-	
-	// Move player (guard the cast)
-	Player* player = static_cast<Player*>(gameObjects[0]);
-	Merchant* john = static_cast<Merchant*>(gameObjects[2]);
 
 	int oldX = player->getX();
 	int oldY = player->getY();
 
 
-	
-	if (gameObjects[0] != nullptr && gameObjects[2] != nullptr) {
-		if (gameObjects[0]->getY() == gameObjects[2]->getY() && (gameObjects[0]->getX() == gameObjects[2]->getX() + 1 || gameObjects[0]->getX() == gameObjects[2]->getX() - 1)) {
-			std::cout << "Press K to interact" << std::endl;
-			if (player->interactionGet())
-			{
-				john->NPCtalk();
-				std::cout << "Do you want to buy anything from him? (Y/N): ";
-				std::cin >> Isbuy;
-				if (Isbuy == 'Y') {
-					std::cout << "\033[1;32m" << john->name << ":" << "\033[0m";
-					john->typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
-				}
-				else
+	if (gameObjects[0] != nullptr && gameObjects[1] != nullptr) {
+		if (gameObjects[1]->getActive()) {
+			if (gameObjects[0]->getY() == gameObjects[1]->getY() && (gameObjects[0]->getX() == gameObjects[1]->getX() + 1 || gameObjects[0]->getX() == gameObjects[1]->getX() - 1)) {
+				if (player->interactionGet())
 				{
-					std::cout << "\033[1;32m" << john->name << ": " << "\033[0m";
-					john->typeLine("Alright man, stay safe out there.", 1);
+					//std::cout << "Interaction with bro";
+					john.NPCtalk();
+					std::cout << "Do you want to buy anything from him? (Y/N): ";
+					std::cin >> Isbuy;
+					if (Isbuy == 'Y') {
+						std::cout << "\033[1;32m" << john.name << ":" << "\033[0m";
+						john.typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
+					}
+					else
+					{
+						std::cout << "\033[1;32m" << john.name << ": " << "\033[0m";
+						john.typeLine("Alright man, stay safe out there.", 1);
+					}
 				}
 			}
-		}
-		else if (gameObjects[0]->getX() == gameObjects[2]->getX() && (gameObjects[0]->getY() == gameObjects[2]->getY() + 1 || gameObjects[0]->getY() == gameObjects[2]->getY() - 1)) {
-			std::cout << "Press K to interact" << std::endl;
-			if (player->interactionGet())
-			{
-				//std::cout << "Interaction with bro";
-				john->NPCtalk();
-				std::cout << "Do you want to buy anything from him? (Y/N): ";
-				std::cin >> Isbuy;
-				if (Isbuy == 'Y') {
-					std::cout << "\033[1;32m" << john->name << ":" << "\033[0m";
-					john->typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
-				}
-				else
+			else if (gameObjects[0]->getX() == gameObjects[1]->getX() && (gameObjects[0]->getY() == gameObjects[1]->getY() + 1 || gameObjects[0]->getY() == gameObjects[1]->getY() - 1)) {
+				//dingle = "Interacting with bro";
+				if (player->interactionGet())
 				{
-					std::cout << "\033[1;32m" << john->name << ": " << "\033[0m";
-					john->typeLine("Alright man, stay safe out there.", 1);
+					//std::cout << "Interaction with bro";
+					john.NPCtalk();
+					std::cout << "Do you want to buy anything from him? (Y/N): ";
+					std::cin >> Isbuy;
+					if (Isbuy == 'Y') {
+						std::cout << "\033[1;32m" << john.name << ":" << "\033[0m";
+						john.typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
+					}
+					else
+					{
+						std::cout << "\033[1;32m" << john.name << ": " << "\033[0m";
+						john.typeLine("Alright man, stay safe out there.", 1);
+					}
 				}
 			}
 		}
@@ -197,32 +222,42 @@ void Game::doTurn() {
 	if (player != nullptr) {
 		player->move(gameObjects, 3);
 	}
+		//if (player->getX() < 1 && InTown == true) {
+		//	InTown = false;
+		//	InForest = true;
+		//}
+		//else if (player->getX() < 1 && InForest == true) {
+		//	InForest = false;
+		//	InTown = true;
 
-	// Move enemies
-	for (int i = 1; i < 2; ++i) {
-		if (gameObjects[i] != nullptr && player != nullptr) {
-			Enemy1* enemy1 = static_cast<Enemy1*>(gameObjects[i]);
-			// capture player's position before any possible deletion later
-			int playerX = player->getX();
-			int playerY = player->getY();
-			enemy1->move(playerPos, gameObjects, 2);
-		}
-	}
 
-	// Check collisions
-	for (int i = 1; i < 3; ++i) {
-		if (gameObjects[i] != nullptr && player != nullptr) {
-			if (gameObjects[i]->getX() == (player->getX()) && gameObjects[i]->getY() == (player->getY())) {
-				player->setPosition(oldX, oldY);
-				break;
+		// Move enemies
+		for (int i = 1; i < 3; ++i) {
+			if (gameObjects[i] != nullptr && player != nullptr) {
+				Enemy1* enemy1 = static_cast<Enemy1*>(gameObjects[i]);
+				// capture player's position before any possible deletion later
+				int playerX = player->getX();
+				int playerY = player->getY();
+				enemy1->move(playerPos, gameObjects, 3);
 			}
 		}
+
+		// Check collisions
+		for (int i = 1; i < 3; ++i) {
+			if (gameObjects[i] != nullptr && player != nullptr) {
+				if (gameObjects[i]->getActive()) {
+					if (gameObjects[i]->getX() == (player->getX()) && gameObjects[i]->getY() == (player->getY())) {
+						player->setPosition(oldX, oldY);
+						break;
+					}
+				}
+			}
+		}
+
+
+
+		// Clear console (Windows)
+	   //if (gameObjects[0]->getY() == (gameObjects[1]->getY() - 1) || gameObjects[0]->getY() == (gameObjects[1]->getY() + 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() - 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() + 1))
+	   //{
+	   //}
 	}
-
-
-
-	 // Clear console (Windows)
-	//if (gameObjects[0]->getY() == (gameObjects[1]->getY() - 1) || gameObjects[0]->getY() == (gameObjects[1]->getY() + 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() - 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() + 1))
-	//{
-	//}
-}

@@ -34,6 +34,7 @@ int main() {
 
 	//startScreen();
 
+
 	Game game;
 	game.initGame();
 

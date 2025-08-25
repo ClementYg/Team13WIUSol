@@ -5,7 +5,8 @@ class Game
 private:
 	Entity* gameObjects[3];
 	Position playerPos;
-	bool InTown = true;
+	bool InTown;
+	bool InForest;
 
 public:
 	Game();
