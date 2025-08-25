@@ -12,74 +12,34 @@
 #include "Position.h"
 
 int main() {
-	// STEPS FOR INVENTORY 
-	//Item* sword = Item::create("HP_Potion", Item::HP_POT); //Declare name, SpecificItem
-	//Item* sword1 = Item::create("Sword", Item::WOOD_SWORD);
+	// STEPS FOR INVENTORY. CREATE(NAME, ITEM, PRICE, QUANTITY)
+	//Item* sword = Item::create("HP_Potion", Item::HP_POT,50, 1); //Declare name, SpecificItem
+	//Item* sword1 = Item::create("Sword", Item::WOOD_SWORD, 50, 1);
 
 	//Inventory Bag;
 
-	//Bag.addItem(sword); 
-	//Bag.addItem(sword1);
+	//Bag.addItem(sword,1); 
+	//Bag.addItem(sword1,1);
 	//sword->useItem();
 	//sword1->useItem();
 	//sword->addDesc("SWORD");
 	//
 	//Bag.requestInventory();
+	
 
-	//// STEPS FOR MAP 
-
+	////// STEPS FOR MAP 
 	//Map MapObj;
 	//MapObj.HarbourMap();
+	//MapObj.ForestMap();
+	//MapObj.Inn();
 
+	//startScreen();	
 
-	/*startScreen();*/
 
 	Game game;
 	game.initGame();
 
 	while (true) {
 		game.doTurn();
-
 	}
-
-
 }
-//                      _
-//                     / \
-//                    /|-|\
-//  ____________     /_|_|_\
-// |            |   /| | | |\
-// |            |  /_|#####|_\               __
-// |       _    | /| |#####| |\   ==         ||
-// |______/ \___|/_|_|_|_|_|_|_\==||=========||=
-//  |_|  /   \  |==============|[___]_[_]_[][_]|
-//    | /     \ |--------------|[__][_][]_[__]_|
-//____|/       \| /-----\|----||***************|___
-//oooo| __      | |     ||    ||^----^^--^--^--|ooo
-//oooo|| o| []  | |     ||    ||               |ooo
-//oooo||  |     | |     ||    ||               |ooo
-//=================================================
-
-
-
-
-
-// kz's design
-//                 ^                 ^
-//         ^      / \     ^^            ^^
-//        / \    /   \   / \          ^/ \^
-//       /   \  /     \ /   \    ^    /   \
-//      /     \/       \     \  / \  /     \
-//     /      /         \     \/   \/       \
-//    /      /___________\     \   /         \
-//   /___________\| /___________\ /___________\
-//        | |     | |    | |/         \| |
-//        | |     | |    | |___________| |
-//        | |     | |    | |    | |    | |
-//        | |     | |    | |    | |    | |
-//        | |     | |    | |    | |    | |
-//=================================================
-//
-//                     P
-//
-//=================================================

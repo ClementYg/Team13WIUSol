@@ -24,10 +24,16 @@ void Weapon::useItem()
 	}
 }
 
-Weapon::Weapon(std::string n, weaponType type)
+Weapon* Weapon::duplicate() {
+	return new Weapon(*this);
+}
+
+Weapon::Weapon(std::string n, weaponType type,int price,int qty)
 {
 	itemWType = type;
 	name = n;
+	this->price = price;
+	quantity = qty;
 	std::cout << "A weapon created\n";
 }
 

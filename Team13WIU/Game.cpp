@@ -25,7 +25,6 @@ Game::~Game() {
 		delete gameObjects[i];
 		gameObjects[i] = nullptr;
 	}
-	//delete gameObjects;
 }
 
 void Game::GtypeLine(const std::string& text, int delay)
@@ -39,9 +38,78 @@ void Game::GtypeLine(const std::string& text, int delay)
 }
 
 void Game::initGame() {
+
+	std::vector<std::string> InnKeeperSpeech =
+	{
+		"If you are wondering why are you here,",
+		"A shadowed figure brought you here.",
+		"(WASD to move, K to interact, I to open inventory)"
+	};
+
+	std::vector<std::string> TSvillagersBeforeSpeech =
+	{
+		"I think there is a weird man in front there",
+		"He looks like the BRAVE KNIGHT!"
+	};
+
+	std::vector<std::string> TSBraveKnightSpeech =
+	{
+		"You look familiar.",
+		"OHH! You are the villain!",
+		"That have been killing the innocents.",
+		"I will kill you for the justice!"
+	};
+
+	std::vector<std::string> TSvillagersAfterSpeech =
+	{
+		"He is the wanted villain!",
+		"We need to call police NOW!"
+		// MC run into forest to avoid getting arrest
+	};
+
+	std::vector<std::string>  KidSpeech =
+	{
+		"OH MY GOD! That is so scary",
+		"Thank you my hero, can you bring me back to my village.",
+		"In case there is more monsters."
+	};
+
+	std::vector<std::string> HvillagersSpeech =
+	{
+		"The hero? I heard that he was last seen ouside the cave.",
+		"The cave is at the other island.",
+		"It's impossible to get there without ship."
+	};
+
+	std::vector<std::string> johnSpeech =
+	{
+		"Hi! I am John, A travelling merchant.",
+		"I sell some interesting things.",
+		"Do you want to take a look?"
+	};
+
 	gameObjects[0] = new Player("MC", 0, 10, 'P');
-	gameObjects[1] = new Enemy1("Merchant", 2, 44, 'M');
+	gameObjects[1] = new Merchant("John", 2, 44, 'M', johnSpeech);
 	gameObjects[2] = new Enemy1("Bear", 2, 30, 'B');
+
+	Merchant* john = static_cast<Merchant*>(gameObjects[1]);
+
+	Inventory playerInv;
+
+	Item* test1 = Item::create("Sword", Item::FIRE_SWORD, 10, 3);
+	Item* test2 = Item::create("Chestplate", Item::WOOD_CHEST, 10, 1);
+
+	playerInv.setGold(500);
+
+	john->addStock(test1);
+	john->addStock(test2);
+
+	john->sellStock(0, playerInv, 1);
+
+		playerInv.requestInventory();
+
+
+
 }
 
 void Game::drawWorld() {
@@ -81,24 +149,17 @@ void Game::drawWorld() {
 }
 
 void Game::doTurn() {
-	std::vector<std::string> johnsspeech =
-	{
-		"Hi! I am John, A merchant.",
-		"I sell some interesting things.",
-		"Do you want to take a look?"
-	};
 
 	char Isbuy;
-	Merchant john("John", 1, 5, johnsspeech);
 	Map mapObj;
-
 
 	// If player is gone, end game
 	system("cls");
 
 
 	Player* player = static_cast<Player*>(gameObjects[0]);
-	
+	Merchant* john = static_cast<Merchant*>(gameObjects[1]);
+
 
 	if (InTown == true && gameObjects[0]->getX() < 1) {
 		InTown = false;
@@ -128,12 +189,9 @@ void Game::doTurn() {
 
 	drawWorld();
 
-	// Move player (guard the cast)
-
 
 	int oldX = player->getX();
 	int oldY = player->getY();
-
 
 
 	if (gameObjects[0] != nullptr && gameObjects[1] != nullptr) {
@@ -142,17 +200,17 @@ void Game::doTurn() {
 				if (player->interactionGet())
 				{
 					//std::cout << "Interaction with bro";
-					john.NPCtalk();
+					john->NPCtalk();
 					std::cout << "Do you want to buy anything from him? (Y/N): ";
 					std::cin >> Isbuy;
 					if (Isbuy == 'Y') {
-						std::cout << "\033[1;32m" << john.name << ":" << "\033[0m";
-						john.typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
+						std::cout << "\033[1;32m" << john->name << ":" << "\033[0m";
+						john->typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
 					}
 					else
 					{
-						std::cout << "\033[1;32m" << john.name << ": " << "\033[0m";
-						john.typeLine("Alright man, stay safe out there.", 1);
+						std::cout << "\033[1;32m" << john->name << ": " << "\033[0m";
+						john->typeLine("Alright man, stay safe out there.", 1);
 					}
 				}
 			}
@@ -161,17 +219,17 @@ void Game::doTurn() {
 				if (player->interactionGet())
 				{
 					//std::cout << "Interaction with bro";
-					john.NPCtalk();
+					john->NPCtalk();
 					std::cout << "Do you want to buy anything from him? (Y/N): ";
 					std::cin >> Isbuy;
 					if (Isbuy == 'Y') {
-						std::cout << "\033[1;32m" << john.name << ":" << "\033[0m";
-						john.typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
+						std::cout << "\033[1;32m" << john->name << ":" << "\033[0m";
+						john->typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
 					}
 					else
 					{
-						std::cout << "\033[1;32m" << john.name << ": " << "\033[0m";
-						john.typeLine("Alright man, stay safe out there.", 1);
+						std::cout << "\033[1;32m" << john->name << ": " << "\033[0m";
+						john->typeLine("Alright man, stay safe out there.", 1);
 					}
 				}
 			}
@@ -184,41 +242,42 @@ void Game::doTurn() {
 	if (player != nullptr) {
 		player->move(gameObjects, 3);
 	}
-		//if (player->getX() < 1 && InTown == true) {
-		//	InTown = false;
-		//	InForest = true;
-		//}
-		//else if (player->getX() < 1 && InForest == true) {
-		//	InForest = false;
-		//	InTown = true;
+	//if (player->getX() < 1 && InTown == true) {
+	//	InTown = false;
+	//	InForest = true;
+	//}
+	//else if (player->getX() < 1 && InForest == true) {
+	//	InForest = false;
+	//	InTown = true;
 
-		// Move enemies
-		for (int i = 1; i < 3; ++i) {
-			if (gameObjects[i] != nullptr && player != nullptr) {
-				Enemy1* enemy1 = static_cast<Enemy1*>(gameObjects[i]);
-				// capture player's position before any possible deletion later
-				int playerX = player->getX();
-				int playerY = player->getY();
-				enemy1->move(playerPos, gameObjects, 3);
-			}
+
+	// Move enemies
+	for (int i = 1; i < 3; ++i) {
+		if (gameObjects[i] != nullptr && player != nullptr) {
+			Enemy1* enemy1 = static_cast<Enemy1*>(gameObjects[i]);
+			// capture player's position before any possible deletion later
+			int playerX = player->getX();
+			int playerY = player->getY();
+			enemy1->move(playerPos, gameObjects, 3);
 		}
+	}
 
-		// Check collisions
-		for (int i = 1; i < 3; ++i) {
-			if (gameObjects[i] != nullptr && player != nullptr) {
-				if (gameObjects[i]->getActive()) {
-					if (gameObjects[i]->getX() == (player->getX()) && gameObjects[i]->getY() == (player->getY())) {
-						player->setPosition(oldX, oldY);
-						break;
-					}
+	// Check collisions
+	for (int i = 1; i < 3; ++i) {
+		if (gameObjects[i] != nullptr && player != nullptr) {
+			if (gameObjects[i]->getActive()) {
+				if (gameObjects[i]->getX() == (player->getX()) && gameObjects[i]->getY() == (player->getY())) {
+					player->setPosition(oldX, oldY);
+					break;
 				}
 			}
 		}
-
-
-
-		// Clear console (Windows)
-	   //if (gameObjects[0]->getY() == (gameObjects[1]->getY() - 1) || gameObjects[0]->getY() == (gameObjects[1]->getY() + 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() - 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() + 1))
-	   //{
-	   //}
 	}
+
+
+
+	// Clear console (Windows)
+   //if (gameObjects[0]->getY() == (gameObjects[1]->getY() - 1) || gameObjects[0]->getY() == (gameObjects[1]->getY() + 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() - 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() + 1))
+   //{
+   //}
+}

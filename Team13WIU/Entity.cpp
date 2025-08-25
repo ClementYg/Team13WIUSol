@@ -31,10 +31,6 @@ char Entity::getSymbol() const {
     return symbol;
 }
 
-void Entity::setSymbol(char s) {
-    symbol = s;
-}
-
 bool Entity::getActive()
 {
     return IsActive;
