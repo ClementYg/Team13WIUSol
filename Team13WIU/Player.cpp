@@ -9,6 +9,7 @@ Player::Player(std::string n, int y, int x, char s) /*: Entity(row, col, '@') */
 	pos.x = x;
 	pos.y = y;
 	symbol = s;
+	interaction = false;
 }
 
 Player::~Player() {

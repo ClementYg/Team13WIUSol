@@ -4,7 +4,12 @@
 #include <string>
 #include <iostream>
 
-Master::Master(std::string n, int x, int y, std::vector<std::string> lines) : NPC(n, x, y, lines)
+Master::Master(std::string n, int x, int y, char s,std::vector<std::string> lines) : NPC(n, x, y, s,lines)
+{
+
+}
+
+Master::~Master()
 {
 
 }

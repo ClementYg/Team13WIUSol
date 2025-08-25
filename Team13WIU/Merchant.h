@@ -9,11 +9,12 @@ private:
 	std::vector<Item*> stock; //Merchant's inventory of items
 
 public:
-	char IsTrade = ' ';
-	Merchant(std::string n, int x, int y, std::vector<std::string> lines = {});
+	//char IsTrade = ' ';
+	Merchant(std::string n, int y, int x, char s,std::vector<std::string> lines = {});
+	~Merchant();
 	
 
-	virtual void NPCtalk();
+	void NPCtalk();
 	void addStock(Item*); //add in the item u want into the bag
 	void sellStock(int ID, Inventory& playerInv, int quantity); //use inventory& as we want to slightly modify bag to hold new items
 	void showStock();
