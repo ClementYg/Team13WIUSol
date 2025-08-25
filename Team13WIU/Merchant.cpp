@@ -6,7 +6,7 @@
 
 // The : NPC(n, x, y, lines) is needed because the NPC has no default constructor (NPC())
 // It simply means "When creating a Merchant, call the NPC constructor with these arguments."
-Merchant::Merchant(std::string n, int x, int y, char s,std::vector<std::string> lines) : NPC(n, x, y, s,lines)
+Merchant::Merchant(std::string n, int y, int x, char s,std::vector<std::string> lines) : NPC(n, y, x, s,lines)
 {
 
 }

@@ -5,7 +5,7 @@
 #include <iostream>
 
 // Constructor for NPC class
-NPC::NPC(std::string n, int x, int y, char s,std::vector<std::string> lines)
+NPC::NPC(std::string n, int y, int x, char s,std::vector<std::string> lines)
 {
 	name = n;
 	dialogue = lines;

@@ -89,7 +89,7 @@ void Game::initGame() {
 	};
 
 	gameObjects[0] = new Player("MC", 0, 10, 'P');
-	gameObjects[1] = new Enemy1("Merchant", 2, 44, 'M');
+	gameObjects[1] = new Merchant("John", 2, 44, 'M', johnSpeech);
 	gameObjects[2] = new Enemy1("Bear", 2, 30, 'B');
 }
 
@@ -140,7 +140,8 @@ void Game::doTurn() {
 
 
 	Player* player = static_cast<Player*>(gameObjects[0]);
-	
+	Merchant* john = static_cast<Merchant*>(gameObjects[1]);
+
 
 	if (InTown == true && gameObjects[0]->getX() < 1) {
 		InTown = false;
@@ -170,6 +171,7 @@ void Game::doTurn() {
 
 	drawWorld();
 
+
 	int oldX = player->getX();
 	int oldY = player->getY();
 
@@ -180,17 +182,17 @@ void Game::doTurn() {
 				if (player->interactionGet())
 				{
 					//std::cout << "Interaction with bro";
-					john.NPCtalk();
+					john->NPCtalk();
 					std::cout << "Do you want to buy anything from him? (Y/N): ";
 					std::cin >> Isbuy;
 					if (Isbuy == 'Y') {
-						std::cout << "\033[1;32m" << john.name << ":" << "\033[0m";
-						john.typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
+						std::cout << "\033[1;32m" << john->name << ":" << "\033[0m";
+						john->typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
 					}
 					else
 					{
-						std::cout << "\033[1;32m" << john.name << ": " << "\033[0m";
-						john.typeLine("Alright man, stay safe out there.", 1);
+						std::cout << "\033[1;32m" << john->name << ": " << "\033[0m";
+						john->typeLine("Alright man, stay safe out there.", 1);
 					}
 				}
 			}
@@ -199,17 +201,17 @@ void Game::doTurn() {
 				if (player->interactionGet())
 				{
 					//std::cout << "Interaction with bro";
-					john.NPCtalk();
+					john->NPCtalk();
 					std::cout << "Do you want to buy anything from him? (Y/N): ";
 					std::cin >> Isbuy;
 					if (Isbuy == 'Y') {
-						std::cout << "\033[1;32m" << john.name << ":" << "\033[0m";
-						john.typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
+						std::cout << "\033[1;32m" << john->name << ":" << "\033[0m";
+						john->typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
 					}
 					else
 					{
-						std::cout << "\033[1;32m" << john.name << ": " << "\033[0m";
-						john.typeLine("Alright man, stay safe out there.", 1);
+						std::cout << "\033[1;32m" << john->name << ": " << "\033[0m";
+						john->typeLine("Alright man, stay safe out there.", 1);
 					}
 				}
 			}
