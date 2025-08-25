@@ -120,7 +120,7 @@ void Game::doTurn() {
 				std::cin >> Isbuy;
 				if (Isbuy == 'Y') {
 					std::cout << "\033[1;32m" << john.name << ":" << "\033[0m";
-					john.typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
+					john.showStock();
 				}
 				else
 				{

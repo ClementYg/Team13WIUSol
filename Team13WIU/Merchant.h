@@ -15,7 +15,7 @@ public:
 
 	virtual void NPCtalk();
 	void addStock(Item*); //add in the item u want into the bag
-	void sellStock(int, Inventory&, int); //use inventory& as we want to slightly modify bag to hold new items
+	void sellStock(int ID, Inventory& playerInv, int quantity); //use inventory& as we want to slightly modify bag to hold new items
 	void showStock();
 
 	void trade();

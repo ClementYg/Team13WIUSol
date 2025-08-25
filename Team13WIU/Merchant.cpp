@@ -50,18 +50,32 @@ void Merchant::addStock(Item* item)
 
 void Merchant::sellStock(int ID, Inventory& playerInv, int qty = 1) // What item to buy, put into player bag, default amount of 1. 
 {
-	if (ID < 0 || ID > stock.size()) return; //if player choose ID that is not within what Merchant has, return since invalid choice
+	if (ID < 0 || ID >=	 stock.size()) return; //if player choose ID that is not within what Merchant has, return since invalid choice
 
 
 	Item* itemBought = stock[ID];
-
-
-	if (playerInv.getGold() > itemBought->price()) {
-
-		playerInv.setGold(itemBought->price() * -1);  //set to deduct player gold by price of item bought. 
-
-		playerInv.addItem(itemBought);
-		stock.erase(stock.begin() + ID); //erase element data of vector at that ID since now bought. 
+	int totalprice = itemBought->getPrice() * qty;  //set to deduct player gold by price of item bought. 
+	if (itemBought->getQuantity() < qty || playerInv.getGold() < totalprice) //check that shopkeeper has stock and has player enough gold
+	{
+		std::cout << "You either have insufficient funds to pay for this item or the shopkeeper has no stock left.\n";
+		return;
 	}
 
+	playerInv.setGold(-totalprice); //deduct gold
+
+	Item* itemDupe = itemBought->duplicate(); 
+	playerInv.addItem(itemDupe, qty); //add amount of items into playerInv
+
+	itemBought->setQuantity(-qty); //decrease shop stock.
+
+	//if no more stock
+	if (itemBought->getQuantity() == 0) {
+		stock.erase(stock.begin() + ID); //erase element data of vector at that ID since now bought. 
+	}
+}
+void Merchant::showStock() {
+	std::cout << "Stock:\n";
+	for (int i = 0; i < stock.size(); i++) {
+		std::cout << stock[i]->getItemID() << stock[i]->getItemName() << ": Quantity: " << stock[i]->getQuantity() << '\n';
+	}
 }

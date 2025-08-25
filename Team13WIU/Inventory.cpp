@@ -67,9 +67,28 @@ void Inventory::printInventory()
 }
 
 
-void Inventory::addItem(Item* itemObj)
+void Inventory::addItem(Item* itemObj, int qty)
 {
-	container[itemObj->getItemID()] = itemObj; // get itemID and assign item pointer to container ID.
+	int usableSlot = -1;
+	for (int i = 0; i < 10; i++) { //total slots so far. Stacks by checking if there is any duplicate
+		if (container[i] == nullptr && usableSlot == -1) {
+			usableSlot = i;//check each slot, if no currently no usable slot and container is null, then this slot can be used
+		}
+		else if (container[i] != nullptr && container[i]->getItemName() == itemObj->getItemName()) { //if item already exists in player Inventory, then say quantity increase instead of 2 same objects
+			container[i]->setQuantity(qty);
+			delete itemObj; 
+			return;
+		}
+	}
+
+	//if doesnt already exist
+	if (usableSlot != -1) {// found usableSlot
+		container[usableSlot] = itemObj->duplicate();
+	}
+	else std::cout << "Bag is full\n";
+
+
+
 }
 void Inventory::removeItem(Item* itemObj) {
 	container[itemObj->getItemID()] = nullptr; 

@@ -13,7 +13,7 @@ public:
 	void selectItem();
 	void printInventory();
 
-	void addItem(Item* itemObj);
+	void addItem(Item* itemObj, int);
 	void removeItem(Item* itemObj);
 	
 	int getGold();

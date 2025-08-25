@@ -8,8 +8,8 @@ public:
 	std::string getItemName();
 
 	void useItem();
-
-	Armour(std::string n, armourType);
+	Armour* duplicate();
+	Armour(std::string n, armourType, int, int);
 	virtual ~Armour();
 
 private:

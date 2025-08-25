@@ -12,21 +12,19 @@
 #include "Position.h"
 
 int main() {
-	// STEPS FOR INVENTORY 
-	Item* sword = Item::create("HP_Potion", Item::HP_POT); //Declare name, SpecificItem
-	Item* sword1 = Item::create("Sword", Item::WOOD_SWORD);
+	// STEPS FOR INVENTORY. CREATE(NAME, ITEM, PRICE, QUANTITY)
+	//Item* sword = Item::create("HP_Potion", Item::HP_POT,50, 1); //Declare name, SpecificItem
+	//Item* sword1 = Item::create("Sword", Item::WOOD_SWORD, 50, 1);
 
-	Inventory Bag;
+	//Inventory Bag;
 
-	Bag.addItem(sword); 
-	Bag.addItem(sword1);
-	sword->useItem();
-	sword1->useItem();
-	sword->addDesc("SWORD");
-	
-	Bag.requestInventory();
-
-
+	//Bag.addItem(sword,1); 
+	//Bag.addItem(sword1,1);
+	//sword->useItem();
+	//sword1->useItem();
+	//sword->addDesc("SWORD");
+	//
+	//Bag.requestInventory();
 	
 
 	//// STEPS FOR MAP 
@@ -36,12 +34,12 @@ int main() {
 
 	//startScreen();	
 
-	//Game game;
-	//game.initGame();
+	Game game;
+	game.initGame();
 
-	//while (true) {
-	//	game.doTurn();
-	//}
+	while (true) {
+		game.doTurn();
+	}
 
 }
 

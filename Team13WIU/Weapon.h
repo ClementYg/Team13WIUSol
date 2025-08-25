@@ -8,7 +8,9 @@ public:
 
 	void useItem();
 
-	Weapon(std::string n, weaponType);
+	Weapon* duplicate();
+
+	Weapon(std::string n, weaponType, int, int);
 	virtual ~Weapon();
 private:
 	weaponType itemWType; 

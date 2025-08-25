@@ -9,10 +9,23 @@ int Item::getItemID()
 	return itemID;
 }
 
+void Item::setItemID(int change)
+{
+	itemID = change; 
+}
+
+int Item::getPrice()
+{
+	return price;
+}
+
 bool Item::checkItemSelect()
 {
 	return isitemSelected;
 }
+
+int Item::getQuantity() { return quantity; }
+void Item::setQuantity(int change) { quantity += change; }
 
 void Item::select(int selected) //if selected 1, means user wants to select. if selected 0, change item to not be selected
 {
@@ -27,32 +40,31 @@ std::string Item::getItemName() { return name; }
 std::string Item::getItemDesc() { return itemDesc; }
 
 void Item::addDesc(std::string description) {
-	 this->itemDesc = description;
+	this->itemDesc = description;
 }
 
 int Item::IDCounter = 0;
 
 Item::Item()
 {
+	price = 0;
 	isitemSelected = false;
 	itemID = IDCounter;
+	IDCounter++;
 	std::cout << "A normal item created\n";
 }
 
-Item* Item::create(std::string name, consumeType consumableType)
-{ //If no type is declared of Consumable, i.e Item is not consumable, then it will default to unknown
-	IDCounter++;
-	return new Consumable(name, consumableType); 
+Item* Item::create(std::string name, consumeType consumableType, int price, int qty)
+{ //If no type is declared of Consumable, i.e Ite m is not consumable, then it will default to unknown
+	return new Consumable(name, consumableType, price, qty);
 }
 
-Item* Item::create(std::string name, weaponType wType) {
-	IDCounter++;
-	return new Weapon(name, wType);
+Item* Item::create(std::string name, weaponType wType, int price, int qty) {
+	return new Weapon(name, wType, price, qty);
 }
 
-Item* Item::create(std::string name, armourType aType) {
-	IDCounter++;
-	return new Armour(name, aType);
+Item* Item::create(std::string name, armourType aType, int price, int qty) {
+	return new Armour(name, aType, price, qty);
 }
 
 
