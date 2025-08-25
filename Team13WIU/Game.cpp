@@ -96,17 +96,21 @@ void Game::initGame() {
 
 	Inventory playerInv;
 
-	Item* test1 = Item::create("Sword", Item::FIRE_SWORD, 10, 3);
+
+	//ITEM CREATION AREA
+	Item* FireSword = Item::create("Fire Sword", Item::FIRE_SWORD, 10, 3);
 	Item* test2 = Item::create("Chestplate", Item::WOOD_CHEST, 10, 1);
 
 	playerInv.setGold(500);
+	FireSword->addDesc("A blade forged from the depths of the underground\n with molten iron at its peak. +10 DMG.");
 
-	john->addStock(test1);
+
+	john->addStock(FireSword);
 	john->addStock(test2);
 
 	john->sellStock(0, playerInv, 1);
 
-		playerInv.requestInventory();
+	playerInv.requestInventory();
 
 
 
@@ -193,7 +197,7 @@ void Game::doTurn() {
 	int oldX = player->getX();
 	int oldY = player->getY();
 
-
+	// COLLISION WITH MERCHANT
 	if (gameObjects[0] != nullptr && gameObjects[1] != nullptr) {
 		if (gameObjects[1]->getActive()) {
 			if (gameObjects[0]->getY() == gameObjects[1]->getY() && (gameObjects[0]->getX() == gameObjects[1]->getX() + 1 || gameObjects[0]->getX() == gameObjects[1]->getX() - 1)) {
@@ -205,7 +209,7 @@ void Game::doTurn() {
 					std::cin >> Isbuy;
 					if (Isbuy == 'Y') {
 						std::cout << "\033[1;32m" << john->name << ":" << "\033[0m";
-						john->typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
+						john->showStock(); 
 					}
 					else
 					{
