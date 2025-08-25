@@ -3,10 +3,7 @@
 
 
 
-Entity::Entity()
-{
-
-}
+Entity::Entity() : IsActive(false) {}
 
 Entity::~Entity()
 {
@@ -36,6 +33,16 @@ char Entity::getSymbol() const {
 
 void Entity::setSymbol(char s) {
     symbol = s;
+}
+
+bool Entity::getActive()
+{
+    return IsActive;
+}
+
+void Entity::setActive(bool active)
+{
+    IsActive = active;
 }
 
 void Entity::move(Entity* gameObjects[], int size) {

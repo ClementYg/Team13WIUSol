@@ -40,6 +40,8 @@ int main() {
 
 	while (true) {
 		game.doTurn();
+
 	}
+
 
 }
