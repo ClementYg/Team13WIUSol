@@ -3,8 +3,7 @@
 class Game
 {
 private:
-	Entity* gameObjects[2];
-	std::string dingle;
+	Entity* gameObjects[3];
 	Position playerPos;
 	bool InTown;
 	bool InForest;
