@@ -26,7 +26,6 @@ Game::~Game() {
 		delete gameObjects[i];
 		gameObjects[i] = nullptr;
 	}
-	//delete gameObjects;
 }
 
 void Game::GtypeLine(const std::string& text, int delay)
@@ -80,9 +79,51 @@ void Game::drawWorld() {
 }
 
 void Game::doTurn() {
+	std::vector<std::string> InnKeeperSpeech =
+	{
+		"If you are wondering why are you here,",
+		"A shadowed figure brought you here.",
+		"(WASD to move, K to interact, I to open inventory)"
+	};
+
+	std::vector<std::string> TSvillagersBeforeSpeech =
+	{
+		"I think there is a weird man in front there",
+		"He looks like the BRAVE KNIGHT!"
+	};
+
+	std::vector<std::string> TSBraveKnightSpeech =
+	{
+		"You look familiar.",
+		"OHH! You are the villain!",
+		"That have been killing the innocents.",
+		"I will kill you for the justice!"
+	};
+
+	std::vector<std::string> TSvillagersAfterSpeech =
+	{
+		"He is the wanted villain!",
+		"We need to call police NOW!"
+		// MC run into forest to avoid getting arrest
+	};
+
+	std::vector<std::string>  KidSpeech =
+	{
+		"OH MY GOD! That is so scary",
+		"Thank you my hero, can you bring me back to my village.",
+		"In case there is more monsters."
+	};
+
+	std::vector<std::string> HvillagersSpeech =
+	{
+		"The hero? I heard that he was last seen ouside the cave.",
+		"The cave is at the other island.",
+		"It's impossible to get there without ship."
+	};
+
 	std::vector<std::string> johnsspeech =
 	{
-		"Hi! I am John, A merchant.",
+		"Hi! I am John, A travelling merchant.",
 		"I sell some interesting things.",
 		"Do you want to take a look?"
 	};
@@ -112,6 +153,7 @@ void Game::doTurn() {
 	
 	if (gameObjects[0] != nullptr && gameObjects[1] != nullptr) {
 		if (gameObjects[0]->getY() == gameObjects[1]->getY() && (gameObjects[0]->getX() == gameObjects[1]->getX() + 1 || gameObjects[0]->getX() == gameObjects[1]->getX() - 1)) {
+			std::cout << "Press K to interact" << std::endl;
 			if (player->interactionGet())
 			{
 				//std::cout << "Interaction with bro";
@@ -131,6 +173,7 @@ void Game::doTurn() {
 		}
 		else if (gameObjects[0]->getX() == gameObjects[1]->getX() && (gameObjects[0]->getY() == gameObjects[1]->getY() + 1 || gameObjects[0]->getY() == gameObjects[1]->getY() - 1)) {
 			//dingle = "Interacting with bro";
+			std::cout << "Press K to interact" << std::endl;
 			if (player->interactionGet())
 			{
 				//std::cout << "Interaction with bro";
