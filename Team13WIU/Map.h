@@ -18,14 +18,17 @@ public:
 		ASTERISK,
 		LETTERO,
 		CARET,
+		ATSIGN,
+		MORETHAN,
+		LESSTHAN,
 		SPACE
 	};
 
-	void townMap(); 
-
-	void printTMap();
-
-	void townGameArea(); 
+	void townMap();
+	void ForestMap();
+	void HarbourMap();
+	void EntranceCaveMap();
+	void InnerCaveMap();
 
 	Map();
 	~Map();
