@@ -3,11 +3,12 @@
 class Merchant : public NPC
 {
 public:
-	char IsTrade = ' ';
-	Merchant(std::string n, int x, int y, std::vector<std::string> lines = {});
+	//char IsTrade = ' ';
+	Merchant(std::string n, int y, int x, char s,std::vector<std::string> lines = {});
+	~Merchant();
 	
 
-	virtual void NPCtalk();
+	void NPCtalk();
 	void trade();
 };
 

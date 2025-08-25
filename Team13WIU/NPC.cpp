@@ -5,12 +5,13 @@
 #include <iostream>
 
 // Constructor for NPC class
-NPC::NPC(std::string n, int x, int y, std::vector<std::string> lines)
+NPC::NPC(std::string n, int x, int y, char s,std::vector<std::string> lines)
 {
 	name = n;
 	dialogue = lines;
-	NPCspos.x = x;
-	NPCspos.y = y;
+	pos.x = x;
+	pos.y = y;
+	symbol = s;
 	// this massage can be comment away as it is for debugging or checking
 	//std::cout << name << " spawned at (" << NPCspos.x << ',' << NPCspos.y << ")\n";
 }
@@ -20,30 +21,6 @@ NPC::~NPC()
 {
 	// this can be comment away as it is for debugging or checking
 	//std::cout << name << " at " << '(' << NPCspos.x << ',' << NPCspos.y << ')' << " is deleted\n";
-}
-
-// function to set X position
-void NPC::setX(int x)
-{
-	NPCspos.x = x;
-}
-
-// function to set Y position
-void NPC::setY(int y)
-{
-	NPCspos.y = y;
-}
-
-// function to get X position
-int NPC::getX() const
-{
-	return NPCspos.x;
-}
-
-// function to get Y position
-int NPC::getY() const
-{
-	return NPCspos.y;
 }
 
 // this function help to type out the word one character by one
@@ -71,4 +48,9 @@ void NPC::NPCtalk()
 	}
 	// one blank line after every line finish, more neat
 	std::cout << std::endl;
+}
+
+void NPC::move(Entity* gameObjects[], int size)
+{
+
 }

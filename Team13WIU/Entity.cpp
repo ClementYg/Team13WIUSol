@@ -34,10 +34,6 @@ char Entity::getSymbol() const {
     return symbol;
 }
 
-void Entity::setSymbol(char s) {
-    symbol = s;
-}
-
 void Entity::move(Entity* gameObjects[], int size) {
     // Update the position of the entity
     // This method can be overridden in derived classes for specific movement logic

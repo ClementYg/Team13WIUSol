@@ -16,7 +16,6 @@ public:
 	int getY() const;
 	void setPosition(int x, int y);
 	char getSymbol() const;
-	void setSymbol(char s);
 	virtual void move(Entity* gameObjects[], int size) = 0;
 };
 

@@ -3,9 +3,10 @@
 class Master : public NPC
 {
 public:
-	Master(std::string n, int x, int y, std::vector<std::string> lines = {});
+	Master(std::string n, int x, int y, char s,std::vector<std::string> lines = {});
+	~Master();
 
-	virtual void NPCtalk();
+	void NPCtalk();
 	void trainPlayer();
 };
 
