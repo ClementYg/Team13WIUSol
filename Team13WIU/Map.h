@@ -29,6 +29,7 @@ public:
 	void HarbourMap();
 	void EntranceCaveMap();
 	void InnerCaveMap();
+	void Inn();
 
 	Map();
 	~Map();

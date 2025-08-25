@@ -90,6 +90,18 @@ void Game::doTurn() {
 	char Isbuy;
 	Merchant john("John", 1, 5, johnsspeech);
 	Map mapObj;
+	Inventory playerInv;
+
+	Item* test1 = Item::create("Sword", Item::FIRE_SWORD, 10, 3);
+	Item* test2 = Item::create("Chestplate", Item::WOOD_CHEST, 10, 1);
+
+	playerInv.setGold(500); 
+	john.addStock(test1);
+	john.addStock(test2);
+
+	john.sellStock(0, playerInv, 1);
+
+
 
 	// If player is gone, end game
 	system("cls");
