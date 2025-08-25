@@ -27,8 +27,10 @@ int main() {
 	//Bag.requestInventory();
 
 	//// STEPS FOR MAP 
+
 	//Map MapObj;
 	//MapObj.HarbourMap();
+
 
 	/*startScreen();*/
 
@@ -37,10 +39,11 @@ int main() {
 
 	while (true) {
 		game.doTurn();
+
 	}
 
-}
 
+}
 //                      _
 //                     / \
 //                    /|-|\
