@@ -19,6 +19,8 @@ public:
 		LETTERO,
 		CARET,
 		ATSIGN,
+		MORETHAN,
+		LESSTHAN,
 		SPACE
 	};
 
@@ -26,6 +28,7 @@ public:
 	void ForestMap();
 	void HarbourMap();
 	void EntranceCaveMap();
+	void InnerCaveMap();
 
 	Map();
 	~Map();

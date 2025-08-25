@@ -1,6 +1,6 @@
 #include "Inventory.h"
 #include <iostream>
-
+#include "conio.h"
 
 
 void Inventory::showInventory()
@@ -10,9 +10,8 @@ void Inventory::showInventory()
 	while (!exitInventory) {
 		printInventory();
 
-		char userChoice = ' ';
 		std::cout << "What do you wish to do with your backpack?\n" << "Press X to close your Bag.\nPress C to select an item.\n";
-		std::cin >> userChoice; 
+		char userChoice = _getch();
 		if (userChoice == 'X' || userChoice == 'x') {
 			exitInventory = true;
 		}
@@ -23,9 +22,8 @@ void Inventory::showInventory()
 }
 	
 void Inventory::requestInventory() {
-	char userChoice = ' ';
 	std::cout << "What do you wish to do with your backpack? Press E to Open, Press X to Close.\n";
-	std::cin >> userChoice;
+	char userChoice = _getch();
 	if (userChoice == 'E' || userChoice == 'e') {
 		showInventory(); //signify open 
 	}
@@ -34,9 +32,8 @@ void Inventory::requestInventory() {
 
 void Inventory::selectItem()
 {
-	int choice;
-	std::cout << "Pick the ID of the item you wish to select\n";
-	std::cin >> choice; //used for container ID.
+	std::cout << "Pick the ID of the item you wish to select\n"; //used for container ID.
+	int choice = _getch();
 	if (container[choice] != nullptr && choice < 5) { //DOESNT HAVE TO BE 4, TEMPORARY TOTAL AMOUNT OF ITEMS
 		if (prevChoice != -1 && container[prevChoice] != nullptr) { // if previous Choice exists, run this code
 			container[prevChoice]->select(0); // change selection to false, DESELECT
