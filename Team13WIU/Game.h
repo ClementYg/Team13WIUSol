@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include <windows.h>
 class Game
 {
 private:
@@ -18,6 +19,8 @@ public:
 	Game();
 	~Game();
 	void GtypeLine(const std::string& text, int delay);
+	void clearScreen();
+	void setCursorPosition(int x, int y);
 	void initGame();
 	void drawWorld();
 	void doTurn();
