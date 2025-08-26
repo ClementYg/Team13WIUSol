@@ -4,6 +4,7 @@
 #include "NPC.h"
 #include "Merchant.h"
 #include "Map.h"
+#include "Puzzle.h"
 #include <chrono>
 #include <thread>
 #include <iostream>
@@ -95,10 +96,18 @@ void Game::initGame() {
 	Merchant* john = static_cast<Merchant*>(gameObjects[1]);
 
 	Inventory playerInv;
+	RiverPuzzle = new Puzzle(gameObjects[0]);
 
 	Item* test1 = Item::create("Sword", Item::FIRE_SWORD, 10, 3);
-	Item* test2 = Item::create("Chestplate", Item::WOOD_CHEST, 10, 1);
-
+	Item* test4 = Item::create("Sword2", Item::WOOD_SWORD, 10, 3);
+	Item* test3 = Item::create("head2", Item::WOOD_HELM, 13, 2);
+	Item* test5 = Item::create("Chestplate", Item::WOOD_CHEST, 10, 1);
+	Item* test2 = Item::create("leg", Item::WOOD_LEGGS, 10, 1);
+	test1->addDesc("876f56cx54dtrctyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeett6ubgf5r\n");
+	test2->addDesc("testingddddddddddd4r32dddddddddddddddddddddddddddteddddddddddddd");
+	test3->addDesc("testingdddtttttttt4t2ttttttttttttttttttttttttttrettttttttttddddd");
+	test4->addDesc("testingddddvvvvvvvvvvvvvvvvvvvvvvvvvtrethvvvvvvvvvvvvvvvvvvvvvvvvd");
+	test5->addDesc("testingddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhgdhgdhghhhhhhhhhhhhhddd");
 	playerInv.setGold(500);
 
 	john->addStock(test1);
@@ -106,9 +115,12 @@ void Game::initGame() {
 
 	john->sellStock(0, playerInv, 1);
 
-		playerInv.requestInventory();
+	playerInv.requestInventory();
 
-
+	playerInv.addItem(test2, 2);
+	playerInv.addItem(test3, 1);
+	playerInv.addItem(test4, 2);
+	playerInv.addItem(test5, 4);
 
 }
 
@@ -132,10 +144,10 @@ void Game::drawWorld() {
 		}
 	}
 
-	for (int i = 0; i < 98; i++) {
-		cout << '-';
-		if (i == 97) cout << "\n"; // New line after the border
-	}
+	//for (int i = 0; i < 98; i++) {
+	//	cout << '-';
+	//	if (i == 97) cout << "\n"; // New line after the border
+	//}
 
 	for (int r = 0; r < 5; ++r) {
 		for (int c = 0; c < 49; ++c) cout << " " << grid[r][c];
@@ -150,129 +162,153 @@ void Game::drawWorld() {
 
 void Game::doTurn() {
 
-	char Isbuy;
-	Map mapObj;
-
-	// If player is gone, end game
-	system("cls");
-
-
 	Player* player = static_cast<Player*>(gameObjects[0]);
-	Merchant* john = static_cast<Merchant*>(gameObjects[1]);
-
-
-	if (InTown == true && gameObjects[0]->getX() < 1) {
-		InTown = false;
-		InForest = true;
-		gameObjects[0]->setPosition(47, gameObjects[0]->getY()); // Set player position in forest
-	}
-	else if (InForest == true && gameObjects[0]->getX() > 47) {
-		InForest = false;
-		InTown = true;
-		gameObjects[0]->setPosition(1, gameObjects[0]->getY()); // Set player position in town
-	}
-	if (InTown == true)
-	{
-		mapObj.townMap();
-		gameObjects[0]->setActive(true);
-		gameObjects[1]->setActive(true);
-		gameObjects[2]->setActive(false);
-	}
-	else {
-		mapObj.ForestMap();
-		gameObjects[0]->setActive(true);
-		gameObjects[1]->setActive(false);
-		gameObjects[2]->setActive(true);
-	}
-
-
-
-	drawWorld();
-
-
-	int oldX = player->getX();
-	int oldY = player->getY();
-
-
-	if (gameObjects[0] != nullptr && gameObjects[1] != nullptr) {
-		if (gameObjects[1]->getActive()) {
-			if (gameObjects[0]->getY() == gameObjects[1]->getY() && (gameObjects[0]->getX() == gameObjects[1]->getX() + 1 || gameObjects[0]->getX() == gameObjects[1]->getX() - 1)) {
-				if (player->interactionGet())
-				{
-					//std::cout << "Interaction with bro";
-					john->NPCtalk();
-					std::cout << "Do you want to buy anything from him? (Y/N): ";
-					std::cin >> Isbuy;
-					if (Isbuy == 'Y') {
-						std::cout << "\033[1;32m" << john->name << ":" << "\033[0m";
-						john->typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
-					}
-					else
-					{
-						std::cout << "\033[1;32m" << john->name << ": " << "\033[0m";
-						john->typeLine("Alright man, stay safe out there.", 1);
-					}
-				}
-			}
-			else if (gameObjects[0]->getX() == gameObjects[1]->getX() && (gameObjects[0]->getY() == gameObjects[1]->getY() + 1 || gameObjects[0]->getY() == gameObjects[1]->getY() - 1)) {
-				//dingle = "Interacting with bro";
-				if (player->interactionGet())
-				{
-					//std::cout << "Interaction with bro";
-					john->NPCtalk();
-					std::cout << "Do you want to buy anything from him? (Y/N): ";
-					std::cin >> Isbuy;
-					if (Isbuy == 'Y') {
-						std::cout << "\033[1;32m" << john->name << ":" << "\033[0m";
-						john->typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
-					}
-					else
-					{
-						std::cout << "\033[1;32m" << john->name << ": " << "\033[0m";
-						john->typeLine("Alright man, stay safe out there.", 1);
-					}
-				}
-			}
-		}
-	}
-
-
-
-
+	RiverPuzzle->Print();
 	if (player != nullptr) {
 		player->move(gameObjects, 3);
 	}
-	//if (player->getX() < 1 && InTown == true) {
+}
+	//char Isbuy;
+	//Map mapObj;
+
+	//// If player is gone, end game
+	//system("cls");
+
+
+	//Player* player = static_cast<Player*>(gameObjects[0]);
+	//Merchant* john = static_cast<Merchant*>(gameObjects[1]);
+
+
+	//for (int i = 0; i < 98; i++) {
+	//	cout << '-';
+	//	if (i == 97) cout << "\n"; // New line after the border
+	//}
+
+	//cout << '|';
+	//for (int i = 0; i < player->getMorale(); i++) {
+	//	cout << '#';
+	//}
+	//for (int i = player->getMorale(); i < 96; i++) {
+	//	cout << ' ';
+	//}
+	//cout << '|' << endl;
+	//
+	//for (int i = 0; i < 98; i++) {
+	//	cout << '-';
+	//	if (i == 97) cout << "\n"; // New line after the border
+	//}
+
+	//if (InTown == true && gameObjects[0]->getX() < 1) {
 	//	InTown = false;
 	//	InForest = true;
+	//	gameObjects[0]->setPosition(47, gameObjects[0]->getY()); // Set player position in forest
 	//}
-	//else if (player->getX() < 1 && InForest == true) {
+	//else if (InForest == true && gameObjects[0]->getX() > 47) {
 	//	InForest = false;
 	//	InTown = true;
+	//	gameObjects[0]->setPosition(1, gameObjects[0]->getY()); // Set player position in town
+	//}
+	//if (InTown == true)
+	//{
+	//	mapObj.townMap();
+	//	gameObjects[0]->setActive(true);
+	//	gameObjects[1]->setActive(true);
+	//	gameObjects[2]->setActive(false);
+	//}
+	//else {
+	//	mapObj.ForestMap();
+	//	gameObjects[0]->setActive(true);
+	//	gameObjects[1]->setActive(false);
+	//	gameObjects[2]->setActive(true);
+	//}
 
 
-	// Move enemies
-	for (int i = 1; i < 3; ++i) {
-		if (gameObjects[i] != nullptr && player != nullptr) {
-			Enemy1* enemy1 = static_cast<Enemy1*>(gameObjects[i]);
-			// capture player's position before any possible deletion later
-			int playerX = player->getX();
-			int playerY = player->getY();
-			enemy1->move(playerPos, gameObjects, 3);
-		}
-	}
 
-	// Check collisions
-	for (int i = 1; i < 3; ++i) {
-		if (gameObjects[i] != nullptr && player != nullptr) {
-			if (gameObjects[i]->getActive()) {
-				if (gameObjects[i]->getX() == (player->getX()) && gameObjects[i]->getY() == (player->getY())) {
-					player->setPosition(oldX, oldY);
-					break;
-				}
-			}
-		}
-	}
+	//drawWorld();
+
+	//int oldX = player->getX();
+	//int oldY = player->getY();
+
+
+	//if (gameObjects[0] != nullptr && gameObjects[1] != nullptr) {
+	//	if (gameObjects[1]->getActive()) {
+	//		if (gameObjects[0]->getY() == gameObjects[1]->getY() && (gameObjects[0]->getX() == gameObjects[1]->getX() + 1 || gameObjects[0]->getX() == gameObjects[1]->getX() - 1)) {
+	//			if (player->interactionGet())
+	//			{
+	//				//std::cout << "Interaction with bro";
+	//				john->NPCtalk();
+	//				std::cout << "Do you want to buy anything from him? (Y/N): ";
+	//				std::cin >> Isbuy;
+	//				if (Isbuy == 'Y') {
+	//					std::cout << "\033[1;32m" << john->name << ":" << "\033[0m";
+	//					john->typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
+	//				}
+	//				else
+	//				{
+	//					std::cout << "\033[1;32m" << john->name << ": " << "\033[0m";
+	//					john->typeLine("Alright man, stay safe out there.", 1);
+	//				}
+	//			}
+	//		}
+	//		else if (gameObjects[0]->getX() == gameObjects[1]->getX() && (gameObjects[0]->getY() == gameObjects[1]->getY() + 1 || gameObjects[0]->getY() == gameObjects[1]->getY() - 1)) {
+	//			//dingle = "Interacting with bro";
+	//			if (player->interactionGet())
+	//			{
+	//				//std::cout << "Interaction with bro";
+	//				john->NPCtalk();
+	//				std::cout << "Do you want to buy anything from him? (Y/N): ";
+	//				std::cin >> Isbuy;
+	//				if (Isbuy == 'Y') {
+	//					std::cout << "\033[1;32m" << john->name << ":" << "\033[0m";
+	//					john->typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
+	//				}
+	//				else
+	//				{
+	//					std::cout << "\033[1;32m" << john->name << ": " << "\033[0m";
+	//					john->typeLine("Alright man, stay safe out there.", 1);
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
+
+
+
+
+	//if (player != nullptr) {
+	//	player->move(gameObjects, 3);
+	//}
+	////if (player->getX() < 1 && InTown == true) {
+	////	InTown = false;
+	////	InForest = true;
+	////}
+	////else if (player->getX() < 1 && InForest == true) {
+	////	InForest = false;
+	////	InTown = true;
+
+
+	//// Move enemies
+	//for (int i = 1; i < 3; ++i) {
+	//	if (gameObjects[i] != nullptr && player != nullptr) {
+	//		Enemy1* enemy1 = static_cast<Enemy1*>(gameObjects[i]);
+	//		// capture player's position before any possible deletion later
+	//		int playerX = player->getX();
+	//		int playerY = player->getY();
+	//		enemy1->move(playerPos, gameObjects, 3);
+	//	}
+	//}
+
+	//// Check collisions
+	//for (int i = 1; i < 3; ++i) {
+	//	if (gameObjects[i] != nullptr && player != nullptr) {
+	//		if (gameObjects[i]->getActive()) {
+	//			if (gameObjects[i]->getX() == (player->getX()) && gameObjects[i]->getY() == (player->getY())) {
+	//				player->setPosition(oldX, oldY);
+	//				break;
+	//			}
+	//		}
+	//	}
+	//}
 
 
 
@@ -280,4 +316,4 @@ void Game::doTurn() {
    //if (gameObjects[0]->getY() == (gameObjects[1]->getY() - 1) || gameObjects[0]->getY() == (gameObjects[1]->getY() + 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() - 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() + 1))
    //{
    //}
-}
+//}

@@ -1,10 +1,12 @@
 #pragma once
 #include "Entity.h"
+#include "Puzzle.h"
 class Game
 {
 private:
 	Entity* gameObjects[3];
 	Position playerPos;
+	Puzzle* RiverPuzzle;
 	bool InTown;
 	bool InForest;
 
@@ -16,4 +18,3 @@ public:
 	void drawWorld();
 	void doTurn();
 };
-

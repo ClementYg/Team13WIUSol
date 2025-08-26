@@ -45,13 +45,14 @@ void Inventory::selectItem()
 
 void Inventory::printInventory()
 {
+	std::cout << "----------------------------------------------------------------------" << std::endl;
 	for (int i = 0; i < 10; i++) { // SET TO 10 BECAUSE THATS TOTAL SLOTS SO FAR
 		if (container[i] != nullptr) { //check that this slot has an item
 			{
 				if (container[i]->checkItemSelect()) {
 					std::cout << ">> ";
 				}
-				std::cout << "[" << container[i]->getItemID() << "] " << container[i]->getItemName();
+				std::cout << "|" << container[i]->getItemID() << "| " << container[i]->getItemName() << "|";
 				std::cout << std::endl;
 
 
@@ -62,6 +63,7 @@ void Inventory::printInventory()
 		}
 	}
 }
+
 
 
 void Inventory::addItem(Item* itemObj, int qty)

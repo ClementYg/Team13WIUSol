@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-Player::Player(std::string n, int y, int x, char s) /*: Entity(row, col, '@') */
+Player::Player(std::string n, int y, int x, char s) : Morale(43) /*: Entity(row, col, '@') */
 {
 	name = n;
 	pos.x = x;
@@ -28,12 +28,24 @@ void Player::move(Entity* gameObjects[], int entityCount) {
 	else if (input == 'a') newCol--;
 	else if (input == 'd') newCol++;
 	else if (input == 'k') interaction = true;
+	else if (input == 'z') Morale--;
+	else if (input == 'x') Morale++;
 	else return;//go back to game.cpp (forefeit turn)
 
 	if (newRow >= 0 && newRow < 5 && newCol >= 0 && newCol < 49) {
 		pos.x = newCol;
 		pos.y = newRow;
 	}
+}
+
+int Player::getMorale()
+{
+	return Morale;
+}
+
+void Player::setMorale(int newMorale)
+{
+	Morale = newMorale;
 }
 
 bool Player::interactionGet()

@@ -141,6 +141,7 @@
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="Puzzle.cpp" />
     <ClCompile Include="startScreen.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
@@ -158,6 +159,7 @@
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="Puzzle.h" />
     <ClInclude Include="startScreen.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
