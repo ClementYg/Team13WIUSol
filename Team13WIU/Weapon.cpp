@@ -15,6 +15,11 @@ void Weapon::useItem()
 		WSequipped = true;
 		break;
 	}
+	case STEEL_SWORD:
+	{
+		std::cout << "Steel Sword equipped\n";
+
+	}
 	case FIRE_SWORD: 
 	{
 		std::cout << "Fire Sword equipped\n"; 

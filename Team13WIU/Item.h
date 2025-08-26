@@ -29,6 +29,7 @@ public:
 	enum weaponType {
 		WOOD_SWORD,
 		FIRE_SWORD,
+		STEEL_SWORD,
 		W_UNKNOWN
 	};
 
