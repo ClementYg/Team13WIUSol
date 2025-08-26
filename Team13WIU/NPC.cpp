@@ -42,7 +42,7 @@ void NPC::NPCtalk()
 		std::string& line = dialogue[i];
 
 		// make name blue
-		std::cout << "\033[1;34m" << name << ": " << "\033[0m";
+		std::cout << "\033[36m" << name << ": " << "\033[0m";
 		typeLine(line, 1);
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));  // wait for 300ms before printing next line
 	}
