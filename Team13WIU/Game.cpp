@@ -182,17 +182,13 @@ void Game::doTurn() {
 	Map mapObj;
 
 	// If player is gone, end game
-	mapObj.clearScreen();
+	mapObj.clearScreen(); //uses ASCII codes to move player cursor to top-left;
 
 
 	Player* player = static_cast<Player*>(gameObjects[0]);
 	Merchant* merchant = static_cast<Merchant*>(gameObjects[1]);
 	InnKeeper* innkeeper = static_cast<InnKeeper*>(gameObjects[3]);
 
-	// gameObjects[0] = player
-	// gameObjects[1] = Merchant (john)
-	// gameObjects[2] = Enemy1 (bear)
-	// 
 	// if player go right of the Inn, exit to TS
 	if (InInn == true && gameObjects[0]->getX() > 47)
 	{
@@ -454,5 +450,15 @@ void Game::doTurn() {
    //if (gameObjects[0]->getY() == (gameObjects[1]->getY() - 1) || gameObjects[0]->getY() == (gameObjects[1]->getY() + 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() - 1) || gameObjects[0]->getX() == (gameObjects[1]->getX() + 1))
    //{
    //}
+
+	clearDialogue();
 	std::cout.flush();
+}
+
+void Game::clearDialogue() {
+	for (int i = 0; i < 4; i++) {
+		std::cout << "\033[" << (22 + i) << ";1H";   // move to each line start
+		std::cout << std::string(98, ' '); // clear each line and replace with space
+	}
+	std::cout.flush(); 
 }
