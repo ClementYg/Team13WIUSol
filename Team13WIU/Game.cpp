@@ -316,7 +316,7 @@ void Game::doTurn() {
 			}
 		}
 	}
-	// check for interacting with Travelling Merchant
+	// check for interacting with Travelling Merchant and the ship
 	else if (gameObjects[0] != nullptr && InHarbour == true) {
 		if (gameObjects[0]->getActive()) {
 			if (gameObjects[0]->getX() == 28 && gameObjects[0]->getY() == 0) {
@@ -336,12 +336,7 @@ void Game::doTurn() {
 					}
 				}
 			}
-		}
-	}
-	// check for going into ship
-	else if (gameObjects[0] != nullptr && InHarbour == true) {
-		if (gameObjects[0]->getActive()) {
-			if (gameObjects[0]->getX() == 10 && gameObjects[0]->getY() == 0) {
+			else if (gameObjects[0]->getX() == 10 && gameObjects[0]->getY() == 0) {
 				std::cout << "Press SPACE to sneak in the ship" << std::endl;
 				if (player->movingGet()) {
 					InHarbour = false;
@@ -350,6 +345,7 @@ void Game::doTurn() {
 					return;
 				}
 			}
+				
 		}
 	}
 	// check for going into cave
