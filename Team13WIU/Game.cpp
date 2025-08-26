@@ -52,7 +52,7 @@ void Game::initGame() {
 	{
 		"If you are wondering why are you here,",
 		"A shadowed figure brought you here yesterday.",
-		"(WASD to move, SPACE to interact, I to open inventory)"
+		"You should head to the townsquare if you need help."
 	};
 
 	std::vector<std::string> TSvillagersBeforeSpeech =
@@ -64,8 +64,8 @@ void Game::initGame() {
 	{
 		"Civilian, how can I hel-"
 		"Wait... You look familiar",
-		"OHH! You are the villain!",
-		"That have been killing the innocents.",
+		"OHH! You are that villain!",
+		"That has been killing the innocents.",
 		"I will kill you in the name of justice!"
 	};
 
@@ -86,7 +86,7 @@ void Game::initGame() {
 	std::vector<std::string> HvillagersSpeech =
 	{
 		"The hero? I heard that he was last seen ouside the cave.",
-		"The cave is at that island oveer there.",
+		"The cave is at that island over there.",
 		"It's impossible to get there without a ship."
 	};
 
@@ -227,7 +227,7 @@ void Game::doTurn() {
 	{
 		InInn = false;
 		InTown = true;
-		gameObjects[0]->setPosition(9, 0); // Set player position in forest
+		gameObjects[0]->setPosition(9, 0); 
 	}
 	// if player go left of the TS, go to Forest
 	else if (InTown == true && gameObjects[0]->getX() < 1)
@@ -256,6 +256,13 @@ void Game::doTurn() {
 		InHarbour = false;
 		InForest = true;
 		gameObjects[0]->setPosition(1, gameObjects[0]->getY()); // Set player position in town
+	}
+	//if player go left of Inside cave, go back to outside of the cave
+	else if (InInsideCave == true && gameObjects[0]->getX() < 1)
+	{
+		InInsideCave = false;
+		InOusideCave = true;
+		gameObjects[0]->setPosition(25, 0);
 	}
 
 
@@ -335,14 +342,39 @@ void Game::doTurn() {
 
 	drawWorld();
 
+	// 30: Black
+	// 31: Red
+	// 32: Green
+	// 33: Orange
+	// 34: Blue
+	// 35: Purple
+	// 36: Cyan
+	// 37: White
+
 
 	// check for interacting with InnKeeper
 	if (gameObjects[0] != nullptr && InInn == true) {
 		if (gameObjects[0]->getActive()) {
+			std::cout << "(WASD to move, SPACE to interact, I to open inventory)" << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "How did I get here? Wasn’t I knocked unconscious by the hero?" << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "I should talk to the Inn Keeper for more details." << std::endl << std::endl;
 			if (gameObjects[0]->getX() == 39 && gameObjects[0]->getY() == 0) {
 				std::cout << "Press SPACE to talk to inn keeper" << std::endl;
 				if (player->interactionGet()) {
 					innkeeper->NPCtalk();
+				}
+			}
+			if (gameObjects[0]->getX() == 17 && gameObjects[0]->getY() == 0)
+			{
+				std::cout << "Press SPACE to listen on their conversation" << std::endl;
+				if (player->interactionGet())
+				{
+					std::cout << "\033[0;33m" << "Guy on left: " << "\033[0m";
+					std::cout << "Have you heard? Apparently the hero subdued the notorious killer!" << std::endl;
+					std::cout << "\033[0;36m" << "Guy on right: " << "\033[0m";
+					std::cout << "Yeah! Now I can finally sleep in peace knowing I won't be targeted!" << std::endl;
 				}
 			}
 		}
@@ -350,6 +382,10 @@ void Game::doTurn() {
 	// check for going back to Inn
 	else if (gameObjects[0] != nullptr && InTown == true) {
 		if (gameObjects[0]->getActive()) {
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "What should I do now? I need to get more leads on who helped me." << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "I should ask around town for more information." << std::endl << std::endl;
 			if (gameObjects[0]->getX() == 9 && gameObjects[0]->getY() == 0) {
 				std::cout << "Press SPACE to enter the Inn" << std::endl;
 				if (player->movingGet()) {
@@ -408,6 +444,14 @@ void Game::doTurn() {
 	// check for interacting with kid
 	else if (gameObjects[0] != nullptr && InForest == true) {
 		if (gameObjects[0]->getActive()) {
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "Phew, that was close" << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "Wait, what’s happening over there?" << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "Is someone being attacked?" << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "I got to go help them!" << std::endl << std::endl;
 			if (gameObjects[0]->getY() == gameObjects[9]->getY() && (gameObjects[0]->getX() == gameObjects[9]->getX() + 1 || gameObjects[0]->getX() == gameObjects[9]->getX() - 1)) {
 				std::cout << "Press SPACE to interact with the kid" << std::endl;
 				if (player->interactionGet()) {
@@ -422,9 +466,16 @@ void Game::doTurn() {
 			}
 		}
 	}
+
 	// check for interacting with Travelling Merchant and the ship
 	else if (gameObjects[0] != nullptr && InHarbour == true) {
 		if (gameObjects[0]->getActive()) {
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "Wow, I didn’t know this place existed, is this a harbour?" << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "Maybe the villagers here would have an idea on where the hero might be." << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "Let me explore the area first." << std::endl << std::endl;
 			if (gameObjects[0]->getX() == 28 && gameObjects[0]->getY() == 0) {
 				std::cout << "Press SPACE to talk to the travelling merchant" << std::endl;
 				if (player->movingGet()) {
@@ -462,15 +513,38 @@ void Game::doTurn() {
 	// check for going into cave
 	else if (gameObjects[0] != nullptr && InOusideCave == true) {
 		if (gameObjects[0]->getActive()) {
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "I’m lucky that I wasn’t discovered sneaking onto that ship" << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "Or else I was as good as dead" << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "This island is pretty big, let’s start finding the cave." << std::endl;
 			if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 0) {
-				std::cout << "Press SPACE to enter the cave" << std::endl;
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				std::cout << "This must be the cave the villagers were talking about" << std::endl << std::endl;
+				std::cout << "Press SPACE to enter the cave" << std::endl << std::endl;
 				if (player->movingGet()) {
 					InOusideCave = false;
 					InInsideCave = true;
-					gameObjects[0]->setPosition(0, 2);
+					gameObjects[0]->setPosition(2, 2);
 					return;
 				}
 			}
+		}
+	}
+
+	else if (gameObjects[0] != nullptr && InInsideCave == true) {
+		if (gameObjects[0]->getActive()) {
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "Woah, this cave looks really big, I wonder where the hero might be." << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "Wait a second … is that what I think it is?" << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "What is the demon altar doing here?" << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "I remember using it back then, but I don’t remember using it here." << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "I need to check it out to make sure it actually is the altar." << std::endl << std::endl;
 		}
 	}
 

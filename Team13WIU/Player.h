@@ -5,12 +5,13 @@
 class Player : public Entity
 {
 private:
-	std::string name;
+	
 	bool interaction;
 	Inventory* playerInv;
 	bool moveinter;
 
 public:
+	std::string name;
 	Player(std::string n, int y, int x, char s);
 	~Player();
 	Inventory* getInv();
