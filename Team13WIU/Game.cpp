@@ -3,7 +3,6 @@
 #include "Enemy1.h"
 #include "NPC.h"
 #include "Merchant.h"
-#include "InnKeeper.h"
 #include "Map.h"
 #include <chrono>
 #include <thread>
@@ -117,7 +116,7 @@ void Game::initGame() {
 	};
 
 	gameObjects[0] = new Player("MC", 0, 8, 'P');
-	gameObjects[1] = new InnKeeper("Inn Keeper", 0, 39, 'I', InnKeeperSpeech);
+	gameObjects[1] = new NPC("Inn Keeper", 0, 39, 'I', InnKeeperSpeech);
 	for (int i = 2;i < 7;i++) {
 		gameObjects[i] = new NPC("Villager", 0, 0, 'V', TSvillagersBeforeSpeech);
 	}
