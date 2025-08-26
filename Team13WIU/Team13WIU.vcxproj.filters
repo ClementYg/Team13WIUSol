@@ -27,6 +27,9 @@
     <ClCompile Include="Merchant.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Master.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Consumable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,9 +63,6 @@
     <ClCompile Include="Armour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="InnKeeper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NPC.h">
@@ -72,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Merchant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Master.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Armour.h">
@@ -105,9 +108,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Weapon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InnKeeper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
