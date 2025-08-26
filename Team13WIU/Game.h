@@ -3,7 +3,7 @@
 class Game
 {
 private:
-	Entity* gameObjects[3];
+	Entity* gameObjects[4];
 	Position playerPos;
 
 	bool InInn;
