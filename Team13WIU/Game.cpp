@@ -357,7 +357,7 @@ void Game::doTurn() {
 		if (gameObjects[0]->getActive()) {
 			std::cout << "(WASD to move, SPACE to interact, I to open inventory)" << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "How did I get here? Wasn’t I knocked unconscious by the hero?" << std::endl;
+			std::cout << "How did I get here? Wasnt I knocked unconscious by the hero?" << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 			std::cout << "I should talk to the Inn Keeper for more details." << std::endl << std::endl;
 			if (gameObjects[0]->getX() == 39 && gameObjects[0]->getY() == 0) {
