@@ -14,7 +14,12 @@ private:
 	bool InInsideCave;
 	bool NarraInn;
 	bool NarraTown;
-	
+	bool NarraForest;
+	bool NarraHarbour;
+	bool NarraOutsideCave;
+	bool NarraInsideCave;
+
+
 
 public:
 	Game();
