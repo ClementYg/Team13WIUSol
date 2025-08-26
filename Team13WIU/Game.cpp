@@ -347,7 +347,7 @@ void Game::doTurn() {
 		if (gameObjects[0]->getActive()) {
 			std::cout << "(WASD to move, SPACE to interact, I to open inventory)" << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "How did I get here? Wasn’t I knocked unconscious by the hero?" << std::endl;
+			std::cout << "How did I get here? Wasn't I knocked unconscious by the hero?" << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 			std::cout << "I should talk to the Inn Keeper for more details." << std::endl << std::endl;
 			if (gameObjects[0]->getX() == 39 && gameObjects[0]->getY() == 0) {
@@ -437,7 +437,7 @@ void Game::doTurn() {
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 			std::cout << "Phew, that was close" << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "Wait, what’s happening over there?" << std::endl;
+			std::cout << "Wait, what's happening over there?" << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 			std::cout << "Is someone being attacked?" << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
@@ -461,7 +461,7 @@ void Game::doTurn() {
 	else if (gameObjects[0] != nullptr && InHarbour == true) {
 		if (gameObjects[0]->getActive()) {
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "Wow, I didn’t know this place existed, is this a harbour?" << std::endl;
+			std::cout << "Wow, I didn't know this place existed, is this a harbour?" << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 			std::cout << "Maybe the villagers here would have an idea on where the hero might be." << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
@@ -499,7 +499,7 @@ void Game::doTurn() {
 	else if (gameObjects[0] != nullptr && InOusideCave == true) {
 		if (gameObjects[0]->getActive()) {
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "I’m lucky that I wasn’t discovered sneaking onto that ship" << std::endl;
+			std::cout << "I'm lucky that I wasn't discovered sneaking onto that ship" << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 			std::cout << "Or else I was as good as dead" << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
@@ -527,7 +527,7 @@ void Game::doTurn() {
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 			std::cout << "What is the demon altar doing here?" << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "I remember using it back then, but I don’t remember using it here." << std::endl;
+			std::cout << "I remember using it back then, but I don't remember using it here." << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 			std::cout << "I need to check it out to make sure it actually is the altar." << std::endl << std::endl;
 		}
