@@ -12,6 +12,8 @@ private:
 	bool InHarbour;
 	bool InOusideCave;
 	bool InInsideCave;
+	bool NarraInn;
+	bool NarraTown;
 	
 
 public:

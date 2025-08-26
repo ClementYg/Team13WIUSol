@@ -20,6 +20,8 @@ Game::Game()
 	InHarbour = false;
 	InOusideCave = false;
 	InInsideCave = false;
+	NarraInn = true;
+	NarraTown = true;
 	
 	for (int i = 0; i < 4; ++i)
 	{
@@ -345,11 +347,14 @@ void Game::doTurn() {
 	// check for interacting with InnKeeper
 	if (gameObjects[0] != nullptr && InInn == true) {
 		if (gameObjects[0]->getActive()) {
-			std::cout << "(WASD to move, SPACE to interact, I to open inventory)" << std::endl;
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "How did I get here? Wasn't I knocked unconscious by the hero?" << std::endl;
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "I should talk to the Inn Keeper for more details." << std::endl << std::endl;
+			if (NarraInn) {
+				GtypeLine("(WASD to move, SPACE to interact, I to open inventory)", 1);
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("How did I get here? Wasn't I knocked unconscious by the hero?", 1);
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("I should talk to the Inn Keeper for more details.", 1);
+				NarraInn = false;
+			}
 			if (gameObjects[0]->getX() == 39 && gameObjects[0]->getY() == 0) {
 				std::cout << "Press SPACE to talk to inn keeper" << std::endl;
 				if (player->interactionGet()) {
@@ -372,10 +377,13 @@ void Game::doTurn() {
 	// check for going back to Inn
 	else if (gameObjects[0] != nullptr && InTown == true) {
 		if (gameObjects[0]->getActive()) {
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "What should I do now? I need to get more leads on who helped me." << std::endl;
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "I should ask around town for more information." << std::endl << std::endl;
+			if (NarraTown) {
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("What should I do now? I need to get more leads on who helped me.", 1);
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("I should ask around town for more information.", 1);
+				NarraTown = false;
+			}
 			if (gameObjects[0]->getX() == 9 && gameObjects[0]->getY() == 0) {
 				std::cout << "Press SPACE to enter the Inn" << std::endl;
 				if (player->movingGet()) {
