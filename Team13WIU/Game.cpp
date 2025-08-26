@@ -100,6 +100,9 @@ void Game::initGame() {
 	//ITEM CREATION AREA
 	Item* FireSword = Item::create("Fire Sword", Item::FIRE_SWORD, 10, 3);
 	Item* test2 = Item::create("Chestplate", Item::WOOD_CHEST, 10, 1);
+	Item* potion = Item::create("HP_Potion", Item::HP_POT); 
+
+	playerInv.addItem(potion, 1); 
 
 	playerInv.setGold(500);
 	FireSword->addDesc("A blade forged from the depths of the underground\n with molten iron at its peak. +10 DMG.");
@@ -112,7 +115,7 @@ void Game::initGame() {
 
 	playerInv.requestInventory();
 
-
+	
 
 }
 

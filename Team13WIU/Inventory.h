@@ -14,6 +14,7 @@ public:
 	void printInventory();
 
 	void addItem(Item* itemObj, int);
+	void useItem(int slot);
 	void removeItem(Item* itemObj);
 	
 	int getGold();
