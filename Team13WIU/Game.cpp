@@ -434,6 +434,14 @@ void Game::doTurn() {
 	// check for interacting with kid
 	else if (gameObjects[0] != nullptr && InForest == true) {
 		if (gameObjects[0]->getActive()) {
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "Phew, that was close" << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "Wait, what’s happening over there?" << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "Is someone being attacked?" << std::endl;
+			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+			std::cout << "I got to go help them!" << std::endl << std::endl;
 			if (gameObjects[0]->getY() == gameObjects[9]->getY() && (gameObjects[0]->getX() == gameObjects[9]->getX() + 1 || gameObjects[0]->getX() == gameObjects[9]->getX() - 1)) {
 				std::cout << "Press SPACE to interact with the kid" << std::endl;
 				if (player->interactionGet()) {
@@ -449,19 +457,6 @@ void Game::doTurn() {
 		}
 	}
 
-	else if (gameObjects[0] != nullptr && InForest == true) {
-		if (gameObjects[0]->getActive()) {
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "Phew, that was close" << std::endl;
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "Wait, what’s happening over there?" << std::endl;
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "Is someone being attacked?" << std::endl;
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			std::cout << "I got to go help them!" << std::endl << std::endl;
-			
-		}
-	}
 	// check for interacting with Travelling Merchant and the ship
 	else if (gameObjects[0] != nullptr && InHarbour == true) {
 		if (gameObjects[0]->getActive()) {
