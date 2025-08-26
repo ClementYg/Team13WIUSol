@@ -4,11 +4,19 @@
 class Game
 {
 private:
-	Entity* gameObjects[3];
+	Entity* gameObjects[10];
 	Position playerPos;
 	Puzzle* RiverPuzzle;
+
+	bool InInn;
 	bool InTown;
 	bool InForest;
+	bool InHarbour;
+	bool InOusideCave;
+	bool InInsideCave;
+	bool NarraInn;
+	bool NarraTown;
+	
 
 public:
 	Game();
