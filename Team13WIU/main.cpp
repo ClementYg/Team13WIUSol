@@ -7,6 +7,7 @@
 
 #include <string>
 #include "NPC.h"
+#include "Master.h"
 #include "Merchant.h"
 #include "Position.h"
 

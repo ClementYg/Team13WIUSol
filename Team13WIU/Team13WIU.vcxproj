@@ -132,11 +132,11 @@
     <ClCompile Include="Enemy1.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="InnKeeper.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Master.cpp" />
     <ClCompile Include="Merchant.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -150,10 +150,10 @@
     <ClInclude Include="Enemy1.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="InnKeeper.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Master.h" />
     <ClInclude Include="Merchant.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Player.h" />
