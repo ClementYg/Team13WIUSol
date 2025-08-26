@@ -133,7 +133,7 @@ void Game::initGame() {
 	gameObjects[5]->setPosition(20, 0);
 	gameObjects[6]->setPosition(30, 2);
 
-	Merchant* john = static_cast<Merchant*>(gameObjects[1]);
+	Merchant* john = static_cast<Merchant*>(gameObjects[7]);
 	Player* player = static_cast<Player*>(gameObjects[0]);
 
 	Inventory* playerInv = player->getInv();
