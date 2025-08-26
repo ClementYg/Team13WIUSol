@@ -16,22 +16,6 @@ Merchant::~Merchant()
 
 }
 
-//void Merchant::trade()
-//{
-//	std::cout << "\033[1;32m" << name << ": " << "\033[0m";
-//	typeLine("You want to trade?", 20);
-//	std::cout << "Do you want to trade? (Y/N): ";
-//	std::cin >> IsTrade;
-//	if (IsTrade == 'Y') {
-//		std::cout << "\033[1;32m" << name << ": " << "\033[0m";
-//		typeLine("(The items he sell)\n", 20);
-//	}
-//	else {
-//		std::cout << "\033[1;32m" << name << ": " << "\033[0m";
-//		typeLine("Okay! come back later then.\n", 20);
-//	}
-//}
-
 void Merchant::NPCtalk()
 {
 	for (size_t i = 0; i < dialogue.size(); i++) {
