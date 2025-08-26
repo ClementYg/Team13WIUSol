@@ -12,11 +12,13 @@ void Weapon::useItem()
 	case WOOD_SWORD:
 	{
 		std::cout << "Wood Sword equipped\n";
+		WSinUse = true;
 		break;
 	}
 	case FIRE_SWORD: 
 	{
 		std::cout << "Fire Sword equipped\n"; 
+		FSinUse = true; //add in combat system later. If specific type of weapon in use, +10 to dmg etc... 
 		break;
 	}
 	default: std::cout << "error equipping weapon\n";
