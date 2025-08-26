@@ -5,7 +5,7 @@
 class Game
 {
 private:
-	Entity* gameObjects[12];
+	Entity* gameObjects[13];
 	Position playerPos;
 
 	std::vector<std::string> InnKeeperSpeech =

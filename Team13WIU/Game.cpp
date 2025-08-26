@@ -61,6 +61,7 @@ void Game::initGame() {
 	gameObjects[9] = new Enemy1("Bear", 2, 30, 'B');
 	gameObjects[10] = new NPC("Kid", 2, 15, 'k', KidSpeech);
 	gameObjects[11] = new NPC("Villager", 4, 40, 'V', HvillagersSpeech);
+	gameObjects[12] = new Enemy("Hero", 2, 5, 'H');
 
 	gameObjects[2]->setPosition(23, 4);
 	gameObjects[3]->setPosition(8, 1);
@@ -95,7 +96,7 @@ void Game::drawWorld() {
 		for (int c = 0; c < 49; ++c)
 			grid[r][c] = ' ';
 
-	for (int i = 0; i < 12; ++i) {
+	for (int i = 0; i < 13; ++i) {
 		if (gameObjects[i] != nullptr) {
 			if (gameObjects[i]->getActive()) {
 				if (i != 1 && i != 8) {
@@ -145,6 +146,7 @@ void Game::doTurn() {
 	Merchant* merchant = static_cast<Merchant*>(gameObjects[8]);
 	NPC* kid = static_cast<NPC*>(gameObjects[10]);
 	NPC* harbourvillager = static_cast<NPC*>(gameObjects[11]);
+	Enemy* hero = static_cast<Enemy*>(gameObjects[12]);
 	
 
 	// gameObjects[0] = player
@@ -208,6 +210,7 @@ void Game::doTurn() {
 		gameObjects[9]->setActive(false);
 		gameObjects[10]->setActive(false);
 		gameObjects[11]->setActive(false);
+		gameObjects[12]->setActive(false);
 	}
 	else if (InTown == true)
 	{
@@ -223,6 +226,7 @@ void Game::doTurn() {
 			gameObjects[9]->setActive(false);
 			gameObjects[10]->setActive(false);
 			gameObjects[11]->setActive(false);
+			gameObjects[12]->setActive(false);
 		}
 		else {
 			gameObjects[0]->setActive(true);
@@ -235,8 +239,13 @@ void Game::doTurn() {
 			gameObjects[9]->setActive(false);
 			gameObjects[10]->setActive(false);
 			gameObjects[11]->setActive(false);
+			gameObjects[12]->setActive(false);
 
 			villager1->dialogue = TSvillagersAfterSpeech;
+			villager2->dialogue = TSvillagersAfterSpeech;
+			villager3->dialogue = TSvillagersAfterSpeech;
+			villager4->dialogue = TSvillagersAfterSpeech;
+			villager5->dialogue = TSvillagersAfterSpeech;
 			gameObjects[2]->setPosition(45, 0);
 			gameObjects[3]->setPosition(45, 1);
 			gameObjects[4]->setPosition(45, 2);
@@ -258,6 +267,7 @@ void Game::doTurn() {
 		gameObjects[9]->setActive(true);
 		gameObjects[10]->setActive(true);
 		gameObjects[11]->setActive(false);
+		gameObjects[12]->setActive(false);
 	}
 	else if (InHarbour == true)
 	{
@@ -272,6 +282,7 @@ void Game::doTurn() {
 		gameObjects[9]->setActive(false);
 		gameObjects[10]->setActive(false);
 		gameObjects[11]->setActive(true);
+		gameObjects[12]->setActive(false);
 	}
 	else if (InOusideCave == true)
 	{
@@ -286,6 +297,7 @@ void Game::doTurn() {
 		gameObjects[9]->setActive(false);
 		gameObjects[10]->setActive(false);
 		gameObjects[11]->setActive(false);
+		gameObjects[12]->setActive(false);
 	}
 	else if (InInsideCave == true)
 	{
@@ -300,6 +312,7 @@ void Game::doTurn() {
 		gameObjects[9]->setActive(false);
 		gameObjects[10]->setActive(false);
 		gameObjects[11]->setActive(false);
+		gameObjects[12]->setActive(true);
 	}
 
 
@@ -439,13 +452,13 @@ void Game::doTurn() {
 			std::cout << "Is someone being attacked?" << std::endl;
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 			std::cout << "I got to go help them!" << std::endl << std::endl;
-			if (gameObjects[0]->getY() == gameObjects[9]->getY() && (gameObjects[0]->getX() == gameObjects[9]->getX() + 1 || gameObjects[0]->getX() == gameObjects[9]->getX() - 1)) {
+			if (gameObjects[0]->getY() == gameObjects[10]->getY() && (gameObjects[0]->getX() == gameObjects[10]->getX() + 1 || gameObjects[0]->getX() == gameObjects[10]->getX() - 1)) {
 				std::cout << "Press SPACE to interact with the kid" << std::endl;
 				if (player->interactionGet()) {
 					kid->NPCtalk();
 				}
 			}
-			else if (gameObjects[0]->getX() == gameObjects[9]->getX() && (gameObjects[0]->getY() == gameObjects[9]->getY() + 1 || gameObjects[0]->getY() == gameObjects[9]->getY() - 1)) {
+			else if (gameObjects[0]->getX() == gameObjects[10]->getX() && (gameObjects[0]->getY() == gameObjects[10]->getY() + 1 || gameObjects[0]->getY() == gameObjects[10]->getY() - 1)) {
 				std::cout << "Press SPACE to interact with the kid" << std::endl;
 				if (player->interactionGet()) {
 					kid->NPCtalk();
@@ -547,12 +560,12 @@ void Game::doTurn() {
 
 
 	if (player != nullptr) {
-		player->move(gameObjects, 12);
+		player->move(gameObjects, 13);
 	}
 
 
 	// Move enemies
-	for (int i = 1; i < 12; ++i) {
+	for (int i = 1; i < 13; ++i) {
 		if (gameObjects[i] != nullptr && player != nullptr) {
 			Enemy1* enemy1 = static_cast<Enemy1*>(gameObjects[i]);
 			// capture player's position before any possible deletion later
@@ -563,7 +576,7 @@ void Game::doTurn() {
 	}
 
 	// Check collisions
-	for (int i = 1; i < 12; ++i) {
+	for (int i = 1; i < 13; ++i) {
 		if (gameObjects[i] != nullptr && player != nullptr) {
 			if (gameObjects[i]->getActive()) {
 				if (i != 1 && i != 8) {
