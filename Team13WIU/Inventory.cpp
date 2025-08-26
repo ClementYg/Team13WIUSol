@@ -10,14 +10,12 @@ void Inventory::showInventory()
 	while (!exitInventory) {
 		printInventory();
 
-		std::cout << "What do you wish to do with your backpack?\n" << "Press X to close your Bag.\nPress C to select an item.\n\n";
+		std::cout << "What do you wish to do with your backpack?\n" << "Press any button to close your Bag.\nPress C to select an item.\n\n";
 		char userChoice = _getch();
-		if (userChoice == 'X' || userChoice == 'x') {
-			exitInventory = true;
-		}
-		else if (userChoice == 'C' || userChoice == 'c') {
+		if (userChoice == 'C' || userChoice == 'c') {
 			selectItem();
 		}
+		else { exitInventory = true; }
 	}
 }
 

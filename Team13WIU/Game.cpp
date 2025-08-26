@@ -5,6 +5,7 @@
 #include "Merchant.h"
 #include "InnKeeper.h"
 #include "Map.h"
+#include <conio.h>
 #include <chrono>
 #include <thread>
 #include <iostream>
@@ -122,21 +123,29 @@ void Game::initGame() {
 	gameObjects[2] = new Enemy1("Bear", 2, 30, 'B');
 	gameObjects[3] = new InnKeeper("Inn Keeper", 0, 39, 'I', InnKeeperSpeech);
 
-	//Merchant* john = static_cast<Merchant*>(gameObjects[1]);
+	Merchant* john = static_cast<Merchant*>(gameObjects[1]);
+	Player* player = static_cast<Player*>(gameObjects[0]);
 
-	//Inventory playerInv;
+	Inventory* playerInv = player->getInv();
 
-	//Item* test1 = Item::create("Sword", Item::FIRE_SWORD, 10, 3);
-	//Item* test2 = Item::create("Chestplate", Item::WOOD_CHEST, 10, 1);
+	//ITEM CREATION AREA
+	Item* FireSword = Item::create("Fire Sword", Item::FIRE_SWORD, 30, 1);
+	Item* WoodChest = Item::create("Wood_Chestplate", Item::WOOD_CHEST, 35, 1);
+	Item* WoodHelmet = Item::create("Wood_Helmet", Item::WOOD_HELM, 25, 1);
+	Item* WoodLeggings = Item::create("Wood_Leggings", Item::WOOD_CHEST, 25, 1);
 
-	//playerInv.setGold(500);
+	Item* potion = Item::create("HP_Potion", Item::HP_POT, 10, 5);
 
-	//john->addStock(test1);
-	//john->addStock(test2);
+	playerInv->setGold(500);
+	FireSword->addDesc("A blade forged from the depths of the underground\n with molten iron at its peak. +10 DMG.");
 
-	//john->sellStock(0, playerInv, 1);
 
-	//	playerInv.requestInventory();
+	john->addStock(FireSword);
+	john->addStock(WoodChest);
+	john->addStock(WoodHelmet);
+	john->addStock(WoodLeggings);
+	john->addStock(potion);
+
 
 }
 
@@ -188,6 +197,8 @@ void Game::doTurn() {
 	Player* player = static_cast<Player*>(gameObjects[0]);
 	Merchant* merchant = static_cast<Merchant*>(gameObjects[1]);
 	InnKeeper* innkeeper = static_cast<InnKeeper*>(gameObjects[3]);
+
+	Inventory* playerInv = player->getInv();
 
 	// if player go right of the Inn, exit to TS
 	if (InInn == true && gameObjects[0]->getX() > 47)
@@ -318,12 +329,17 @@ void Game::doTurn() {
 				std::cout << "Press SPACE to talk to the travelling merchant" << std::endl;
 				if (player->movingGet()) {
 					merchant->NPCtalk();
-					std::cout << "Do you want to buy anything from him? (Y/N): ";
-					std::cin >> Isbuy;
-					if (Isbuy == 'Y') {
+					std::cout << "Do you want to buy anything from him? (Y/N): \n";
+					Isbuy = _getch();
+					if (Isbuy == 'y' || Isbuy == 'Y') {
 						std::cout << "\033[1;32m" << merchant->name << ":" << "\033[0m";
-						merchant->typeLine("	1. Sword\n	2. Sheild\n	3. Potion", 1);
-					}
+						std::cout << '\n';
+						merchant->showStock();
+						std::cout << "Which item do you wish to purchase? Enter the ID\n";
+						int itemID = _getch() - 48;
+						std::cout << "How much of this item would you want?\n";
+						int quantity = _getch() - 48;
+						merchant->sellStock(itemID, *playerInv, quantity);					}
 					else
 					{
 						std::cout << "\033[1;32m" << merchant->name << ": " << "\033[0m";
@@ -455,10 +471,10 @@ void Game::doTurn() {
 	std::cout.flush();
 }
 
-void Game::clearDialogue() {
-	for (int i = 0; i < 4; i++) {
+void Game::clearDialogue() { // clears after 22st line which is where dialogue is at 
+	for (int i = 0; i < 100; i++) {//clear for 100 lines
 		std::cout << "\033[" << (22 + i) << ";1H";   // move to each line start
 		std::cout << std::string(98, ' '); // clear each line and replace with space
 	}
-	std::cout.flush(); 
+	std::cout.flush();
 }
