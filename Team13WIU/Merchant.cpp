@@ -79,6 +79,6 @@ void Merchant::sellStock(int ID, Inventory& playerInv, int qty = 1) // What item
 void Merchant::showStock() {
 	std::cout << "Stock:\n";
 	for (int i = 0; i < stock.size(); i++) {
-		std::cout << "ID " << stock[i]->getItemID() << " | " << stock[i]->getItemName() << "| Quantity: " << stock[i]->getQuantity() << '\n';
+		std::cout << "ID " << stock[i]->getItemID() << " | " << stock[i]->getItemName() << " | Price: " << stock[i]->getPrice() << " | Quantity: " << stock[i]->getQuantity() << '\n';
 	}
 }
