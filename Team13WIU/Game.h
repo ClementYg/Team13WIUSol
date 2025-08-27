@@ -6,7 +6,7 @@ class Game
 private:
 	Entity* gameObjects[10];
 	Position playerPos;
-	Puzzle* RiverPuzzle;
+	//Puzzle* RiverPuzzle;
 
 	bool InInn;
 	bool InTown;
@@ -16,6 +16,7 @@ private:
 	bool InInsideCave;
 	bool NarraInn;
 	bool NarraTown;
+	bool puzzleActive;
 	
 
 public:

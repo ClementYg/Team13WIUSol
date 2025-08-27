@@ -12,6 +12,7 @@ Player::Player(std::string n, int y, int x, char s) : Morale(43) /*: Entity(row,
 	symbol = s;
 	interaction = false;
 	moveinter = false;
+	inPuzzle = false;
 }
 
 Player::~Player() {
@@ -34,10 +35,20 @@ void Player::move(Entity* gameObjects[], int entityCount) {
 	else if (input == 'x') Morale++;
 	else if (input == ' ') interaction = true, moveinter = true;
 	else return;//go back to game.cpp (forefeit turn)
+	if (inPuzzle)
+	{
 
-	if (newRow >= 0 && newRow < 5 && newCol >= 0 && newCol < 49) {
-		pos.x = newCol;
-		pos.y = newRow;
+		if (newRow >= 0 && newRow < 20 && newCol >= 0 && newCol < 49) {
+			pos.x = newCol;
+			pos.y = newRow;
+		}
+	}
+	else 
+	{
+		if (newRow >= 0 && newRow < 5 && newCol >= 0 && newCol < 49) {
+			pos.x = newCol;
+			pos.y = newRow;
+		}
 	}
 }
 
@@ -59,4 +70,8 @@ bool Player::interactionGet()
 bool Player::movingGet()
 {
 	return moveinter;
+}
+void Player::puzzleSet(int newPuzzle)
+{
+	inPuzzle = newPuzzle;
 }

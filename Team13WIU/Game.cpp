@@ -11,8 +11,6 @@
 #include <cstdlib>
 using namespace std;
 
-
-
 Game::Game()
 {
 	InInn = true;
@@ -23,6 +21,7 @@ Game::Game()
 	InInsideCave = false;
 	NarraInn = true;
 	NarraTown = true;
+	puzzleActive = false;
 	
 	for (int i = 0; i < 4; ++i)
 	{
@@ -134,6 +133,7 @@ void Game::initGame() {
 	gameObjects[5]->setPosition(20, 0);
 	gameObjects[6]->setPosition(30, 2);
 
+	/*RiverPuzzle = new Puzzle(gameObjects[0]);*/
 	//Merchant* john = static_cast<Merchant*>(gameObjects[1]);
 
 	//Inventory playerInv;
@@ -149,16 +149,12 @@ void Game::initGame() {
 	//john->sellStock(0, playerInv, 1);
 
 	//	playerInv.requestInventory();
-
-
-	playerInv.addItem(test2, 2);
-	playerInv.addItem(test3, 1);
-	playerInv.addItem(test4, 2);
-	playerInv.addItem(test5, 4);
-
 }
 
 void Game::drawWorld() {
+
+
+	//RiverPuzzle->Print();
 
 	char grid[5][49];
 	for (int r = 0; r < 5; ++r)
@@ -179,10 +175,10 @@ void Game::drawWorld() {
 		}
 	}
 
-	//for (int i = 0; i < 98; i++) {
-	//	cout << '-';
-	//	if (i == 97) cout << "\n"; // New line after the border
-	//}
+	for (int i = 0; i < 98; i++) {
+		cout << '-';
+		if (i == 97) cout << "\n"; // New line after the border
+	}
 
 	for (int r = 0; r < 5; ++r) {
 		for (int c = 0; c < 49; ++c) cout << " " << grid[r][c];
@@ -197,10 +193,10 @@ void Game::drawWorld() {
 
 void Game::doTurn() {
 
-	Player* player = static_cast<Player*>(gameObjects[0]);
-	RiverPuzzle->Print();
+	char Isbuy;
 
-	
+	Player* player = static_cast<Player*>(gameObjects[0]);
+
 	NPC* innkeeper = static_cast<NPC*>(gameObjects[1]);
 	NPC* villager1 = static_cast<NPC*>(gameObjects[2]);
 	NPC* villager2 = static_cast<NPC*>(gameObjects[3]);
@@ -209,8 +205,21 @@ void Game::doTurn() {
 	NPC* villager5 = static_cast<NPC*>(gameObjects[6]);
 	Merchant* merchant = static_cast<Merchant*>(gameObjects[7]);
 	NPC* kid = static_cast<NPC*>(gameObjects[9]);
-	
 
+	Map mapObj;
+	
+	
+	std::cout << '|';
+	for (int i = 0;i < player->getMorale();i++)
+	{
+		std::cout << '#';
+	}
+	for (int i = player->getMorale();i < 96;i++)
+	{
+		std::cout << ' ';
+	}
+	std::cout << '|'<<endl;
+	
 	// gameObjects[0] = player
 	// gameObjects[7] = Merchant (john)
 	// gameObjects[8] = Enemy1 (bear)
@@ -240,15 +249,31 @@ void Game::doTurn() {
 	else if (InForest == true && gameObjects[0]->getX() < 1)
 	{
 		InForest = false;
-		InHarbour = true;
+		puzzleActive = true;
 		gameObjects[0]->setPosition(47, gameObjects[0]->getY()); // Set player position in town
+		player->puzzleSet(true);
 	}
 	// if player go right of the Harbour, go back to Forest
+	else if (puzzleActive == true && gameObjects[0]->getX() < 1)
+	{
+		puzzleActive = false;
+		InHarbour = true;
+		gameObjects[0]->setPosition(25, 0);
+		player->puzzleSet(false);
+	}
+	else if (puzzleActive == true && gameObjects[0]->getX() > 47)
+	{
+		puzzleActive = false;
+		InForest = true;
+		gameObjects[0]->setPosition(25, 0);
+		player->puzzleSet(false);
+	}
 	else if (InHarbour == true && gameObjects[0]->getX() > 47)
 	{
 		InHarbour = false;
-		InForest = true;
+		puzzleActive = true;
 		gameObjects[0]->setPosition(1, gameObjects[0]->getY()); // Set player position in town
+		player->puzzleSet(true);
 	}
 	//if player go left of Inside cave, go back to outside of the cave
 	else if (InInsideCave == true && gameObjects[0]->getX() < 1)
@@ -257,7 +282,6 @@ void Game::doTurn() {
 		InOusideCave = true;
 		gameObjects[0]->setPosition(25, 0);
 	}
-
 
 	if (InInn == true)
 	{
@@ -331,7 +355,6 @@ void Game::doTurn() {
 		gameObjects[8]->setActive(false);
 		gameObjects[9]->setActive(false);
 	}
-
 
 	drawWorld();
 
@@ -546,6 +569,11 @@ void Game::doTurn() {
 	int oldX = player->getX();
 	int oldY = player->getY();
 
+	if (player != nullptr) {
+		player->move(gameObjects, 10);
+	}
+	system("cls");
+
 
 	//if (gameObjects[0] != nullptr && gameObjects[1] != nullptr) {
 	//	if (gameObjects[1]->getActive()) {
@@ -594,9 +622,7 @@ void Game::doTurn() {
 
 
 
-	if (player != nullptr) {
-		player->move(gameObjects, 10);
-	}
+
 
 
 	// Move enemies
