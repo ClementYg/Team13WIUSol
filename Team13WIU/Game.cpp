@@ -578,6 +578,9 @@ void Game::doTurn() {
 					InHarbour = false;
 					InOusideCave = true;
 					gameObjects[0]->setPosition(1, 2);
+					mapObj.clearScreen();
+					std::cout.flush();
+					mapObj.ShipCutscene(); 
 					return;
 				}
 			}
