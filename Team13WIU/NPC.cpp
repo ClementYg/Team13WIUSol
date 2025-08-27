@@ -44,7 +44,7 @@ void NPC::NPCtalk()
 		// make name blue
 		std::cout << "\033[36m" << name << ": " << "\033[0m";
 		typeLine(line, 1);
-		std::this_thread::sleep_for(std::chrono::milliseconds(300));  // wait for 300ms before printing next line
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));  // wait for 300ms before printing next line
 	}
 	// one blank line after every line finish, more neat
 	std::cout << std::endl;
