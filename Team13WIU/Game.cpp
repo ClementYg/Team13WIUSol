@@ -34,14 +34,14 @@ Game::Game()
 	BKAlive = true;
 	BearAlive = true;
 
-	for (int i = 0; i < 13; ++i)
+	for (int i = 0; i < 24; ++i)
 	{
 		gameObjects[i] = nullptr;
 	}
 }
 
 Game::~Game() {
-	for (int i = 0; i < 13; ++i) {
+	for (int i = 0; i < 24; ++i) {
 		delete gameObjects[i];
 		gameObjects[i] = nullptr;
 	}
@@ -60,25 +60,38 @@ void Game::GtypeLine(const std::string& text, int delay)
 void Game::initGame() {
 
 	gameObjects[0] = new Player("MC", 0, 8, 'P');
-	gameObjects[1] = new NPC("Inn Keeper", 0, 39, 'I', InnKeeperSpeech);
+	gameObjects[1] = new NPC("Inn Keeper", 0, 39, '!', InnKeeperSpeech);
 	for (int i = 2;i < 7;i++) {
 		gameObjects[i] = new NPC("Villager", 0, 0, 'V', TSvillagersBeforeSpeech);
 	}
 	gameObjects[7] = new Enemy("Brave Knight", 2, 40, 'K', TSBraveKnightSpeech);
-	// 7 should be brave knight instead of Merchant
-	gameObjects[8] = new Merchant("Travelling Merchant", 2, 40, 'M', johnSpeech);
-	gameObjects[9] = new Enemy("Bear", 2, 17, 'B', BearSpeech);
-	gameObjects[10] = new NPC("Kid", 2, 15, 'k', KidSpeech);
-	gameObjects[11] = new NPC("Villager", 4, 40, 'V', HvillagersSpeech);
-	gameObjects[12] = new Enemy("Hero", 2, 5, 'H');
+	gameObjects[8] = new Enemy("Bear", 2, 17, 'B', BearSpeech);
+	gameObjects[9] = new NPC("Kid", 2, 15, 'k', KidSpeech);
+	gameObjects[10] = new NPC("Villager", 4, 40, 'V', HvillagersSpeech);
+	gameObjects[11] = new Merchant("Travelling Merchant", 0, 28, '!', MerchantSpeech);
+	gameObjects[12] = new NPC("Old Man", 0, 10, 'M', OldManSpeech);
+	gameObjects[13] = new Enemy("Hero", 2, 5, 'H');
+	for (int i = 14; i < 24; i++) {
+		gameObjects[i] = new NPC("Interaction", 1, 1, '!');
+	}
 
 	gameObjects[2]->setPosition(23, 4);
 	gameObjects[3]->setPosition(8, 1);
 	gameObjects[4]->setPosition(13, 4);
 	gameObjects[5]->setPosition(20, 0);
 	gameObjects[6]->setPosition(30, 2);
+	gameObjects[14]->setPosition(17, 0);
+	gameObjects[15]->setPosition(9, 0);
+	gameObjects[16]->setPosition(35, 0);
+	gameObjects[17]->setPosition(23, 0);
+	gameObjects[18]->setPosition(37, 0);
+	gameObjects[19]->setPosition(10, 0);
+	gameObjects[20]->setPosition(19, 4);
+	gameObjects[21]->setPosition(25, 0);
+	gameObjects[22]->setPosition(25, 4);
+	gameObjects[23]->setPosition(39, 0);
 
-	Merchant* john = static_cast<Merchant*>(gameObjects[8]);
+	Merchant* john = static_cast<Merchant*>(gameObjects[11]);
 	Player* player = static_cast<Player*>(gameObjects[0]);
 
 	Inventory* playerInv = player->getInv();
@@ -111,15 +124,13 @@ void Game::drawWorld() {
 		for (int c = 0; c < 49; ++c)
 			grid[r][c] = ' ';
 
-	for (int i = 0; i < 13; ++i) {
+	for (int i = 23; i > -1; --i) {
 		if (gameObjects[i] != nullptr) {
 			if (gameObjects[i]->getActive()) {
-				if (i != 1 && i != 8) {
-					int r = gameObjects[i]->getY();
-					int c = gameObjects[i]->getX();
-					if (r >= 0 && r < 5 && c >= 0 && c < 49) {
-						grid[r][c] = gameObjects[i]->getSymbol();
-					}
+				int r = gameObjects[i]->getY();
+				int c = gameObjects[i]->getX();
+				if (r >= 0 && r < 5 && c >= 0 && c < 49) {
+					grid[r][c] = gameObjects[i]->getSymbol();
 				}
 			}
 		}
@@ -158,19 +169,17 @@ void Game::doTurn() {
 	NPC* villager4 = static_cast<NPC*>(gameObjects[5]);
 	NPC* villager5 = static_cast<NPC*>(gameObjects[6]);
 	Enemy* braveknight = static_cast<Enemy*>(gameObjects[7]);
-	Merchant* merchant = static_cast<Merchant*>(gameObjects[8]);
-	Enemy* bear = static_cast<Enemy*>(gameObjects[9]);
-	NPC* kid = static_cast<NPC*>(gameObjects[10]);
-	NPC* harbourvillager = static_cast<NPC*>(gameObjects[11]);
-	Enemy* hero = static_cast<Enemy*>(gameObjects[12]);
+	Enemy* bear = static_cast<Enemy*>(gameObjects[8]);
+	NPC* kid = static_cast<NPC*>(gameObjects[9]);
+	NPC* harbourvillager = static_cast<NPC*>(gameObjects[10]);
+	Merchant* merchant = static_cast<Merchant*>(gameObjects[11]);
+	NPC* oldman = static_cast<NPC*>(gameObjects[12]);
+	Enemy* hero = static_cast<Enemy*>(gameObjects[13]);
 
 
 	Inventory* playerInv = player->getInv();
 
-	// gameObjects[0] = player
-	// gameObjects[7] = Merchant (john)
-	// gameObjects[8] = Enemy1 (bear)
-	// 
+
 	// if player go right of the Inn, exit to TS
 	if (InInn == true && gameObjects[0]->getX() > 47)
 	{
@@ -218,46 +227,43 @@ void Game::doTurn() {
 	if (InInn == true)
 	{
 		mapObj.Inn();
-		gameObjects[0]->setActive(true);
-		gameObjects[1]->setActive(false);
-		for (int i = 2;i < 7;i++) {
-			gameObjects[i]->setActive(false);
+		for (int i = 0;i < 24;i++) {
+			if (i == 0 || i == 1 || i == 14) {
+				gameObjects[i]->setActive(true);
+			}
+			else {
+				gameObjects[i]->setActive(false);
+			}
 		}
-		gameObjects[7]->setActive(false);
-		gameObjects[8]->setActive(false);
-		gameObjects[9]->setActive(false);
-		gameObjects[10]->setActive(false);
-		gameObjects[11]->setActive(false);
-		gameObjects[12]->setActive(false);
 	}
 	else if (InTown == true)
 	{
 		mapObj.townMap();
 		if (BKAlive) {
-			gameObjects[0]->setActive(true);
-			gameObjects[1]->setActive(false);
+			for (int i = 0;i < 24;i++) {
+				if (i == 0 || i == 7 || i == 15 || i == 16) {
+					gameObjects[i]->setActive(true);
+				}
+				else {
+					gameObjects[i]->setActive(false);
+				}
+			}
 			for (int i = 2;i < 7;i++) {
 				gameObjects[i]->setActive(true);
 			}
-			gameObjects[7]->setActive(true);
-			gameObjects[8]->setActive(false);
-			gameObjects[9]->setActive(false);
-			gameObjects[10]->setActive(false);
-			gameObjects[11]->setActive(false);
-			gameObjects[12]->setActive(false);
 		}
 		else {
-			gameObjects[0]->setActive(true);
-			gameObjects[1]->setActive(false);
+			for (int i = 0;i < 24;i++) {
+				if (i == 0 || i == 15 || i == 16) {
+					gameObjects[i]->setActive(true);
+				}
+				else {
+					gameObjects[i]->setActive(false);
+				}
+			}
 			for (int i = 2;i < 7;i++) {
 				gameObjects[i]->setActive(true);
 			}
-			gameObjects[7]->setActive(false);
-			gameObjects[8]->setActive(false);
-			gameObjects[9]->setActive(false);
-			gameObjects[10]->setActive(false);
-			gameObjects[11]->setActive(false);
-			gameObjects[12]->setActive(false);
 
 			villager1->dialogue = TSvillagersAfterSpeech;
 			villager2->dialogue = TSvillagersAfterSpeech;
@@ -270,73 +276,65 @@ void Game::doTurn() {
 			gameObjects[5]->setPosition(45, 3);
 			gameObjects[6]->setPosition(45, 4);
 		}
-
 	}
 	else if (InForest == true)
 	{
 		mapObj.ForestMap();
-		gameObjects[0]->setActive(true);
-		gameObjects[1]->setActive(false);
-		for (int i = 2;i < 7;i++) {
-			gameObjects[i]->setActive(false);
-		}
-		gameObjects[7]->setActive(false);
-		gameObjects[8]->setActive(false);
 		if (BearAlive) {
-			gameObjects[9]->setActive(true);
+			for (int i = 0;i < 24;i++) {
+				if (i == 0 || i == 8 || i == 9 || i == 17) {
+					gameObjects[i]->setActive(true);
+				}
+				else {
+					gameObjects[i]->setActive(false);
+				}
+			}
 		}
 		else {
-			gameObjects[9]->setActive(false);
+			for (int i = 0;i < 24;i++) {
+				if (i == 0 || i == 9 || i == 17) {
+					gameObjects[i]->setActive(true);
+				}
+				else {
+					gameObjects[i]->setActive(false);
+				}
+			}
 		}
-		gameObjects[10]->setActive(true);
-		gameObjects[11]->setActive(false);
-		gameObjects[12]->setActive(false);
 	}
 	else if (InHarbour == true)
 	{
 		mapObj.HarbourMap();
-		gameObjects[0]->setActive(true);
-		gameObjects[1]->setActive(false);
-		for (int i = 2;i < 7;i++) {
-			gameObjects[i]->setActive(false);
+		for (int i = 0;i < 24;i++) {
+			if (i == 0 || i == 10 || i == 11 || i == 18 || i == 19 || i == 20) {
+				gameObjects[i]->setActive(true);
+			}
+			else {
+				gameObjects[i]->setActive(false);
+			}
 		}
-		gameObjects[7]->setActive(false);
-		gameObjects[8]->setActive(false);
-		gameObjects[9]->setActive(false);
-		gameObjects[10]->setActive(false);
-		gameObjects[11]->setActive(true);
-		gameObjects[12]->setActive(false);
 	}
 	else if (InOusideCave == true)
 	{
 		mapObj.EntranceCaveMap();
-		gameObjects[0]->setActive(true);
-		gameObjects[1]->setActive(false);
-		for (int i = 2;i < 7;i++) {
-			gameObjects[i]->setActive(false);
+		for (int i = 0;i < 24;i++) {
+			if (i == 0 || i == 12 || i == 21 || i == 22 || i == 23) {
+				gameObjects[i]->setActive(true);
+			}
+			else {
+				gameObjects[i]->setActive(false);
+			}
 		}
-		gameObjects[7]->setActive(false);
-		gameObjects[8]->setActive(false);
-		gameObjects[9]->setActive(false);
-		gameObjects[10]->setActive(false);
-		gameObjects[11]->setActive(false);
-		gameObjects[12]->setActive(false);
 	}
 	else if (InInsideCave == true)
 	{
 		mapObj.InnerCaveMap();
-		gameObjects[0]->setActive(true);
-		gameObjects[1]->setActive(false);
-		for (int i = 2;i < 7;i++) {
-			gameObjects[i]->setActive(false);
-		}
-		gameObjects[7]->setActive(false);
-		gameObjects[8]->setActive(false);
-		gameObjects[9]->setActive(false);
-		gameObjects[10]->setActive(false);
-		gameObjects[11]->setActive(false);
-		if (gameObjects[0]->getX() > 27) {
-			gameObjects[12]->setActive(true);
+		for (int i = 0;i < 24;i++) {
+			if (i == 0 || (i == 13 && gameObjects[0]->getX() > 27)) {
+				gameObjects[i]->setActive(true);
+			}
+			else {
+				gameObjects[i]->setActive(false);
+			}
 		}
 	}
 
@@ -495,7 +493,7 @@ void Game::doTurn() {
 					GtypeLine("This is an ordinary rock. However, there's something ominous about it that keeps your guard up.", 1);
 				}
 			}
-			if (gameObjects[0]->getY() == gameObjects[9]->getY() && (gameObjects[0]->getX() == gameObjects[9]->getX() + 1 || gameObjects[0]->getX() == gameObjects[9]->getX() - 1)) {
+			if (gameObjects[0]->getY() == gameObjects[8]->getY() && (gameObjects[0]->getX() == gameObjects[8]->getX() + 1 || gameObjects[0]->getX() == gameObjects[8]->getX() - 1)) {
 				if (BearAlive) {
 					bear->NPCtalk();
 					std::cout << "Go into Combat scene" << std::endl;
@@ -503,7 +501,7 @@ void Game::doTurn() {
 					return;
 				}
 			}
-			else if (gameObjects[0]->getX() == gameObjects[9]->getX() && (gameObjects[0]->getY() == gameObjects[9]->getY() + 1 || gameObjects[0]->getY() == gameObjects[9]->getY() - 1)) {
+			else if (gameObjects[0]->getX() == gameObjects[8]->getX() && (gameObjects[0]->getY() == gameObjects[8]->getY() + 1 || gameObjects[0]->getY() == gameObjects[8]->getY() - 1)) {
 				if (BearAlive) {
 					bear->NPCtalk();
 					std::cout << "Go into Combat scene" << std::endl;
@@ -511,13 +509,13 @@ void Game::doTurn() {
 					return;
 				}
 			}
-			if (gameObjects[0]->getY() == gameObjects[10]->getY() && (gameObjects[0]->getX() == gameObjects[10]->getX() + 1 || gameObjects[0]->getX() == gameObjects[10]->getX() - 1) && BearAlive == false) {
+			if (gameObjects[0]->getY() == gameObjects[9]->getY() && (gameObjects[0]->getX() == gameObjects[9]->getX() + 1 || gameObjects[0]->getX() == gameObjects[9]->getX() - 1) && BearAlive == false) {
 				std::cout << "Press SPACE to interact with the kid" << std::endl;
 				if (player->interactionGet()) {
 					kid->NPCtalk();
 				}
 			}
-			else if (gameObjects[0]->getX() == gameObjects[10]->getX() && (gameObjects[0]->getY() == gameObjects[10]->getY() + 1 || gameObjects[0]->getY() == gameObjects[10]->getY() - 1) && BearAlive == false) {
+			else if (gameObjects[0]->getX() == gameObjects[9]->getX() && (gameObjects[0]->getY() == gameObjects[9]->getY() + 1 || gameObjects[0]->getY() == gameObjects[9]->getY() - 1) && BearAlive == false) {
 				std::cout << "Press SPACE to interact with the kid" << std::endl;
 				if (player->interactionGet()) {
 					kid->NPCtalk();
@@ -583,13 +581,13 @@ void Game::doTurn() {
 					return;
 				}
 			}
-			else if (gameObjects[0]->getX() == gameObjects[11]->getX() && (gameObjects[0]->getY() == gameObjects[11]->getY() + 1 || gameObjects[0]->getY() == gameObjects[11]->getY() - 1)) {
+			else if (gameObjects[0]->getX() == gameObjects[10]->getX() && (gameObjects[0]->getY() == gameObjects[10]->getY() + 1 || gameObjects[0]->getY() == gameObjects[10]->getY() - 1)) {
 				std::cout << "Press SPACE to interact with the villager" << std::endl;
 				if (player->interactionGet()) {
 					harbourvillager->NPCtalk();
 				}
 			}
-			else if (gameObjects[0]->getY() == gameObjects[11]->getY() && (gameObjects[0]->getX() == gameObjects[11]->getX() + 1 || gameObjects[0]->getX() == gameObjects[11]->getX() - 1)) {
+			else if (gameObjects[0]->getY() == gameObjects[10]->getY() && (gameObjects[0]->getX() == gameObjects[10]->getX() + 1 || gameObjects[0]->getX() == gameObjects[10]->getX() - 1)) {
 				std::cout << "Press SPACE to interact with the villager" << std::endl;
 				if (player->interactionGet()) {
 					harbourvillager->NPCtalk();
@@ -654,12 +652,12 @@ void Game::doTurn() {
 
 
 	if (player != nullptr) {
-		player->move(gameObjects, 13);
+		player->move(gameObjects, 23);
 	}
 
 
 	// Move enemies
-	for (int i = 1; i < 13; ++i) {
+	for (int i = 1; i < 23; ++i) {
 		if (gameObjects[i] != nullptr && player != nullptr) {
 			Enemy1* enemy1 = static_cast<Enemy1*>(gameObjects[i]);
 			// capture player's position before any possible deletion later
@@ -670,10 +668,10 @@ void Game::doTurn() {
 	}
 
 	// Check collisions
-	for (int i = 1; i < 13; ++i) {
+	for (int i = 1; i < 14; ++i) {
 		if (gameObjects[i] != nullptr && player != nullptr) {
 			if (gameObjects[i]->getActive()) {
-				if (i != 1 && i != 8) {
+				if (i != 1 && i != 11) {
 					if (gameObjects[i]->getX() == (player->getX()) && gameObjects[i]->getY() == (player->getY())) {
 						player->setPosition(oldX, oldY);
 						break;
