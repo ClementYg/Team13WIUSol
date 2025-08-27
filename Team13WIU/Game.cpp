@@ -302,6 +302,7 @@ void Game::doTurn() {
 			}
 		}
 	}
+	  
 	else if (InHarbour == true)
 	{
 		mapObj.HarbourMap();
@@ -506,7 +507,7 @@ void Game::doTurn() {
 				if (BearAlive) {
 					bear->NPCtalk();
 					std::cout << "Go into Combat scene" << std::endl;
-
+					//Added Bear Attack
 				   battleArenaBearForest();
 
 					BearAlive = false;
@@ -517,7 +518,7 @@ void Game::doTurn() {
 				if (BearAlive) {
 					bear->NPCtalk();
 					std::cout << "Go into Combat scene" << std::endl;
-
+					//Added Bear Attack
 					battleArenaBearForest();
 
 					BearAlive = false;
@@ -593,6 +594,8 @@ void Game::doTurn() {
 					InHarbour = false;
 					InOusideCave = true;
 					gameObjects[0]->setPosition(1, 2);
+					system("cls");
+					mapObj.ShipCutscene(); 
 					return;
 				}
 			}

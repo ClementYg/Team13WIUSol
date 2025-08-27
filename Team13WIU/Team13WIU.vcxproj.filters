@@ -57,19 +57,10 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Armour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BattleArena.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TownSquareBurning.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GrowingUpCutscene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BearBattle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -81,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Merchant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Armour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Consumable.h">
@@ -114,18 +108,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BattleArena.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TownSquareBurning.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GrowingUpCutscene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BearBattle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
