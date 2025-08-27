@@ -13,12 +13,6 @@ protected:
 	int quantity;
 	std::string name;
 public: 	
-	enum armourType {
-		WOOD_HELM,
-		WOOD_LEGGS,
-		WOOD_CHEST,
-		A_UNKNOWN
-	};
 	enum consumeType {
 		HP_POT,
 		MANA_POT,
@@ -55,7 +49,6 @@ public:
 
 	static Item* create(std::string name, consumeType consumableType = consumeType::C_UNKNOWN, int price = 0, int qty = 1);
 	static Item* create(std::string name, weaponType wType = weaponType::W_UNKNOWN, int price = 0, int qty = 1);
-	static Item* create(std::string name, armourType aType = armourType::A_UNKNOWN, int price = 0, int qty = 1);
 
 
 	//made static so that you can create specific item object outside of class

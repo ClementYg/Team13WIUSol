@@ -57,9 +57,6 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Armour.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NPC.h">
@@ -69,9 +66,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Merchant.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Armour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Consumable.h">
