@@ -26,6 +26,7 @@ Game::Game()
 	NarraHarbour = true;
 	NarraOutsideCave = true;
 	NarraInsideCave = true;
+	NarraInsideCave2 = true;
 	
 	for (int i = 0; i < 4; ++i)
 	{
@@ -456,7 +457,7 @@ void Game::doTurn() {
 		if (gameObjects[0]->getActive()) {
 			if (NarraForest) {
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				GtypeLine("Phew, that was close", 1);
+				GtypeLine("Phew, that was close.", 1);
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("Wait, what's happening over there?", 1);
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
@@ -555,7 +556,7 @@ void Game::doTurn() {
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 			GtypeLine("Or else I was as good as dead", 1);
 			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("This island is pretty big, let’s start finding the cave.", 1);
+			GtypeLine("This island is pretty big, let's start finding the cave.", 1);
 			NarraOutsideCave = false;
 			}
 			
@@ -568,11 +569,16 @@ void Game::doTurn() {
 					GtypeLine( "The view looks nice on this island, but it gives off an unsettling energy.", 1);
 				}
 			}
+			if (gameObjects[0]->getX() == 39 && gameObjects[0]->getY() == 0)
+			{
+				std::cout << "Press SPACE to interact" << std::endl;
+				if (player->interactionGet())
+				{
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("This rock has a person's name written on it. However, I can't make out the name as it has long faded.", 1);
+				}
+			}
 			if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 0) {
-				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				std::cout << "This must be the cave the villagers were talking about" << std::endl;
-				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				std::cout << "It looks eerily dangerous, but I have no choice." << std::endl << std::endl;
 				std::cout << "Press SPACE to enter the cave" << std::endl << std::endl;
 				if (player->movingGet()) {
 					InOusideCave = false;
@@ -586,19 +592,24 @@ void Game::doTurn() {
 	else if (gameObjects[0] != nullptr && InInsideCave == true) {
 		if (gameObjects[0]->getActive()) {
 			if (NarraInsideCave) {
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("Woah, this cave looks really big, I wonder where the hero might be.", 1);
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("Wait a second … is that what I think it is?", 1);
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("What is the demon altar doing here?", 1);
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("I remember using it back then, but I don't remember using it here.", 1);
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("I need to check it out to make sure it actually is the altar.", 1);
-			NarraInsideCave = false;
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("Woah, this cave looks really big, I wonder where the hero might be.", 1);
+				NarraInsideCave = false;
 			}
-			
+			if (gameObjects[0]->getX() == 10 && InInsideCave == true) {
+				if (NarraInsideCave2)
+				{
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("Wait a second ... is that what I think it is?", 1);
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("What is the demon altar doing here?", 1);
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("I remember using it back then, but I don't remember using it here.", 1);
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("I need to check it out to make sure it actually is the altar.", 1);
+					NarraInsideCave2 = false;
+				}
+			}
 		}
 	}
 

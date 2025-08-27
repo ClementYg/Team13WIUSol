@@ -18,6 +18,7 @@ private:
 	bool NarraHarbour;
 	bool NarraOutsideCave;
 	bool NarraInsideCave;
+	bool NarraInsideCave2;
 
 
 
