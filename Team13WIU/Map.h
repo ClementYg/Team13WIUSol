@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector> //added use of vector here as its more flexible/dynamic for adding row and column of map into a container
+#include <Windows.h>
 
 class Map
 {
@@ -18,14 +19,20 @@ public:
 		ASTERISK,
 		LETTERO,
 		CARET,
+		ATSIGN,
+		MORETHAN,
+		LESSTHAN,
 		SPACE
 	};
 
-	void townMap(); 
+	void townMap();
+	void ForestMap();
+	void HarbourMap();
+	void EntranceCaveMap();
+	void InnerCaveMap();
+	void Inn();
 
-	void printTMap();
-
-	void townGameArea(); 
+	void clearScreen();
 
 	Map();
 	~Map();

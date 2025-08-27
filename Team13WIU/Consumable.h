@@ -3,11 +3,17 @@
 
 class Consumable : public Item
 {
-private:
 public:
 	std::string getItemName();
 
-	Consumable(std::string n);
+	void useItem();
+
+	Consumable* duplicate();
+
+	Consumable(std::string n, consumeType, int, int);
 	virtual ~Consumable();
+private:
+	consumeType itemCType;
+	std::string name;
 };
 

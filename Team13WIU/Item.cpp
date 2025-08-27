@@ -1,7 +1,6 @@
 #include "Item.h"
 #include "Consumable.h"
 #include "Weapon.h"
-#include "Armour.h"
 #include <iostream>
 
 int Item::getItemID()
@@ -9,10 +8,24 @@ int Item::getItemID()
 	return itemID;
 }
 
+void Item::setItemID(int change)
+{
+	itemID = change; 
+}
+
+int Item::getPrice()
+{
+	return price;
+}
+
 bool Item::checkItemSelect()
 {
 	return isitemSelected;
 }
+
+int Item::getQuantity() { return quantity; }
+void Item::addQuantity(int change) { quantity += change; }
+void Item::setQuantity(int change) { quantity = change; }
 
 void Item::select(int selected) //if selected 1, means user wants to select. if selected 0, change item to not be selected
 {
@@ -27,43 +40,35 @@ std::string Item::getItemName() { return name; }
 std::string Item::getItemDesc() { return itemDesc; }
 
 void Item::addDesc(std::string description) {
-	 this->itemDesc = description;
+	this->itemDesc = description;
 }
 
 int Item::IDCounter = 0;
 
 Item::Item()
 {
+	price = 0;
+	quantity = 0;
 	isitemSelected = false;
 	itemID = IDCounter;
+	IDCounter++;
+	IDCounter %= 10; //Check if reach max ID already
 	std::cout << "A normal item created\n";
 }
 
-Item* Item::create(std::string name, Types itemtype) {
-	IDCounter++;
-	switch (itemtype) {
-	case CONSUMABLES:
-	{
-		return new Consumable(name); 
-		break;
-	}
-	case WEAPON:
-	{
-		return new Weapon(name);
-		break;
-	}
-	case ARMOUR:
-		return new Armour(name);
-		break;
+Item* Item::create(std::string name, consumeType consumableType, int price, int qty)
+{ //If no type is declared of Consumable, i.e Ite m is not consumable, then it will default to unknown
+	return new Consumable(name, consumableType, price, qty);
+}
 
-	default:
-		std::cout << "No identifiable item-type\n";
-	}
-
+Item* Item::create(std::string name, weaponType wType, int price, int qty) {
+	return new Weapon(name, wType, price, qty);
 }
 
 
 Item::~Item() {
 	std::cout << "item deleted\n";
 }
+
+void Item::useItem() {}
 

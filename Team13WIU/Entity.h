@@ -8,6 +8,7 @@ class Entity
 protected:
 	Position pos;
 	char symbol;
+	bool IsActive;
 
 public:
 	Entity();
@@ -16,7 +17,8 @@ public:
 	int getY() const;
 	void setPosition(int x, int y);
 	char getSymbol() const;
-	void setSymbol(char s);
+	bool getActive();
+	void setActive(bool);
 	virtual void move(Entity* gameObjects[], int size) = 0;
 };
 

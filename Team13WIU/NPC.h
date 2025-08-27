@@ -1,24 +1,19 @@
 #pragma once
 #include "Position.h"
+#include "Entity.h"
 #include <string>
 #include <vector>
 
-class NPC
+class NPC : public Entity
 {
-protected:
-	Position NPCspos;
-	
-	std::vector<std::string> dialogue;
-
 public:
 	std::string name;
-	NPC(std::string n, int x, int y, std::vector<std::string> lines = {});
-	virtual ~NPC();
-	void setX(int x);
-	void setY(int y);
-	int getX() const;
-	int getY() const;
+	std::vector<std::string> dialogue;
+	NPC(std::string n, int y, int x, char s,std::vector<std::string> lines = {});
+	~NPC();
+
 	void typeLine(const std::string& text, int delay);
+	void move(Entity* gameObjects[], int size);
 
 	virtual void NPCtalk();
 };

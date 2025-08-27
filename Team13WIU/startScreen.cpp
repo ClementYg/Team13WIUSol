@@ -1,6 +1,7 @@
 // startScreen.cpp
 #include "startScreen.h"
 
+
 std::atomic<bool> musicRunning{ true };
 
 // Music thread
@@ -21,6 +22,7 @@ void setRed() {
 void setDefault() {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 }
+
 void clearScreen() {
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO csbi{};
@@ -95,4 +97,29 @@ void startScreen() {
     clearScreen();
     std::cout << "Starting VORTIGEN...\n";
     Sleep(1500);
+
+
+
+    // Dark story narration after logo
+    Sleep(1000);
+    std::cout << "\n\n";
+
+    std::cout << "\033[33mIn the dark ages, a hero has arrived...\033[0m\n";
+    Beep(400, 300); Sleep(400);
+
+    std::cout << "\033[33mEvil King Vortigen still holds the throne...\033[0m\n";
+    Beep(300, 500); Sleep(600);
+
+    std::cout << "\033[33mThe townspeople suffer under heavy taxes...\033[0m\n";
+    Beep(350, 250); Sleep(400);
+
+    std::cout << "\033[33mSoldiers of the palace have set fire to the town square...\033[0m\n";
+    Beep(500, 300); Sleep(500);
+
+    std::cout << "\033[33mThe hero now witnesses his people burned alive...\033[0m\n";
+    Beep(450, 400); Sleep(800);
+
+    std::cout << "\033[33mHis journey begins.\033[0m\n\n";
+    Beep(600, 300); Sleep(1000);
+
 }

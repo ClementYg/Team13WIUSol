@@ -1,6 +1,7 @@
 #include "Inventory.h"
+#include "Weapon.h"
 #include <iostream>
-
+#include "conio.h"
 
 
 void Inventory::showInventory()
@@ -10,22 +11,18 @@ void Inventory::showInventory()
 	while (!exitInventory) {
 		printInventory();
 
-		char userChoice = ' ';
-		std::cout << "What do you wish to do with your backpack?\n" << "Press X to close your Bag.\nPress C to select an item.\n";
-		std::cin >> userChoice; 
-		if (userChoice == 'X' || userChoice == 'x') {
-			exitInventory = true;
-		}
-		else if (userChoice == 'C' || userChoice == 'c') {
+		std::cout << "What do you wish to do with your backpack?\n" << "Press any button to close your Bag.\nPress C to select an item.\n\n";
+		char userChoice = _getch();
+		if (userChoice == 'C' || userChoice == 'c') {
 			selectItem();
 		}
+		else { exitInventory = true; }
 	}
 }
 
 void Inventory::requestInventory() {
-	char userChoice = ' ';
 	std::cout << "What do you wish to do with your backpack? Press E to Open, Press X to Close.\n";
-	std::cin >> userChoice;
+	char userChoice = _getch();
 	if (userChoice == 'E' || userChoice == 'e') {
 		showInventory(); //signify open 
 	}
@@ -34,10 +31,9 @@ void Inventory::requestInventory() {
 
 void Inventory::selectItem()
 {
-	int choice;
-	std::cout << "Pick the ID of the item you wish to select\n";
-	std::cin >> choice; //used for container ID.
-	if (container[choice] != nullptr && choice < 5) { //DOESNT HAVE TO BE 4, TEMPORARY TOTAL AMOUNT OF ITEMS
+	std::cout << "Pick the ID of the item you wish to select\n\n"; //used for container ID.
+	int choice = _getch() - 48;
+	if (container[choice] != nullptr && choice < 10) { //DOESNT HAVE TO BE 4, TEMPORARY TOTAL AMOUNT OF ITEMS. MINUS 48 BECAUSE OF ASCII
 		if (prevChoice != -1 && container[prevChoice] != nullptr) { // if previous Choice exists, run this code
 			container[prevChoice]->select(0); // change selection to false, DESELECT
 		}
@@ -48,15 +44,20 @@ void Inventory::selectItem()
 
 void Inventory::printInventory()
 {
+	//display stuff
+	std::cout << "You currently have " << getGold() << " Gold and " << getTotalItems() << " Items in your Bag\n";
 	for (int i = 0; i < 10; i++) { // SET TO 10 BECAUSE THATS TOTAL SLOTS SO FAR
 		if (container[i] != nullptr) { //check that this slot has an item
 			{
 				if (container[i]->checkItemSelect()) {
 					std::cout << ">> ";
 				}
-				std::cout << "[" << container[i]->getItemID() << "] " << container[i]->getItemName();
-				std::cout << std::endl;
 
+				std::cout << "[" << i << "] " << container[i]->getItemName() << " x" << container[i]->getQuantity();
+				if (static_cast<Weapon*>(container[i])->checkWeaponEquipped()) {
+					std::cout << " (E)";
+				}
+				std::cout << std::endl << std::endl;
 
 				if (container[i]->checkItemSelect()) {
 					std::cout << "Description: " << container[i]->getItemDesc() << '\n' << '\n';
@@ -64,16 +65,78 @@ void Inventory::printInventory()
 			}
 		}
 	}
+	for (int i = 0; i < 10; i++) { //use item/active usages
+		if (container[i] != nullptr) {
+			if (container[i]->checkItemSelect()) {
+				std::cout << "Do you wish to use this item? [Y/N] \n";
+				char choice = _getch();
+				if (choice == 'Y' || choice == 'y') {
+					useItem(i); //use item with that index
+				}
+				else container[i]->select(0);
+				//deselect everything
+			}
+		}
+	}
+}
+
+int Inventory::totalItems = 0;
+
+int Inventory::getTotalItems()
+{
+	return totalItems;
 }
 
 
-void Inventory::addItem(Item* itemObj)
+void Inventory::addItem(Item* itemObj, int qty)
 {
-	container[itemObj->getItemID()] = itemObj; // get itemID and assign item pointer to container ID.
+	int usableSlot = -1;
+	for (int i = 0; i < 10; i++) { //total slots so far. Stacks by checking if there is any duplicate
+		if (container[i] == nullptr && usableSlot == -1) {
+			usableSlot = i;//check each slot, if no currently no usable slot and container is null, then this slot can be used
+		}
+		else if (container[i] != nullptr && container[i]->getItemName() == itemObj->getItemName()) { //if item already exists in player Inventory, then say quantity increase instead of 2 same objects
+			container[i]->addQuantity(qty);
+			delete itemObj;
+			return;
+		}
+	}
+
+	//if doesnt already exist
+	if (usableSlot != -1) {// found usableSlot
+		container[usableSlot] = itemObj->duplicate();
+		totalItems += 1;
+	}
+	else std::cout << "Bag is full\n";
+
+
+
+}
+
+void Inventory::useItem(int slot) {
+	if (!container[slot]->checkItemSelect()) {
+		return;
+	} //check if selected
+
+	container[slot]->useItem();
+
+	if (container[slot]->getQuantity() <= 0) {
+		delete container[slot];
+		container[slot] = nullptr;
+	}
 }
 void Inventory::removeItem(Item* itemObj) {
-	container[itemObj->getItemID()] = nullptr; 
-	delete itemObj; 
+	container[itemObj->getItemID()] = nullptr;
+	delete itemObj;
+}
+
+int Inventory::getGold()
+{
+	return goldStored;
+}
+
+void Inventory::setGold(int amountChanged) {
+	goldStored += amountChanged;
 }
 
 Inventory::Inventory() {

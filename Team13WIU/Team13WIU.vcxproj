@@ -127,38 +127,44 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Armour.cpp" />
+    <ClCompile Include="BattleArena.cpp" />
+    <ClCompile Include="BearBattle.cpp" />
     <ClCompile Include="Consumable.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enemy1.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GrowingUpCutscene.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Master.cpp" />
     <ClCompile Include="Merchant.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="startScreen.cpp" />
+    <ClCompile Include="TownSquareBurning.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Armour.h" />
+    <ClInclude Include="BattleArena.h" />
+    <ClInclude Include="BearBattle.h" />
     <ClInclude Include="Consumable.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemy1.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GrowingUpCutscene.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="Master.h" />
     <ClInclude Include="Merchant.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="startScreen.h" />
+    <ClInclude Include="TownSquareBurning.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -3,9 +3,20 @@
 class Weapon : public Item
 {
 public:
-	std::string getItemName();
 
-	Weapon(std::string n);
+	std::string getItemName();
+	bool checkWeaponEquipped();
+
+	void useItem();
+
+	Weapon* duplicate();
+
+	Weapon(std::string n, weaponType, int, int);
 	virtual ~Weapon();
+private:
+	weaponType itemWType; 
+	bool weaponEquipped;
+	bool FSequipped; 
+	bool WSequipped; //check weapon in use
 };
 
