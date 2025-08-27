@@ -104,6 +104,8 @@ private:
 	bool NarraInsideCave;
 	bool BKAlive;
 	bool BearAlive;
+	bool KidSent;
+	bool HeroTriggered;
 
 	
 

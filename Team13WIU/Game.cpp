@@ -23,7 +23,7 @@ Game::Game()
 	InHarbour = false;
 	InOusideCave = false;
 	InInsideCave = false;
-
+	
 	NarraInn = true;
 	NarraTown = true;
 	NarraForest = true;
@@ -33,6 +33,8 @@ Game::Game()
 
 	BKAlive = true;
 	BearAlive = true;
+	KidSent = false;
+	HeroTriggered = false;
 
 	for (int i = 0; i < 24; ++i)
 	{
@@ -327,11 +329,21 @@ void Game::doTurn() {
 	{
 		mapObj.InnerCaveMap();
 		for (int i = 0;i < 24;i++) {
-			if (i == 0 || (i == 13 && gameObjects[0]->getX() > 27)) {
+			if (i == 0) {
 				gameObjects[i]->setActive(true);
 			}
-			else {
+			else if (i != 13) {
 				gameObjects[i]->setActive(false);
+			}
+		}
+		if (gameObjects[0]->getX() > 27) {
+			HeroTriggered = true;
+		}
+		if (HeroTriggered) {
+			gameObjects[13]->setActive(true);
+
+			if (gameObjects[13]->getX() < 26) {
+				gameObjects[13]->pos.x++;
 			}
 		}
 	}
