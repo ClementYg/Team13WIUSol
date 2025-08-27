@@ -9,6 +9,7 @@
 #include <thread>
 #include <algorithm>
 #include <cmath>
+#include "Player.h"
 
 using namespace std;
 
@@ -158,17 +159,21 @@ static int getKeyNonBlocking() {
 }
 
 // ---------------- main battle logic ----------------
-void battleArenaScene() {
-    int playerX = 10, playerY = ARENA_H - 7;
-    int villainX = ARENA_W - 18, villainY = ARENA_H - 7;
+//ADDED PLAYER REF TO SET UNIVERSAL HP AND MANA
+void battleArenaScene(Player* playerRef) {
+    playerRef->setPlayerX(10), playerRef->setPlayerY(ARENA_H - 7);
+    int playerX = playerRef->getPlayerX();
+    int playerY = playerRef->getPlayerY(); 
+    int villainX = ARENA_W - 18, villainY = ARENA_H - 7; //this one not universal as its unique to enemy
 
-    const int MAX_HP = 5;
-    int playerHP = MAX_HP, villainHP = MAX_HP;
+    int MAX_HP = playerRef->getMaxHP();
+    int MAX_MANA = playerRef->getMaxMana(); 
 
-    const int MAX_MANA = 100;
-    int playerMana = MAX_MANA;
+    int playerHP = playerRef->getPlayerHP(); //get UNIVERSAL playerHP
+    int villainHP = MAX_HP;
+
+    int playerMana = playerRef->getPlayerMana();
     const int MANA_COST_WATER = 25;
-    const double MANA_REGEN_PER_SEC = 12.0;
 
     // facing: 0=right,1=left,2=up,3=down
     int facing = 0;
@@ -189,10 +194,6 @@ void battleArenaScene() {
         auto now = chrono::steady_clock::now();
         double delta = chrono::duration<double>(now - lastFrame).count();
         lastFrame = now;
-
-        // mana regen
-        double regen = MANA_REGEN_PER_SEC * delta;
-        if (regen >= 1.0) playerMana = min(MAX_MANA, playerMana + (int)floor(regen));
 
         // input (non-blocking)
         int key = getKeyNonBlocking();
@@ -233,9 +234,9 @@ void battleArenaScene() {
                     // render quick frames
                     drawBuffer(base);
 
-                    printHealthBar("Player", playerHP, MAX_HP, ARENA_H);
+                    printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
                     printHealthBar("Villain", villainHP, MAX_HP, ARENA_H + 1);
-                    printManaBar(playerMana, MAX_MANA, ARENA_H + 2);
+                    printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                     moveCursor(0, ARENA_H + 4); cout << "Slash (H) executed!";
                     Beep(700, 100);
@@ -282,9 +283,9 @@ void battleArenaScene() {
                         else if (facing == 2) stamp(frame, HERO_U, playerX, playerY);
                         else stamp(frame, HERO_D, playerX, playerY);
                         drawBuffer(frame);
-                        printHealthBar("Player", playerHP, MAX_HP, ARENA_H);
+                        printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
                         printHealthBar("Villain", villainHP, MAX_HP, ARENA_H + 1);
-                        printManaBar(playerMana, MAX_MANA, ARENA_H + 2);
+                        printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                         moveCursor(0, ARENA_H + 4); cout << "Lunging... ";
                         Beep(650, 80);
@@ -309,9 +310,9 @@ void battleArenaScene() {
                         stamp(buf, f, playerX, playerY);             // draw swinging hero
                         drawBuffer(buf);
 
-                        printHealthBar("Player", playerHP, MAX_HP, ARENA_H);
+                        printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
                         printHealthBar("Villain", villainHP, MAX_HP, ARENA_H + 1);
-                        printManaBar(playerMana, MAX_MANA, ARENA_H + 2);
+                        printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
                         moveCursor(0, ARENA_H + 4);
                         cout << "Slash attack!       ";
                         Beep(700, 100);
@@ -339,7 +340,7 @@ void battleArenaScene() {
                 // K = water magic (projectile). Blue color
                 else if (ch == 'k') {
                     if (playerMana >= MANA_COST_WATER) {
-                        playerMana -= MANA_COST_WATER;
+                        playerRef->addPlayerMana(MANA_COST_WATER * -1);
                         int projDx = 0, projDy = 0;
                         if (facing == 0) projDx = 2;
                         else if (facing == 1) projDx = -2;
@@ -395,15 +396,15 @@ void battleArenaScene() {
                     else stamp(f, HERO_D, playerX, playerY);
                     drawBuffer(f);
 
-                    printHealthBar("Player", playerHP, MAX_HP, ARENA_H);
+                    printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
                     printHealthBar("Villain", villainHP, MAX_HP, ARENA_H + 1);
-                    printManaBar(playerMana, MAX_MANA, ARENA_H + 2);
+                    printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                     Beep(400, 80);
                     this_thread::sleep_for(chrono::milliseconds(80));
-                    // if overlap: damage
+                    // if overlap: damage AKA CHECK COLLISION
                     if (abs(villainX - playerX) <= 1 && abs(villainY - playerY) <= 1 && villainHP > 0) {
-                        playerHP = max(0, playerHP - 1);
+                        playerRef->addPlayerHP(-1); //reduce universal health 
                         moveCursor(0, ARENA_H + 4); cout << "Villain lunges - You took 1 dmg! ";
                         Beep(450, 120);
                         this_thread::sleep_for(chrono::milliseconds(180));
@@ -432,7 +433,7 @@ void battleArenaScene() {
         if (abs(playerX - villainX) <= 1 && abs(playerY - villainY) <= 1 && villainHP > 0) {
             auto nowAtk = chrono::steady_clock::now();
             if (chrono::duration_cast<chrono::milliseconds>(nowAtk - lastVillainAttack).count() >= 900) {
-                playerHP = max(0, playerHP - 1);
+                playerRef->addPlayerHP(-1);
                 lastVillainAttack = nowAtk;
                 moveCursor(0, ARENA_H + 4); cout << "Villain hits you! -1 HP    ";
                 Beep(450, 100);
@@ -475,9 +476,9 @@ void battleArenaScene() {
         }
 
         // UI
-        printHealthBar("Player", playerHP, MAX_HP, ARENA_H);
+        printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
         printHealthBar("Villain", villainHP, MAX_HP, ARENA_H + 1);
-        printManaBar(playerMana, MAX_MANA, ARENA_H + 2);
+        printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
         moveCursor(0, ARENA_H + 4);
         cout << "WASD=move  Arrows=face  G=SwordHit  H=Slash  J=Lunge  K=Water  Q=Quit            ";
 

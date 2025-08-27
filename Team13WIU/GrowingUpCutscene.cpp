@@ -68,7 +68,7 @@ void evilHeroCutscene() {
     while (true) {
         if (_kbhit()) {
             char ch = _getch();
-            if (ch == ' ' || ch == ' ') break;
+            if (ch == ' ') break;
         }
         Sleep(50);
     }

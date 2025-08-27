@@ -35,11 +35,11 @@ int main() {
 	//MapObj.Inn();
 	//MapObj.ShipCutscene();
 
-	startScreen();	
+	//startScreen();	
 
-	 playTownsquareBurning();  //  the burning town scene
+	// playTownsquareBurning();  //  the burning town scene
 
-	 evilHeroCutscene();
+	// evilHeroCutscene();
 
 
 	Game game;

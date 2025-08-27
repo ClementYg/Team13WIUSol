@@ -7,6 +7,7 @@
 #include <thread>
 #include <algorithm>
 #include <cmath>
+#include "BearBattle.h"
 
 using namespace std;
 
@@ -176,18 +177,20 @@ static int getKeyNonBlocking() {
 }
 
 // ---------------- main battle logic ----------------
-void battleArenaBearForest() {
-    int playerX = 10, playerY = ARENA_H - 7;
-    int bearX = ARENA_W - 18, bearY = ARENA_H - 7;
+void battleArenaBearForest(Player* playerRef) {
+    playerRef->setPlayerX(10), playerRef->setPlayerY(ARENA_H - 7); //set position
+    int playerX = playerRef->getPlayerX();
+    int playerY = playerRef->getPlayerY();
+    int bearX = ARENA_W - 18, bearY = ARENA_H - 7; //this one not universal as its unique to enemy
 
-    const int MAX_HP = 5;
-    int playerHP = MAX_HP, bearHP = MAX_HP;
+    int MAX_HP = playerRef->getMaxHP();
+    int MAX_MANA = playerRef->getMaxMana();
 
-    const int MAX_MANA = 100;
-    int playerMana = MAX_MANA;
+    int playerHP = playerRef->getPlayerHP(); //get UNIVERSAL playerHP
+    int bearHP = MAX_HP;
+
+    int playerMana = playerRef->getPlayerMana();
     const int MANA_COST_WATER = 25;
-    const double MANA_REGEN_PER_SEC = 12.0;
-
     // facing: 0=right,1=left,2=up,3=down
     int facing = 0;
 
@@ -207,10 +210,6 @@ void battleArenaBearForest() {
         auto now = chrono::steady_clock::now();
         double delta = chrono::duration<double>(now - lastFrame).count();
         lastFrame = now;
-
-        // mana regen
-        double regen = MANA_REGEN_PER_SEC * delta;
-        if (regen >= 1.0) playerMana = min(MAX_MANA, playerMana + (int)floor(regen));
 
         // input (non-blocking)
         int key = getKeyNonBlocking();
@@ -251,9 +250,9 @@ void battleArenaBearForest() {
                     // render quick frames
                     drawBuffer(base);
 
-                    printHealthBar("Player", playerHP, MAX_HP, ARENA_H);
+                    printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
                     printHealthBar("Villain", bearHP, MAX_HP, ARENA_H + 1);
-                    printManaBar(playerMana, MAX_MANA, ARENA_H + 2);
+                    printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                     moveCursor(0, ARENA_H + 4); cout << "Slash (H) executed!";
                     Beep(700, 100);
@@ -300,9 +299,9 @@ void battleArenaBearForest() {
                         else if (facing == 2) stamp(frame, HERO_U, playerX, playerY);
                         else stamp(frame, HERO_D, playerX, playerY);
                         drawBuffer(frame);
-                        printHealthBar("Player", playerHP, MAX_HP, ARENA_H);
+                        printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
                         printHealthBar("Villain", bearHP, MAX_HP, ARENA_H + 1);
-                        printManaBar(playerMana, MAX_MANA, ARENA_H + 2);
+                        printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                         moveCursor(0, ARENA_H + 4); cout << "Lunging... ";
                         Beep(650, 80);
@@ -327,9 +326,9 @@ void battleArenaBearForest() {
                         stamp(buf, f, playerX, playerY);             // draw swinging hero
                         drawBuffer(buf);
 
-                        printHealthBar("Player", playerHP, MAX_HP, ARENA_H);
+                        printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
                         printHealthBar("Villain", bearHP, MAX_HP, ARENA_H + 1);
-                        printManaBar(playerMana, MAX_MANA, ARENA_H + 2);
+                        printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
                         moveCursor(0, ARENA_H + 4);
                         cout << "Slash attack!       ";
                         Beep(700, 100);
@@ -357,7 +356,7 @@ void battleArenaBearForest() {
                 // K = water magic (projectile). Blue color
                 else if (ch == 'k') {
                     if (playerMana >= MANA_COST_WATER) {
-                        playerMana -= MANA_COST_WATER;
+                        playerRef->addPlayerMana(-MANA_COST_WATER);
                         int projDx = 0, projDy = 0;
                         if (facing == 0) projDx = 2;
                         else if (facing == 1) projDx = -2;
@@ -413,15 +412,15 @@ void battleArenaBearForest() {
                     else stamp(f, HERO_D, playerX, playerY);
                     drawBuffer(f);
 
-                    printHealthBar("Player", playerHP, MAX_HP, ARENA_H);
+                    printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
                     printHealthBar("Bear", bearHP, MAX_HP, ARENA_H + 1);
-                    printManaBar(playerMana, MAX_MANA, ARENA_H + 2);
+                    printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                     Beep(400, 80);
                     this_thread::sleep_for(chrono::milliseconds(80));
                     // if overlap: damage
                     if (abs(bearX - playerX) <= 1 && abs(bearY - playerY) <= 1 && bearHP > 0) {
-                        playerHP = max(0, playerHP - 1);
+                        playerRef->addPlayerHP(-1);
                         moveCursor(0, ARENA_H + 4); cout << "Bear lunges - You took 1 dmg! ";
                         Beep(450, 120);
                         this_thread::sleep_for(chrono::milliseconds(180));
@@ -450,7 +449,7 @@ void battleArenaBearForest() {
         if (abs(playerX - bearX) <= 1 && abs(playerY - bearY) <= 1 && bearHP > 0) {
             auto nowAtk = chrono::steady_clock::now();
             if (chrono::duration_cast<chrono::milliseconds>(nowAtk - lastBearAttack).count() >= 900) {
-                playerHP = max(0, playerHP - 1);
+                playerRef->addPlayerHP(-1);
                 lastBearAttack = nowAtk;
                 moveCursor(0, ARENA_H + 4); cout << "Bear hits you! -1 HP    ";
                 Beep(450, 100);
@@ -493,9 +492,9 @@ void battleArenaBearForest() {
         }
 
         // UI
-        printHealthBar("Player", playerHP, MAX_HP, ARENA_H);
+        printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
         printHealthBar("Bear", bearHP, MAX_HP, ARENA_H + 1);
-        printManaBar(playerMana, MAX_MANA, ARENA_H + 2);
+        printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
         moveCursor(0, ARENA_H + 4);
         cout << "WASD=move  Arrows=face  G=SwordHit  H=Slash  J=Lunge  K=Water  Q=Quit            ";
 

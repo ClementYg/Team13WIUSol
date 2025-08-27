@@ -416,7 +416,7 @@ void Game::doTurn() {
 					std::cout << "Go into combat scene" << std::endl;
 
 					// Launch the combat mini-game
-					battleArenaScene();
+					battleArenaScene(player);
 
 					BKAlive = false;
 					return;
@@ -428,7 +428,7 @@ void Game::doTurn() {
 					std::cout << "Go into combat scene" << std::endl;
 
 					// Launch the combat mini-game
-					battleArenaScene();
+					battleArenaScene(player);
 
 					BKAlive = false;
 					return;
@@ -508,7 +508,7 @@ void Game::doTurn() {
 					bear->NPCtalk();
 					std::cout << "Go into Combat scene" << std::endl;
 					//Added Bear Attack
-				   battleArenaBearForest();
+				   battleArenaBearForest(player);
 
 					BearAlive = false;
 					return;
@@ -519,7 +519,7 @@ void Game::doTurn() {
 					bear->NPCtalk();
 					std::cout << "Go into Combat scene" << std::endl;
 					//Added Bear Attack
-					battleArenaBearForest();
+					battleArenaBearForest(player);
 
 					BearAlive = false;
 					return;

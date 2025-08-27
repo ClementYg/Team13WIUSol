@@ -13,6 +13,8 @@ Player::Player(std::string n, int y, int x, char s) /*: Entity(row, col, '@') */
 	interaction = false;
 	moveinter = false;
 	playerInv = new Inventory;
+	playerHP = MAX_HP;
+	playerMana = MAX_MANA; 
 }
 
 Player::~Player() {
@@ -37,7 +39,7 @@ void Player::move(Entity* gameObjects[], int entityCount) {
 	else if (input == 'a') newCol--;
 	else if (input == 'd') newCol++;
 	else if (input == ' ') interaction = true, moveinter = true;
-	else if (input == 'i') playerInv->requestInventory(); 
+	else if (input == 'i') playerInv->requestInventory(this); 
 	else return;//go back to game.cpp (forefeit turn)
 
 	if (newRow >= 0 && newRow < 5 && newCol >= 0 && newCol < 49) {
@@ -55,3 +57,49 @@ bool Player::movingGet()
 {
 	return moveinter;
 }
+
+int Player::getMaxHP()
+{
+	return MAX_HP;
+}
+
+int Player::getMaxMana() {
+	return MAX_MANA;
+}
+
+void Player::setPlayerX(int newValue) { playerX = newValue; }
+void Player::setPlayerY(int newValue) { playerY = newValue; }
+
+void Player::addPlayerX(int change) { playerX += change; }
+void Player::addPlayerY(int change) { playerY += change; }
+
+int Player::getPlayerX() { return playerX; }
+int Player::getPlayerY() { return playerY; }
+
+int Player::getPlayerHP()
+{
+	return playerHP;
+}
+
+int Player::getPlayerMana() {
+	return playerMana;
+}
+
+void Player::addPlayerHP(int change)
+{
+	playerHP += change;
+
+	if (playerHP < 0) {
+		playerHP = 0; //make sure cannot go below 0. basically same as cnt go below 0.
+	}
+}
+
+void Player::addPlayerMana(int change) {
+	playerMana += change; 
+
+	if (playerMana < 0) {
+		playerMana = 0;
+	}
+}
+
+//INITIALISATIONS
