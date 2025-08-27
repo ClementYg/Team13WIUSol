@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream> //stringstreams, allows strings to be used for reading/writing. similar to fstream for strings
+#include <Windows.h>
 //------------------------------------------------
 //                     / \
 //                    /|-|\
@@ -474,6 +475,12 @@ void Map::Inn()
 	}
 	Inn.close(); // closes file successfully
 }
+
+void Map::clearScreen() 
+{
+	std::cout << "\033[H";
+}
+
 
 
 Map::Map() {

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector> //added use of vector here as its more flexible/dynamic for adding row and column of map into a container
+#include <Windows.h>
 
 class Map
 {
@@ -30,6 +31,8 @@ public:
 	void EntranceCaveMap();
 	void InnerCaveMap();
 	void Inn();
+
+	void clearScreen();
 
 	Map();
 	~Map();

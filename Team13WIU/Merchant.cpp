@@ -16,22 +16,6 @@ Merchant::~Merchant()
 
 }
 
-//void Merchant::trade()
-//{
-//	std::cout << "\033[1;32m" << name << ": " << "\033[0m";
-//	typeLine("You want to trade?", 20);
-//	std::cout << "Do you want to trade? (Y/N): ";
-//	std::cin >> IsTrade;
-//	if (IsTrade == 'Y') {
-//		std::cout << "\033[1;32m" << name << ": " << "\033[0m";
-//		typeLine("(The items he sell)\n", 20);
-//	}
-//	else {
-//		std::cout << "\033[1;32m" << name << ": " << "\033[0m";
-//		typeLine("Okay! come back later then.\n", 20);
-//	}
-//}
-
 void Merchant::NPCtalk()
 {
 	for (size_t i = 0; i < dialogue.size(); i++) {
@@ -41,7 +25,7 @@ void Merchant::NPCtalk()
 		std::cout << "\033[1;32m" << name << ": " << "\033[0m";
 		typeLine(line, 1);
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(300));
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 	}
 	std::cout << std::endl;
 }
@@ -58,6 +42,7 @@ void Merchant::sellStock(int ID, Inventory& playerInv, int qty = 1) // What item
 
 	Item* itemBought = stock[ID];
 	int totalprice = itemBought->getPrice() * qty;  //set to deduct player gold by price of item bought. 
+	
 	if (itemBought->getQuantity() < qty || playerInv.getGold() < totalprice) //check that shopkeeper has stock and has player enough gold
 	{
 		std::cout << "You either have insufficient funds to pay for this item or the shopkeeper has no stock left.\n";
@@ -67,9 +52,10 @@ void Merchant::sellStock(int ID, Inventory& playerInv, int qty = 1) // What item
 	playerInv.setGold(-totalprice); //deduct gold
 
 	Item* itemDupe = itemBought->duplicate(); 
+	itemDupe->setQuantity(qty);
 	playerInv.addItem(itemDupe, qty); //add amount of items into playerInv
 
-	itemBought->setQuantity(-qty); //decrease shop stock.
+	itemBought->addQuantity(-qty); //decrease shop stock.
 
 	//if no more stock
 	if (itemBought->getQuantity() == 0) {
@@ -79,6 +65,6 @@ void Merchant::sellStock(int ID, Inventory& playerInv, int qty = 1) // What item
 void Merchant::showStock() {
 	std::cout << "Stock:\n";
 	for (int i = 0; i < stock.size(); i++) {
-		std::cout << stock[i]->getItemID() << stock[i]->getItemName() << ": Quantity: " << stock[i]->getQuantity() << '\n';
+		std::cout << "ID " << stock[i]->getItemID() << " | " << stock[i]->getItemName() << " | Price: " << stock[i]->getPrice() << " | Quantity: " << stock[i]->getQuantity() << '\n';
 	}
 }

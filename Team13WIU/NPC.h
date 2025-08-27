@@ -6,11 +6,9 @@
 
 class NPC : public Entity
 {
-protected:
-	std::vector<std::string> dialogue;
-
 public:
 	std::string name;
+	std::vector<std::string> dialogue;
 	NPC(std::string n, int y, int x, char s,std::vector<std::string> lines = {});
 	~NPC();
 
