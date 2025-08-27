@@ -15,6 +15,5 @@ public:
 private:
 	consumeType itemCType;
 	std::string name;
-	int price;
 };
 

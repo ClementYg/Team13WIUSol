@@ -97,25 +97,23 @@ void Game::initGame() {
 	Inventory* playerInv = player->getInv();
 
 	//ITEM CREATION AREA
-	Item* FireSword = Item::create("Fire Sword", Item::FIRE_SWORD, 30, 1);
-	Item* WoodChest = Item::create("Wood_Chestplate", Item::WOOD_CHEST, 35, 1);
-	Item* WoodHelmet = Item::create("Wood_Helmet", Item::WOOD_HELM, 25, 1);
-	Item* WoodLeggings = Item::create("Wood_Leggings", Item::WOOD_CHEST, 25, 1);
+	Item* FireSword = Item::create("Fire Sword", Item::FIRE_SWORD, 35, 1);
+	Item* SteelSword = Item::create("Steel Sword", Item::STEEL_SWORD, 25, 1);
 
-	Item* potion = Item::create("HP_Potion", Item::HP_POT, 10, 5);
+	Item* HPpotion = Item::create("HP_Potion", Item::HP_POT, 20, 5);
+	Item* ManaPotion = Item::create("Mana Potion", Item::MANA_POT, 20, 5);
 
-	playerInv->setGold(500);
+	playerInv->setGold(500); // EDIT LATER THIS IS TESTING MONEY
 	FireSword->addDesc("A blade forged from the depths of the underground\n with molten iron at its peak. +10 DMG.");
 
 
 	john->addStock(FireSword);
-	john->addStock(WoodChest);
-	john->addStock(WoodHelmet);
-	john->addStock(WoodLeggings);
-	john->addStock(potion);
+	john->addStock(SteelSword);
+	john->addStock(HPpotion);
+	john->addStock(ManaPotion);
 
 
-}
+ }
 
 void Game::drawWorld() {
 
