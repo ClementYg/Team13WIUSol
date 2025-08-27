@@ -605,9 +605,7 @@ void Game::doTurn() {
 				GtypeLine("This island is pretty big, let's start finding the cave.", 1);
 				NarraOutsideCave = false;
 			}
-
-			if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 4)
-			{
+			if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 4) {
 				std::cout << "Press SPACE to intertact." << std::endl;
 				if (player->interactionGet())
 				{
@@ -615,13 +613,25 @@ void Game::doTurn() {
 					GtypeLine("The view looks nice on this island, but it gives off an unsettling energy.", 1);
 				}
 			}
-			if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 0) {
+			else if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 0) {
 				std::cout << "Press SPACE to enter the cave" << std::endl << std::endl;
 				if (player->movingGet()) {
 					InOusideCave = false;
 					InInsideCave = true;
 					gameObjects[0]->setPosition(2, 2);
 					return;
+				}
+			}
+			else if (gameObjects[0]->getX() == gameObjects[12]->getX() && (gameObjects[0]->getY() == gameObjects[12]->getY() + 1 || gameObjects[0]->getY() == gameObjects[12]->getY() - 1)) {
+				std::cout << "Press SPACE to talk to the Old Man" << std::endl;
+				if (player->interactionGet()) {
+					oldman->NPCtalk();
+				}
+			}
+			else if (gameObjects[0]->getY() == gameObjects[12]->getY() && (gameObjects[0]->getX() == gameObjects[12]->getX() + 1 || gameObjects[0]->getX() == gameObjects[12]->getX() - 1)) {
+				std::cout << "Press SPACE to talk to the Old Man" << std::endl;
+				if (player->interactionGet()) {
+					oldman->NPCtalk();
 				}
 			}
 		}

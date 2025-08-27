@@ -68,8 +68,8 @@ private:
 	std::vector<std::string> OldManSpeech =
 	{
 		"Be wary traveller, this cave has a dark history.",
-		"It is said that whoever enters the cave, doesn't make it out alive",
-		"I wish you all the best"
+		"It is said that whoever enters the cave, doesn't make it out alive.",
+		"I wish you all the best."
 	};
 
 	std::vector<std::string> GHeroSpeech =
