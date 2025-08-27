@@ -612,11 +612,6 @@ void Map::ShipCutscene()
 		std::this_thread::sleep_for(std::chrono::milliseconds(500)); // adjust speed
 	}
 	std::this_thread::sleep_for(std::chrono::milliseconds(500));
-
-
-
-
-	townMap.close(); // closes file successfully
 }
 
 void Map::clearScreen()

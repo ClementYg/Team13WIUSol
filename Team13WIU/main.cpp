@@ -35,9 +35,7 @@ int main() {
 	//MapObj.Inn();
 	//MapObj.ShipCutscene();
 
-	//startScreen();	
-
-
+	startScreen();	
 
 	 playTownsquareBurning();  //  the burning town scene
 
