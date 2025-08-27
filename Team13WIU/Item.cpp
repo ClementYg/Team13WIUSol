@@ -52,6 +52,7 @@ Item::Item()
 	isitemSelected = false;
 	itemID = IDCounter;
 	IDCounter++;
+	IDCounter %= 10; //Check if reach max ID already
 	std::cout << "A normal item created\n";
 }
 

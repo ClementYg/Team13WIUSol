@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include <vector>
 #include <string>
+#include <windows.h>
 class Game
 {
 private:
@@ -90,8 +91,13 @@ private:
 	bool InInsideCave;
 	bool NarraInn;
 	bool NarraTown;
+	bool NarraForest;
+	bool NarraHarbour;
+	bool NarraOutsideCave;
+	bool NarraInsideCave;
 	bool BKAlive;
 	bool BearAlive;
+
 	
 
 public:
@@ -101,5 +107,6 @@ public:
 	void initGame();
 	void drawWorld();
 	void doTurn();
+	void clearDialogue();
 };
 

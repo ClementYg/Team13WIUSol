@@ -23,11 +23,13 @@ void Consumable::useItem() {
 	case HP_POT:
 	{
 		std::cout << "HP RECOVERED BY 10 HERE\n";
-
+		//player restore health function here
+		setQuantity(-1);
 		break;
 	}
 	case MANA_POT: {
 		std::cout << "MANA RECOVERED BY 10 HERE\n";
+		//player restore mana here
 
 		break;
 	}
