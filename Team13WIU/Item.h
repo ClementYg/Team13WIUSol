@@ -13,12 +13,6 @@ protected:
 	int quantity;
 	std::string name;
 public: 	
-	enum armourType {
-		WOOD_HELM,
-		WOOD_LEGGS,
-		WOOD_CHEST,
-		A_UNKNOWN
-	};
 	enum consumeType {
 		HP_POT,
 		MANA_POT,
@@ -29,6 +23,7 @@ public:
 	enum weaponType {
 		WOOD_SWORD,
 		FIRE_SWORD,
+		STEEL_SWORD,
 		W_UNKNOWN
 	};
 
@@ -41,6 +36,8 @@ public:
 	bool checkItemSelect(); // returns isitemSelected
 	int getQuantity();
 
+	void addQuantity(int change);
+
 	//SETTERS
 	void addDesc(std::string description);
 	void select(int selected); //function to change isitemSelected of that object to be true
@@ -52,7 +49,6 @@ public:
 
 	static Item* create(std::string name, consumeType consumableType = consumeType::C_UNKNOWN, int price = 0, int qty = 1);
 	static Item* create(std::string name, weaponType wType = weaponType::W_UNKNOWN, int price = 0, int qty = 1);
-	static Item* create(std::string name, armourType aType = armourType::A_UNKNOWN, int price = 0, int qty = 1);
 
 
 	//made static so that you can create specific item object outside of class

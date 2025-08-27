@@ -5,6 +5,7 @@ class Weapon : public Item
 public:
 
 	std::string getItemName();
+	bool checkWeaponEquipped();
 
 	void useItem();
 
@@ -14,5 +15,8 @@ public:
 	virtual ~Weapon();
 private:
 	weaponType itemWType; 
+	bool weaponEquipped;
+	bool FSequipped; 
+	bool WSequipped; //check weapon in use
 };
 
