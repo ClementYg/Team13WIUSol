@@ -42,6 +42,8 @@ public:
 	bool checkItemSelect(); // returns isitemSelected
 	int getQuantity();
 
+	void addQuantity(int change);
+
 	//SETTERS
 	void addDesc(std::string description);
 	void select(int selected); //function to change isitemSelected of that object to be true

@@ -151,7 +151,7 @@ void Game::initGame() {
 	Item* WoodHelmet = Item::create("Wood_Helmet", Item::WOOD_HELM, 25, 1);
 	Item* WoodLeggings = Item::create("Wood_Leggings", Item::WOOD_CHEST, 25, 1);
 
-	Item* potion = Item::create("HP_Potion", Item::HP_POT, 10, 5);
+	Item* potion = Item::create("HP_Potion", Item::HP_POT, 20, 5);
 
 	playerInv->setGold(500);
 	FireSword->addDesc("A blade forged from the depths of the underground\n with molten iron at its peak. +10 DMG.");
@@ -164,7 +164,7 @@ void Game::initGame() {
 	john->addStock(potion);
 
 
-}
+ }
 
 void Game::drawWorld() {
 

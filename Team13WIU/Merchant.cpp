@@ -58,6 +58,8 @@ void Merchant::sellStock(int ID, Inventory& playerInv, int qty = 1) // What item
 
 	Item* itemBought = stock[ID];
 	int totalprice = itemBought->getPrice() * qty;  //set to deduct player gold by price of item bought. 
+	
+	std::cout << itemBought->getQuantity();
 	if (itemBought->getQuantity() < qty || playerInv.getGold() < totalprice) //check that shopkeeper has stock and has player enough gold
 	{
 		std::cout << "You either have insufficient funds to pay for this item or the shopkeeper has no stock left.\n";
@@ -67,9 +69,10 @@ void Merchant::sellStock(int ID, Inventory& playerInv, int qty = 1) // What item
 	playerInv.setGold(-totalprice); //deduct gold
 
 	Item* itemDupe = itemBought->duplicate(); 
+	itemDupe->setQuantity(qty);
 	playerInv.addItem(itemDupe, qty); //add amount of items into playerInv
 
-	itemBought->setQuantity(-qty); //decrease shop stock.
+	itemBought->addQuantity(-qty); //decrease shop stock.
 
 	//if no more stock
 	if (itemBought->getQuantity() == 0) {

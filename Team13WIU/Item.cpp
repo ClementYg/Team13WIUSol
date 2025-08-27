@@ -25,7 +25,8 @@ bool Item::checkItemSelect()
 }
 
 int Item::getQuantity() { return quantity; }
-void Item::setQuantity(int change) { quantity += change; }
+void Item::addQuantity(int change) { quantity += change; }
+void Item::setQuantity(int change) { quantity = change; }
 
 void Item::select(int selected) //if selected 1, means user wants to select. if selected 0, change item to not be selected
 {

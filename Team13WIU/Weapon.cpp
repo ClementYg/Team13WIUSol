@@ -6,6 +6,11 @@ std::string Weapon::getItemName()
 	return name;
 }
 
+bool Weapon::checkWeaponEquipped()
+{
+	return weaponEquipped;
+}
+
 void Weapon::useItem()
 {
 	switch (itemWType) {
@@ -13,6 +18,7 @@ void Weapon::useItem()
 	{
 		std::cout << "Wood Sword equipped\n";
 		WSequipped = true;
+		weaponEquipped = true;
 		break;
 	}
 	case STEEL_SWORD:
@@ -24,6 +30,7 @@ void Weapon::useItem()
 	{
 		std::cout << "Fire Sword equipped\n"; 
 		FSequipped = true; //add in combat system later. If specific type of weapon in use, +10 to dmg etc... 
+		weaponEquipped = true;
 		break;
 	}
 	default: std::cout << "error equipping weapon\n";
@@ -43,6 +50,7 @@ Weapon::Weapon(std::string n, weaponType type,int price,int qty)
 	quantity = qty;
 	FSequipped = false; 
 	WSequipped = false;
+	weaponEquipped = false;
 	std::cout << "A weapon created\n";
 }
 
