@@ -1,7 +1,6 @@
 #include "Item.h"
 #include "Consumable.h"
 #include "Weapon.h"
-#include "Armour.h"
 #include <iostream>
 
 int Item::getItemID()
@@ -25,7 +24,8 @@ bool Item::checkItemSelect()
 }
 
 int Item::getQuantity() { return quantity; }
-void Item::setQuantity(int change) { quantity += change; }
+void Item::addQuantity(int change) { quantity += change; }
+void Item::setQuantity(int change) { quantity = change; }
 
 void Item::select(int selected) //if selected 1, means user wants to select. if selected 0, change item to not be selected
 {
@@ -63,10 +63,6 @@ Item* Item::create(std::string name, consumeType consumableType, int price, int 
 
 Item* Item::create(std::string name, weaponType wType, int price, int qty) {
 	return new Weapon(name, wType, price, qty);
-}
-
-Item* Item::create(std::string name, armourType aType, int price, int qty) {
-	return new Armour(name, aType, price, qty);
 }
 
 

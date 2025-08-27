@@ -1,4 +1,5 @@
 #include "Inventory.h"
+#include "Weapon.h"
 #include <iostream>
 #include "conio.h"
 
@@ -44,6 +45,7 @@ void Inventory::selectItem()
 void Inventory::printInventory()
 {
 	//display stuff
+	std::cout << "You currently have " << getGold() << " Gold and " << getTotalItems() << " Items in your Bag\n";
 	for (int i = 0; i < 10; i++) { // SET TO 10 BECAUSE THATS TOTAL SLOTS SO FAR
 		if (container[i] != nullptr) { //check that this slot has an item
 			{
@@ -51,7 +53,10 @@ void Inventory::printInventory()
 					std::cout << ">> ";
 				}
 
-				std::cout << "[" << i << "] " << container[i]->getItemName();
+				std::cout << "[" << i << "] " << container[i]->getItemName() << " x" << container[i]->getQuantity();
+				if (static_cast<Weapon*>(container[i])->checkWeaponEquipped()) {
+					std::cout << " (E)";
+				}
 				std::cout << std::endl << std::endl;
 
 				if (container[i]->checkItemSelect()) {
@@ -65,12 +70,21 @@ void Inventory::printInventory()
 			if (container[i]->checkItemSelect()) {
 				std::cout << "Do you wish to use this item? [Y/N] \n";
 				char choice = _getch();
-				if (choice == 'Y') {
+				if (choice == 'Y' || choice == 'y') {
 					useItem(i); //use item with that index
 				}
+				else container[i]->select(0);
+				//deselect everything
 			}
 		}
 	}
+}
+
+int Inventory::totalItems = 0;
+
+int Inventory::getTotalItems()
+{
+	return totalItems;
 }
 
 
@@ -82,7 +96,7 @@ void Inventory::addItem(Item* itemObj, int qty)
 			usableSlot = i;//check each slot, if no currently no usable slot and container is null, then this slot can be used
 		}
 		else if (container[i] != nullptr && container[i]->getItemName() == itemObj->getItemName()) { //if item already exists in player Inventory, then say quantity increase instead of 2 same objects
-			container[i]->setQuantity(qty);
+			container[i]->addQuantity(qty);
 			delete itemObj;
 			return;
 		}
@@ -91,6 +105,7 @@ void Inventory::addItem(Item* itemObj, int qty)
 	//if doesnt already exist
 	if (usableSlot != -1) {// found usableSlot
 		container[usableSlot] = itemObj->duplicate();
+		totalItems += 1;
 	}
 	else std::cout << "Bag is full\n";
 

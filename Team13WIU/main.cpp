@@ -39,6 +39,6 @@ int main() {
 	game.initGame();
 
 	while (true) {
-		game.doTurn();
+ 		game.doTurn();
 	}
 }

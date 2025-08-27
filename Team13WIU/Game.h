@@ -6,7 +6,7 @@
 class Game
 {
 private:
-	Entity* gameObjects[13];
+	Entity* gameObjects[24];
 	Position playerPos;
 
 	std::vector<std::string> InnKeeperSpeech =
@@ -58,11 +58,18 @@ private:
 
 	//need interacting part for sneaking into the ship.
 
-	std::vector<std::string> johnSpeech =
+	std::vector<std::string> MerchantSpeech =
 	{
 		"Hi! I am John, A travelling merchant.",
 		"I sell some interesting things.",
 		"Do you want to take a look?"
+	};
+
+	std::vector<std::string> OldManSpeech =
+	{
+		"Be wary traveller, this cave has a dark history.",
+		"It is said that whoever enters the cave, doesn't make it out alive",
+		"I wish you all the best"
 	};
 
 	std::vector<std::string> GHeroSpeech =
