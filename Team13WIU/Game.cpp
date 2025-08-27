@@ -33,15 +33,15 @@ Game::Game()
 
 	BKAlive = true;
 	BearAlive = true;
-	
-	for (int i = 0; i < 12; ++i)
+
+	for (int i = 0; i < 13; ++i)
 	{
 		gameObjects[i] = nullptr;
 	}
 }
 
 Game::~Game() {
-	for (int i = 0; i < 12; ++i) {
+	for (int i = 0; i < 13; ++i) {
 		delete gameObjects[i];
 		gameObjects[i] = nullptr;
 	}
@@ -78,7 +78,7 @@ void Game::initGame() {
 	gameObjects[5]->setPosition(20, 0);
 	gameObjects[6]->setPosition(30, 2);
 
-	Merchant* john = static_cast<Merchant*>(gameObjects[7]);
+	Merchant* john = static_cast<Merchant*>(gameObjects[8]);
 	Player* player = static_cast<Player*>(gameObjects[0]);
 
 	Inventory* playerInv = player->getInv();
@@ -163,7 +163,7 @@ void Game::doTurn() {
 	NPC* kid = static_cast<NPC*>(gameObjects[10]);
 	NPC* harbourvillager = static_cast<NPC*>(gameObjects[11]);
 	Enemy* hero = static_cast<Enemy*>(gameObjects[12]);
-	
+
 
 	Inventory* playerInv = player->getInv();
 
@@ -176,7 +176,7 @@ void Game::doTurn() {
 	{
 		InInn = false;
 		InTown = true;
-		gameObjects[0]->setPosition(9, 0); 
+		gameObjects[0]->setPosition(9, 0);
 	}
 	// if player go left of the TS, go to Forest
 	else if (InTown == true && gameObjects[0]->getX() < 1 && BKAlive == false)
@@ -371,7 +371,7 @@ void Game::doTurn() {
 					innkeeper->NPCtalk();
 				}
 			}
-			if (gameObjects[0]->getX() == 17 && gameObjects[0]->getY() == 0)
+			else if (gameObjects[0]->getX() == 17 && gameObjects[0]->getY() == 0)
 			{
 				std::cout << "Press SPACE to listen on their conversation" << std::endl;
 				if (player->interactionGet())
@@ -403,6 +403,13 @@ void Game::doTurn() {
 					return;
 				}
 			}
+			else if (gameObjects[0]->getX() == 35 && gameObjects[0]->getY() == 0) {
+				std::cout << "Press SPACE to interact" << std::endl;
+				if (player->interactionGet()) {
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("This house is really nice. Whoever lives here must be really rich and strong.", 1);
+				}
+			}
 			else if (gameObjects[0]->getX() == gameObjects[7]->getX() && (gameObjects[0]->getY() == gameObjects[7]->getY() + 1 || gameObjects[0]->getY() == gameObjects[7]->getY() - 1)) {
 				if (BKAlive) {
 					braveknight->NPCtalk();
@@ -410,7 +417,6 @@ void Game::doTurn() {
 					BKAlive = false;
 					return;
 				}
-				
 			}
 			else if (gameObjects[0]->getY() == gameObjects[7]->getY() && (gameObjects[0]->getX() == gameObjects[7]->getX() + 1 || gameObjects[0]->getX() == gameObjects[7]->getX() - 1)) {
 				if (BKAlive) {
@@ -419,14 +425,8 @@ void Game::doTurn() {
 					BKAlive = false;
 					return;
 				}
-			else if (gameObjects[0]->getX() == 35 && gameObjects[0]->getY() == 0) {
-				std::cout << "Press SPACE to interact" << std::endl;
-				if (player->interactionGet()) {
-					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-					GtypeLine("This house is really nice. Whoever lives here must be really rich and strong.", 1);
-				}
 			}
-			else{
+			else {
 				for (int i = 2;i < 7;i++) {
 					if (gameObjects[0]->getY() == gameObjects[i]->getY() && (gameObjects[0]->getX() == gameObjects[i]->getX() + 1 || gameObjects[0]->getX() == gameObjects[i]->getX() - 1)) {
 						std::cout << "Press SPACE to interact with villager" << std::endl;
@@ -525,18 +525,17 @@ void Game::doTurn() {
 			}
 		}
 	}
-
 	// check for interacting with Travelling Merchant and the ship
 	else if (gameObjects[0] != nullptr && InHarbour == true) {
 		if (gameObjects[0]->getActive()) {
 			if (NarraHarbour) {
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("Wow, I didn't know this place existed, is this a harbour?", 1);
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("Maybe the villagers here would have an idea on where the hero might be.", 1);
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("Let me explore the area first.", 1);
-			NarraHarbour = false;
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("Wow, I didn't know this place existed, is this a harbour?", 1);
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("Maybe the villagers here would have an idea on where the hero might be.", 1);
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("Let me explore the area first.", 1);
+				NarraHarbour = false;
 			}
 
 			if (gameObjects[0]->getX() == 37 && gameObjects[0]->getY() == 0)
@@ -551,7 +550,7 @@ void Game::doTurn() {
 				}
 
 			}
-			
+
 			if (gameObjects[0]->getX() == 28 && gameObjects[0]->getY() == 0) {
 				std::cout << "Press SPACE to talk to the travelling merchant" << std::endl;
 				if (player->movingGet()) {
@@ -566,7 +565,8 @@ void Game::doTurn() {
 						int itemID = _getch() - 48;
 						std::cout << "How much of this item would you want?\n";
 						int quantity = _getch() - 48;
-						merchant->sellStock(itemID, *playerInv, quantity);					}
+						merchant->sellStock(itemID, *playerInv, quantity);
+					}
 					else
 					{
 						std::cout << "\033[1;32m" << merchant->name << ": " << "\033[0m";
@@ -577,8 +577,6 @@ void Game::doTurn() {
 			else if (gameObjects[0]->getX() == 10 && gameObjects[0]->getY() == 0) {
 				std::cout << "Press SPACE to sneak in the ship" << std::endl;
 				if (player->movingGet()) {
-					std::cout << "\033[1;31m" << "Captain of Dagoon Ship" << ": " << "\033[0m";
-					GtypeLine("It's time to set sail! To the island we go maties!", 1);
 					InHarbour = false;
 					InOusideCave = true;
 					gameObjects[0]->setPosition(1, 2);
@@ -596,36 +594,32 @@ void Game::doTurn() {
 				if (player->interactionGet()) {
 					harbourvillager->NPCtalk();
 				}
-			}		
+			}
 		}
 	}
 	// check for going into cave
 	else if (gameObjects[0] != nullptr && InOusideCave == true) {
 		if (gameObjects[0]->getActive()) {
 			if (NarraOutsideCave) {
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("I'm lucky that I wasn't discovered sneaking onto that ship", 1);
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("Or else I was as good as dead", 1);
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("This island is pretty big, let’s start finding the cave.", 1);
-			NarraOutsideCave = false;
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("I'm lucky that I wasn't discovered sneaking onto that ship", 1);
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("Or else I was as good as dead", 1);
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("This island is pretty big, let's start finding the cave.", 1);
+				NarraOutsideCave = false;
 			}
-			
+
 			if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 4)
 			{
 				std::cout << "Press SPACE to intertact." << std::endl;
 				if (player->interactionGet())
 				{
 					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-					GtypeLine( "The view looks nice on this island, but it gives off an unsettling energy.", 1);
+					GtypeLine("The view looks nice on this island, but it gives off an unsettling energy.", 1);
 				}
 			}
 			if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 0) {
-				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				std::cout << "This must be the cave the villagers were talking about" << std::endl;
-				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				std::cout << "It looks eerily dangerous, but I have no choice." << std::endl << std::endl;
 				std::cout << "Press SPACE to enter the cave" << std::endl << std::endl;
 				if (player->movingGet()) {
 					InOusideCave = false;
@@ -639,19 +633,18 @@ void Game::doTurn() {
 	else if (gameObjects[0] != nullptr && InInsideCave == true) {
 		if (gameObjects[0]->getActive()) {
 			if (NarraInsideCave) {
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("Woah, this cave looks really big, I wonder where the hero might be.", 1);
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("Wait a second … is that what I think it is?", 1);
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("What is the demon altar doing here?", 1);
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("I remember using it back then, but I don't remember using it here.", 1);
-			std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-			GtypeLine("I need to check it out to make sure it actually is the altar.", 1);
-			NarraInsideCave = false;
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("Woah, this cave looks really big, I wonder where the hero might be.", 1);
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("Wait a second ... is that what I think it is?", 1);
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("What is the demon altar doing here?", 1);
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("I remember using it back then, but I don't remember using it here.", 1);
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("I need to check it out to make sure it actually is the altar.", 1);
+				NarraInsideCave = false;
 			}
-			
 		}
 	}
 
@@ -660,7 +653,6 @@ void Game::doTurn() {
 	int oldY = player->getY();
 
 
-	
 	if (player != nullptr) {
 		player->move(gameObjects, 13);
 	}
@@ -673,7 +665,7 @@ void Game::doTurn() {
 			// capture player's position before any possible deletion later
 			int playerX = player->getX();
 			int playerY = player->getY();
-			enemy1->move(playerPos, gameObjects, 12);
+			enemy1->move(playerPos, gameObjects, 13);
 		}
 	}
 
@@ -690,7 +682,6 @@ void Game::doTurn() {
 			}
 		}
 	}
-
 	clearDialogue();
 	std::cout.flush();
 }
@@ -698,7 +689,7 @@ void Game::doTurn() {
 void Game::clearDialogue() { // clears after 22st line which is where dialogue is at 
 	for (int i = 0; i < 100; i++) {//clear for 100 lines
 		std::cout << "\033[" << (22 + i) << ";1H";   // move to each line start
-		std::cout << std::string(98, ' '); // clear each line and replace with space
+		std::cout << std::string(100, ' '); // clear each line and replace with space
 	}
 	std::cout.flush();
 }
