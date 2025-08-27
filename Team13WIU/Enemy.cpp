@@ -23,7 +23,7 @@ void Enemy::NPCtalk()
 		std::cout << "\033[1;31m" << name << ": " << "\033[0m";
 		typeLine(line, 1);
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(300));
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 	}
 	std::cout << std::endl;
 }

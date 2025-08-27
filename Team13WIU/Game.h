@@ -36,6 +36,11 @@ private:
 		// MC run into forest to avoid getting arrest
 	};
 
+	std::vector<std::string> BearSpeech =
+	{
+		"RRAHHHHHH..."
+	};
+
 	std::vector<std::string> KidSpeech =
 	{
 		"OH MY GOD! That was so scary",
@@ -86,6 +91,7 @@ private:
 	bool NarraInn;
 	bool NarraTown;
 	bool BKAlive;
+	bool BearAlive;
 	
 
 public:
