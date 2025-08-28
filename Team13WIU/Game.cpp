@@ -31,14 +31,15 @@ Game::Game()
 	NarraForest = true;
 	NarraHarbour = true;
 	NarraOutsideCave = true;
-	NarraInsideCave = false;
-	NarraInsideCave2 = false;
+	NarraInsideCave = true;
+	NarraInsideCave2 = true;
 
 
 	BKAlive = true;
 	BearAlive = true;
 	KidSent = false;
 	HeroTriggered = false;
+	HeroTalk = true;
 
 	for (int i = 0; i < 26; ++i)
 	{
@@ -352,7 +353,7 @@ void Game::doTurn() {
 			if (gameObjects[13]->getX() < 26) {
 				gameObjects[13]->pos.x++;
 				drawWorld();
-				std::this_thread::sleep_for(std::chrono::milliseconds(200));
+				std::this_thread::sleep_for(std::chrono::milliseconds(50));
 				return;
 			}
 		}
@@ -766,7 +767,7 @@ void Game::doTurn() {
 				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				NarraInsideCave = false;
 			}
-			if (gameObjects[0]->getX() == 10 && InInsideCave == true) {
+			if (gameObjects[0]->getX() == 10) {
 				if (NarraInsideCave2)
 				{
 					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
@@ -783,6 +784,11 @@ void Game::doTurn() {
 					std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 					NarraInsideCave2 = false;
 				}
+			}
+			if (gameObjects[13]->getActive() == true && gameObjects[13]->getX() == 26 && HeroTalk == true) {
+				hero->dialogue = BHeroSpeech;
+				hero->NPCtalk();
+				HeroTalk = false;
 			}
 		}
 	}

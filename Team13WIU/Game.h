@@ -107,7 +107,7 @@ private:
 	bool BearAlive;
 	bool KidSent;
 	bool HeroTriggered;
-
+	bool HeroTalk;
 
 	
 
