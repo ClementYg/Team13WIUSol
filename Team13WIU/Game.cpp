@@ -16,16 +16,16 @@ using namespace std;
 
 Game::Game()
 {
-	InInn = true;
+	InInn = false;
 	InTown = false;
-	InForest = false;
+	InForest = true;
 	InHarbour = false;
 	InOusideCave = false;
 	InInsideCave = false;
 
 	NarraInn = true;
 	NarraTown = true;
-	puzzleActive = false;
+	puzzleActive = true;
 	
 	NarraForest = true;
 	NarraHarbour = true;
@@ -33,7 +33,7 @@ Game::Game()
 	NarraInsideCave = true;
 
 	BKAlive = true;
-	BearAlive = true;
+	BearAlive = false;
 
 	for (int i = 0; i < 24; ++i)
 	{
@@ -91,8 +91,8 @@ void Game::initGame() {
 	gameObjects[21]->setPosition(25, 0);
 	gameObjects[22]->setPosition(25, 4);
 	gameObjects[23]->setPosition(39, 0);
-
-	/*RiverPuzzle = new Puzzle(gameObjects[0]);*/
+	
+	RiverPuzzle = new Puzzle(gameObjects[0]);
 	//Merchant* john = static_cast<Merchant*>(gameObjects[1]);
 	Merchant* john = static_cast<Merchant*>(gameObjects[11]);
 	Player* player = static_cast<Player*>(gameObjects[0]);
@@ -119,9 +119,6 @@ void Game::initGame() {
  }
 
 void Game::drawWorld() {
-
-
-	//RiverPuzzle->Print();
 
 	char grid[5][49];
 	for (int r = 0; r < 5; ++r)
@@ -371,7 +368,11 @@ void Game::doTurn() {
 			}
 		}
 	}
-
+	else if (puzzleActive == true)
+	{
+		RiverPuzzle->doPuzzle();
+		RiverPuzzle->Print();
+	}
 	drawWorld();
 
 	// 30: Black
@@ -682,12 +683,6 @@ void Game::doTurn() {
 
 	int oldX = player->getX();
 	int oldY = player->getY();
-
-	if (player != nullptr) {
-		player->move(gameObjects, 10);
-	}
-	system("cls");
-
 
 	if (player != nullptr) {
 		player->move(gameObjects, 23);

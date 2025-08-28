@@ -8,7 +8,6 @@ private:
 	bool interaction;
 	Inventory* playerInv;
 	bool moveinter;
-	Inventory playerInv;
 	int Morale;
 	bool inPuzzle;
 
