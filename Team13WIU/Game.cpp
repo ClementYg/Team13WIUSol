@@ -921,11 +921,18 @@ void Game::doTurn() {
 			if (gameObjects[0]->getX() == gameObjects[13]->getX() && (gameObjects[0]->getY() == gameObjects[13]->getY() + 1 || gameObjects[0]->getY() == gameObjects[13]->getY() - 1)) {
 				std::cout << "Press SPACE to fight with the Hero" << std::endl;
 				if (player->interactionGet()) {
+					if (HeroAlive) {
+						FinalBattle(player);  // launches the ASCII battle scene (blocking until win/lose/quit)
 
-					FinalBattle(player);  // launches the ASCII battle scene (blocking until win/lose/quit)
-
-
-					HeroAlive = false;
+						if (player->getPlayerHP() != 0) {
+							HeroAlive = false;
+							return;
+						}
+						else {
+							player->setPosition(28, 0);
+							player->addPlayerHP(50);
+						}
+					}
 					if (HeroAlive == false && player->getMorale() <= 48)
 					{
 						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
@@ -959,9 +966,11 @@ void Game::doTurn() {
 						std::cout << "\033[1;36m" << "Narration" << ": " << "\033[0m";
 						GtypeLine("To be continued...", 1);
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+						show_end_cutscene();
 					}
 
-					else //if (HeroAlive == false && player->getMorale() >= 48)
+					else if (HeroAlive == false && player->getMorale() >= 48)
 					{
 						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
 						GtypeLine("Huff ... huff ...", 1);
@@ -985,17 +994,26 @@ void Game::doTurn() {
 						std::cout << "\033[1;36m" << "Narration" << ": " << "\033[0m";
 						GtypeLine("To be continued...", 1);
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+						show_end_cutscene();
 					}
 				}
 			}
 			else if (gameObjects[0]->getY() == gameObjects[13]->getY() && (gameObjects[0]->getX() == gameObjects[13]->getX() + 1 || gameObjects[0]->getX() == gameObjects[13]->getX() - 1)) {
 				std::cout << "Press SPACE to fight with the Hero" << std::endl;
 				if (player->interactionGet()) {
+					if (HeroAlive) {
+						FinalBattle(player); // launches the ASCII battle scene (blocking until win/lose/quit)
 
-					FinalBattle(player); // launches the ASCII battle scene (blocking until win/lose/quit)
-
-
-					HeroAlive = false;
+						if (player->getPlayerHP() != 0) {
+							HeroAlive = false;
+							return;
+						}
+						else {
+							player->setPosition(28, 0);
+							player->addPlayerHP(50);
+						}
+					}
 					if (HeroAlive == false && player->getMorale() <= 48)
 					{
 						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
@@ -1031,10 +1049,10 @@ void Game::doTurn() {
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
 						// Call cutscene
-						 show_end_cutscene();
+						show_end_cutscene();
 					}
 
-					else //if(HeroAlive == false && player->getMorale() >= 48)
+					else if(HeroAlive == false && player->getMorale() >= 48)
 					{
 						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
 						GtypeLine("Huff ... huff ...", 1);
@@ -1059,7 +1077,7 @@ void Game::doTurn() {
 						GtypeLine("To be continued...", 1);
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-						 show_end_cutscene();
+						show_end_cutscene();
 
 					}
 				}
