@@ -75,7 +75,7 @@ void Game::initGame() {
 	gameObjects[10] = new NPC("Villager", 4, 40, 'V', HvillagersSpeech);
 	gameObjects[11] = new Merchant("Travelling Merchant", 0, 28, '!', MerchantSpeech);
 	gameObjects[12] = new NPC("Old Man", 0, 10, 'M', OldManSpeech);
-	gameObjects[13] = new Enemy("Hero", 2, 5, 'H');
+	gameObjects[13] = new Enemy("Hero", 2, 0, 'H');
 	for (int i = 14; i < 24; i++) {
 		gameObjects[i] = new NPC("Interaction", 1, 1, '!');
 	}
@@ -348,6 +348,8 @@ void Game::doTurn() {
 
 			if (gameObjects[13]->getX() < 26) {
 				gameObjects[13]->pos.x++;
+				drawWorld();
+				return;
 			}
 		}
 	}
@@ -425,25 +427,38 @@ void Game::doTurn() {
 			else if (gameObjects[0]->getX() == gameObjects[7]->getX() && (gameObjects[0]->getY() == gameObjects[7]->getY() + 1 || gameObjects[0]->getY() == gameObjects[7]->getY() - 1)) {
 				if (BKAlive) {
 					braveknight->NPCtalk();
-					std::cout << "Go into combat scene" << std::endl;
 
 					// Launch the combat mini-game
 					battleArenaScene(player);
 
-					BKAlive = false;
-					return;
+					if (player->getPlayerHP() != 0) {
+						BKAlive = false;
+						return;
+					}
+					else {
+						InTown = false;
+						InInn = true;
+						player->setPosition(8, 0);
+						player->addPlayerHP(5);
+					}
 				}
 			}
 			else if (gameObjects[0]->getY() == gameObjects[7]->getY() && (gameObjects[0]->getX() == gameObjects[7]->getX() + 1 || gameObjects[0]->getX() == gameObjects[7]->getX() - 1)) {
 				if (BKAlive) {
 					braveknight->NPCtalk();
-					std::cout << "Go into combat scene" << std::endl;
 
 					// Launch the combat mini-game
 					battleArenaScene(player);
 
-					BKAlive = false;
-					return;
+					if (player->getPlayerHP() != 0) {
+						BKAlive = false;
+						return;
+					}
+					else {
+						InTown = false;
+						InInn = true;
+						player->setPosition(8, 0);
+					}
 				}
 			}
 			else {
@@ -518,7 +533,7 @@ void Game::doTurn() {
 			if (gameObjects[0]->getY() == gameObjects[8]->getY() && (gameObjects[0]->getX() == gameObjects[8]->getX() + 1 || gameObjects[0]->getX() == gameObjects[8]->getX() - 1)) {
 				if (BearAlive) {
 					bear->NPCtalk();
-					std::cout << "Go into Combat scene" << std::endl;
+					
 					//Added Bear Attack
 				   battleArenaBearForest(player);
 
@@ -529,7 +544,7 @@ void Game::doTurn() {
 			else if (gameObjects[0]->getX() == gameObjects[8]->getX() && (gameObjects[0]->getY() == gameObjects[8]->getY() + 1 || gameObjects[0]->getY() == gameObjects[8]->getY() - 1)) {
 				if (BearAlive) {
 					bear->NPCtalk();
-					std::cout << "Go into Combat scene" << std::endl;
+
 					//Added Bear Attack
 					battleArenaBearForest(player);
 
