@@ -4,11 +4,13 @@
 #include "Inventory.h"
 #include "Map.h"
 #include "startScreen.h"
-
+#include "TownSquareBurning.h"
+#include "GrowingUpCutscene.h"
 #include <string>
 #include "NPC.h"
 #include "Merchant.h"
 #include "Position.h"
+#include <windows.h>
 
 int main() {
 	// STEPS FOR INVENTORY. CREATE(NAME, ITEM, PRICE, QUANTITY)
@@ -26,13 +28,18 @@ int main() {
 	//Bag.requestInventory();
 	
 
-	////// STEPS FOR MAP 
+	//// STEPS FOR MAP 
 	//Map MapObj;
 	//MapObj.HarbourMap();
 	//MapObj.ForestMap();
 	//MapObj.Inn();
+	//MapObj.ShipCutscene();
 
 	//startScreen();	
+
+	// playTownsquareBurning();  //  the burning town scene
+
+	// evilHeroCutscene();
 
 
 	Game game;

@@ -11,7 +11,7 @@ bool Weapon::checkWeaponEquipped()
 	return weaponEquipped;
 }
 
-void Weapon::useItem()
+void Weapon::useItem(Player* playerRef)
 {
 	switch (itemWType) {
 	case WOOD_SWORD:
