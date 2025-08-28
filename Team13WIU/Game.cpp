@@ -12,6 +12,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <Windows.h>
+#include "FinalBattle.h"
+#include "EndCredits.h"
 
 using namespace std;
 
@@ -24,6 +26,7 @@ Game::Game() : RiverPuzzle(nullptr)
 	InOusideCave = false;
 	InInsideCave = false;
 	puzzleActive = false;
+
 
 	NarraInn = true;
 	NarraTown = true;
@@ -49,6 +52,7 @@ Game::Game() : RiverPuzzle(nullptr)
 	HeroTriggered = false;
 	HeroTalk = true;
 
+
 	for (int i = 0; i < 27; ++i)
 	{
 		gameObjects[i] = nullptr;
@@ -60,6 +64,7 @@ Game::~Game() {
 		delete gameObjects[i];
 		gameObjects[i] = nullptr;
 	}
+
 }
 
 void Game::GtypeLine(const std::string& text, int delay)
@@ -109,7 +114,6 @@ void Game::initGame() {
 	gameObjects[25]->setPosition(39, 0); // the rock
 	gameObjects[26]->setPosition(28, 0); //altar
 
-
 	Merchant* john = static_cast<Merchant*>(gameObjects[11]);
 	Player* player = static_cast<Player*>(gameObjects[0]);
 
@@ -118,18 +122,25 @@ void Game::initGame() {
 	RiverPuzzle = new Puzzle(player);
 
 	//ITEM CREATION AREA
-	Item* FireSword = Item::create("Fire Sword", Item::FIRE_SWORD, 35, 1);
+	Item* MythrilSword = Item::create("Mythril Sword", Item::MYTHRIL_SWORD, 45, 1);
 	Item* SteelSword = Item::create("Steel Sword", Item::STEEL_SWORD, 25, 1);
+	Item* WoodSword = Item::create("Wood Sword", Item::WOOD_SWORD, 5, 1); 
+
 
 	Item* HPpotion = Item::create("HP_Potion", Item::HP_POT, 20, 5);
 	Item* ManaPotion = Item::create("Mana Potion", Item::MANA_POT, 20, 5);
 
-	playerInv->setGold(500); // EDIT LATER THIS IS TESTING MONEY
-	FireSword->addDesc("A blade forged from the depths of the underground\n with molten iron at its peak. +10 DMG.");
+	MythrilSword->addDesc("A blade forged from the depths of the underground\n. Lightweight, Strong, somewhat resembling the texture of steel. +6 DMG.");
+	WoodSword->addDesc("... Why did you buy this? This is a stick. Your fists punch harder than this. -7 DMG.");
+	SteelSword->addDesc("Nothing special, nothing normal either. A metallic sword forged to slice your enemies in half. +3 DMG.");
+
+	HPpotion->addDesc("A simple drink of this potion and you will be A-OK. +10 HP");
+	ManaPotion->addDesc("Run out of mana? Drink up and cast your spells! +20 MANA");
 
 
-	john->addStock(FireSword);
+	john->addStock(MythrilSword);
 	john->addStock(SteelSword);
+	john->addStock(WoodSword);
 	john->addStock(HPpotion);
 	john->addStock(ManaPotion);
 
@@ -247,14 +258,14 @@ void Game::doTurn() {
 	{
 		puzzleActive = false;
 		InHarbour = true;
-		gameObjects[0]->setPosition(25, 0);
+		gameObjects[0]->setPosition(47, 2);
 		player->puzzleSet(false);
 	}
 	else if (puzzleActive == true && gameObjects[0]->getX() > 47)
 	{
 		puzzleActive = false;
 		InForest = true;
-		gameObjects[0]->setPosition(25, 0);
+		gameObjects[0]->setPosition(0, 2);
 		player->puzzleSet(false);
 	}
 	else if (InHarbour == true && gameObjects[0]->getX() > 47)
@@ -378,7 +389,10 @@ void Game::doTurn() {
 	{
 		mapObj.InnerCaveMap();
 		for (int i = 0;i < 27;i++) {
+
+
 			if (i == 0 || i == 26) {
+
 
 				gameObjects[i]->setActive(true);
 			}
@@ -434,8 +448,10 @@ void Game::doTurn() {
 				{
 					std::cout << "\033[0;33m" << "Guy on left: " << "\033[0m";
 					GtypeLine("Have you heard? Apparently the hero subdued the notorious killer!", 1);
+					std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 					std::cout << "\033[0;36m" << "Guy on right: " << "\033[0m";
 					GtypeLine("Yeah! Now I can finally sleep in peace knowing I won't be targeted!", 1);
+					std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				}
 			}
 		}
@@ -722,7 +738,7 @@ void Game::doTurn() {
 					if (player->interactionGet())
 					{
 						std::cout << "\033[1;34m" << "Barrel" << ": " << "\033[0m";
-						GtypeLine("This barrel is full of fish. However, there’s a glowing item hidden in the fishes…", 1);
+						GtypeLine("This barrel is full of fish. However, there's a glowing item hidden in the fishes...", 1);
 						std::cout << " " << std::endl;
 						playerInv->setGold(30);
 						GtypeLine("+30 gold", 1);
@@ -861,6 +877,7 @@ void Game::doTurn() {
 					NarraInsideCave2 = false;
 				}
 			}
+
 			if (gameObjects[0]->getX() == 28 && gameObjects[0]->getY() == 0 && HeroTriggered == false)
 			{
 				if (interactedaltar) {
@@ -868,8 +885,10 @@ void Game::doTurn() {
 					if (player->interactionGet()) {
 						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 						GtypeLine("It really is the altar, looks different from before.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 						GtypeLine("Should I use it again? I can get more power if I do.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 						interactedaltar = false;
 						delete gameObjects[26];
 						HeroTriggered = true;
@@ -893,7 +912,7 @@ void Game::doTurn() {
 					if (player->getMorale() <= 48) {
 						hero->dialogue = GHeroSpeech;
 					}
-					else {
+					else{
 						hero->dialogue = BHeroSpeech;
 					}
 					hero->NPCtalk();
@@ -902,17 +921,176 @@ void Game::doTurn() {
 			if (gameObjects[0]->getX() == gameObjects[13]->getX() && (gameObjects[0]->getY() == gameObjects[13]->getY() + 1 || gameObjects[0]->getY() == gameObjects[13]->getY() - 1)) {
 				std::cout << "Press SPACE to fight with the Hero" << std::endl;
 				if (player->interactionGet()) {
-					std::cout << "Go into combat scene" << std::endl;
-					// The call function for combat scene IF WE HAVE
+					if (HeroAlive) {
+						FinalBattle(player);  // launches the ASCII battle scene (blocking until win/lose/quit)
+
+						if (player->getPlayerHP() != 0) {
+							HeroAlive = false;
+							return;
+						}
+						else {
+							player->setPosition(28, 0);
+							player->addPlayerHP(50);
+						}
+					}
+					if (HeroAlive == false && player->getMorale() <= 48)
+					{
+						clearDialogue();
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Ughh....", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("MC...stop this no..w...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("I kn..ow you..s..till...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("c..an...c.ha..ng..e....", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("P...leas....e.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("It's too late hero, give up and pass quietly", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("y..ou....", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Well, I guess it's time...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Time to dominate the world", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << " " << std::endl;
+						std::cout << "\033[1;36m" << "Narration" << ": " << "\033[0m";
+						GtypeLine("To be continued...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+						system("cls");
+						show_end_cutscene();
+					}
+
+					else if (HeroAlive == false && player->getMorale() >= 48)
+					{
+						clearDialogue();
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Huff ... huff ...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Thank you for saving me MC, I truly owe you one.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("If you like, I can clear some of your misdeeds so that you get a lighter sentence.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("However, I cannot fully clear all your wrongdoings though.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Let's go back to the town alright?", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Yeah...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << " " << std::endl;
+						std::cout << "\033[1;36m" << "Narration" << ": " << "\033[0m";
+						GtypeLine("To be continued...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+						system("cls");
+						show_end_cutscene();
+					}
 				}
 			}
 			else if (gameObjects[0]->getY() == gameObjects[13]->getY() && (gameObjects[0]->getX() == gameObjects[13]->getX() + 1 || gameObjects[0]->getX() == gameObjects[13]->getX() - 1)) {
 				std::cout << "Press SPACE to fight with the Hero" << std::endl;
 				if (player->interactionGet()) {
-					std::cout << "Go into combat scene" << std::endl;
-					// The call function for combat scene IF WE HAVE
+					if (HeroAlive) {
+						FinalBattle(player); // launches the ASCII battle scene (blocking until win/lose/quit)
+
+						if (player->getPlayerHP() != 0) {
+							HeroAlive = false;
+							return;
+						}
+						else {
+							player->setPosition(28, 0);
+							player->addPlayerHP(50);
+						}
+					}
+					if (HeroAlive == false && player->getMorale() <= 48)
+					{
+						clearDialogue();
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Ughh....", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("MC...stop this no..w...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("I kn..ow you..s..till...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("c..an...c.ha..ng..e....", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("P...leas....e.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("It's too late hero, give up and pass quietly", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("y..ou....", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Well, I guess it's time...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Time to dominate the world", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << " " << std::endl;
+						std::cout << "\033[1;36m" << "Narration" << ": " << "\033[0m";
+						GtypeLine("To be continued...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+						// Call cutscene
+						system("cls");
+						show_end_cutscene();
+					}
+
+					else if(HeroAlive == false && player->getMorale() >= 48)
+					{
+						clearDialogue();
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Huff ... huff ...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Thank you for saving me MC, I truly owe you one.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("If you like, I can clear some of your misdeeds so that you get a lighter sentence.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("However, I cannot fully clear all your wrongdoings though.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Let's go back to the town alright?", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Yeah...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << " " << std::endl;
+						std::cout << "\033[1;36m" << "Narration" << ": " << "\033[0m";
+						GtypeLine("To be continued...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						system("cls");
+
+						show_end_cutscene();
+
+					}
 				}
 			}
+			
 		}
 	}
 

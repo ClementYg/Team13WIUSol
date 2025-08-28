@@ -130,8 +130,10 @@
     <ClCompile Include="BattleArena.cpp" />
     <ClCompile Include="BearBattle.cpp" />
     <ClCompile Include="Consumable.cpp" />
+    <ClCompile Include="EndCredits.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="FinalBattle.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GrowingUpCutscene.cpp" />
     <ClCompile Include="Inventory.cpp" />
@@ -152,8 +154,10 @@
     <ClInclude Include="BattleArena.h" />
     <ClInclude Include="BearBattle.h" />
     <ClInclude Include="Consumable.h" />
+    <ClInclude Include="EndCredits.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="FinalBattle.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GrowingUpCutscene.h" />
     <ClInclude Include="Inventory.h" />
