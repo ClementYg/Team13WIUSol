@@ -14,9 +14,8 @@ public:
 	Weapon(std::string n, weaponType, int, int);
 	virtual ~Weapon();
 private:
+	static Weapon* currentWep;
 	weaponType itemWType; 
-	static bool weaponEquipped;
-	bool FSequipped; 
-	bool WSequipped; //check weapon in use
+	bool weaponEquipped;
 };
 

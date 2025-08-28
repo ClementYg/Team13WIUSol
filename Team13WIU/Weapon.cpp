@@ -11,47 +11,58 @@ bool Weapon::checkWeaponEquipped()
 	return weaponEquipped;
 }
 
+Weapon* Weapon::currentWep = nullptr;
+
 void Weapon::useItem(Player* playerRef)
 {
-	switch (itemWType) {
-	case WOOD_SWORD:
+	if (currentWep != this) // check if weapon ptr saved i cwep is the one that called function 
 	{
-		std::cout << "Wood Sword equipped\n";
-		WSequipped = true;
+		if (currentWep) currentWep->weaponEquipped = false; //set current to false
+		currentWep = this;
 		weaponEquipped = true;
-		break;
-	}
-	case STEEL_SWORD:	
-	{
-		std::cout << "Steel Sword equipped\n";
 
-	}
-	case FIRE_SWORD: 
-	{
-		std::cout << "Fire Sword equipped\n"; 
-		FSequipped = true; //add in combat system later. If specific type of weapon in use, +10 to dmg etc... 
-		weaponEquipped = true;
-		break;
-	}
-	default: std::cout << "error equipping weapon\n";
+		switch (itemWType) {
+		case WOOD_SWORD:
+		{
+			playerRef->setWeaponDmg(5); //if equipped, enhance damager
+			break;
+		}
+		case STEEL_SWORD:
+		{
+			playerRef->setWeaponDmg(15); //if equipped, enhance damager
+			break;
 
+		}
+		case FIRE_SWORD:
+		{
+			playerRef->setWeaponDmg(18); //if equipped, enhance damager
+			break;
+		}
+		default: std::cout << "error equipping weapon\n";
+
+		}
+		std::cout << "Weapon Equipped\n";
 	}
+	else {
+		weaponEquipped = false;
+		currentWep = nullptr;
+		playerRef->setWeaponDmg(12);
+	}
+
 }
 
 Weapon* Weapon::duplicate() {
 	return new Weapon(*this);
 }
 
-bool Weapon::weaponEquipped = false;
 
-Weapon::Weapon(std::string n, weaponType type,int price,int qty)
+Weapon::Weapon(std::string n, weaponType type, int price, int qty)
 {
 	itemWType = type;
 	name = n;
 	this->price = price;
 	quantity = qty;
-	FSequipped = false; 
-	WSequipped = false;
+	weaponEquipped = false;
 	std::cout << "A weapon created\n";
 }
 
