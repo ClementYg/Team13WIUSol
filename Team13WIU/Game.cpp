@@ -64,6 +64,7 @@ Game::~Game() {
 		delete gameObjects[i];
 		gameObjects[i] = nullptr;
 	}
+
 }
 
 void Game::GtypeLine(const std::string& text, int delay)
@@ -737,7 +738,7 @@ void Game::doTurn() {
 					if (player->interactionGet())
 					{
 						std::cout << "\033[1;34m" << "Barrel" << ": " << "\033[0m";
-						GtypeLine("This barrel is full of fish. However, there’s a glowing item hidden in the fishes…", 1);
+						GtypeLine("This barrel is full of fish. However, there's a glowing item hidden in the fishes...", 1);
 						std::cout << " " << std::endl;
 						playerInv->setGold(30);
 						GtypeLine("+30 gold", 1);

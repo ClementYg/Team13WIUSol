@@ -9,7 +9,6 @@ std::string Consumable::getItemName()
 Consumable::Consumable(std::string n, consumeType type, int price, int qty)
 {
 	name = n;
-	std::cout << "A created\n";
 	this->price = price;
 	quantity = qty;
 

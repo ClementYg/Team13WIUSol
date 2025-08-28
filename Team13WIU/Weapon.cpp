@@ -65,7 +65,6 @@ Weapon::Weapon(std::string n, weaponType type, int price, int qty)
 	this->price = price;
 	quantity = qty;
 	weaponEquipped = false;
-	std::cout << "A weapon created\n";
 }
 
 Weapon::~Weapon() {}
