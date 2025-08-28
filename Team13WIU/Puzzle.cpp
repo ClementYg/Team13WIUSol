@@ -2,9 +2,17 @@
 #include "Player.h"
 #include "obstacle.h"
 #include <iostream>
-Puzzle::Puzzle(Entity* player) : MC(static_cast<Player*>(player)) {
+Puzzle::Puzzle(Entity* player) : MC(static_cast<Player*>(player)), oldplayerX(0), oldplayerY(0), hole1active(true), hole2active(true) {
 	obstacleList[0] = new obstacle(33,3);
 	obstacleList[1] = new obstacle(41, 14);
+	for (int r = 0; r < 18; ++r)
+		for (int c = 0; c < 49; ++c)
+			if (((c == 19 || c == 29) && r != 8) || ((c > 19 && c < 29) && (r == 7 || r == 9)))
+				grid[r][c] = 'X';
+			else if ((c == 27 && r == 8) || (c == 22 && r == 8))
+				grid[r][c] = 'O';
+			else
+				grid[r][c] = ' ';
 }
 
 void Puzzle::Print() {
@@ -51,7 +59,7 @@ void Puzzle::Print() {
 
 	for (int i = 0; i < 98; i++) {
 		std::cout << '-';
-		if (i == 97) std::cout << "\n"; // New line after the border
+		if (i == 97) std::cout << "\n" << "Push the rocks (#) into the holes (O) to continue."; // New line after the border
 	}
 }
 

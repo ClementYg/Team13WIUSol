@@ -15,7 +15,7 @@
 
 using namespace std;
 
-Game::Game()
+Game::Game() : RiverPuzzle(nullptr)
 {
 	InInn = false;
 	InTown = false;

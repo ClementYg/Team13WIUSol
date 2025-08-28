@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-Player::Player(std::string n, int y, int x, char s) : Morale(48) /*: Entity(row, col, '@') */
+Player::Player(std::string n, int y, int x, char s) : Morale(48), playerX(0), playerY(0) /*: Entity(row, col, '@') */
 {
 	name = n;
 	pos.x = x;
