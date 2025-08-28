@@ -54,9 +54,13 @@ void Inventory::printInventory(Player* playerRef)
 					std::cout << ">> ";
 				}
 
-				std::cout << "[" << container[i]->getItemID() << "] " << container[i]->getItemName() << " x" << container[i]->getQuantity();
-				if (dynamic_cast<Weapon*>(container[i])->checkWeaponEquipped()) { //check only weapons
-					std::cout << " (E)";
+				std::cout << "[" << i << "] " << container[i]->getItemName() << " x" << container[i]->getQuantity();
+				for (auto& eachItem : container) {
+					if (Weapon* itemCheck = dynamic_cast<Weapon*>(eachItem)) {
+						if (itemCheck->checkWeaponEquipped()) { //check only weapons
+							std::cout << " (E)";
+						}
+					}
 				}
 				std::cout << std::endl << std::endl;
 
@@ -73,14 +77,11 @@ void Inventory::printInventory(Player* playerRef)
 				char choice = _getch();
 				if (choice == 'Y' || choice == 'y') {
 					useItem(i, playerRef); //use item with that index
-					container[i]->select(0);
-					return;
 				}
 				else container[i]->select(0);
 				//deselect everything
 			}
-
-			
+			container[i]->select(0);
 		}
 	}
 }
