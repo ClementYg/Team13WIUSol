@@ -19,22 +19,20 @@ using namespace std;
 
 Game::Game()
 {
-	InInn = true;
+	InInn = false;
 	InTown = false;
 	InForest = false;
 	InHarbour = false;
 	InOusideCave = false;
-	InInsideCave = false;
+	InInsideCave = true;
 	
 	NarraInn = true;
 	NarraTown = true;
 	NarraForest = true;
 	NarraHarbour = true;
 	NarraOutsideCave = true;
-	NarraInsideCave = true;
-	NarraInsideCave2 = true;
-	
-	for (int i = 0; i < 4; ++i)
+	NarraInsideCave = false;
+	NarraInsideCave2 = false;
 
 
 	BKAlive = true;
@@ -43,7 +41,6 @@ Game::Game()
 	HeroTriggered = false;
 
 	for (int i = 0; i < 26; ++i)
-
 	{
 		gameObjects[i] = nullptr;
 	}
@@ -84,23 +81,23 @@ void Game::initGame() {
 		gameObjects[i] = new NPC("Interaction", 1, 1, '!');
 	}
 
-	gameObjects[2]->setPosition(23, 4);
-	gameObjects[3]->setPosition(8, 1);
-	gameObjects[4]->setPosition(13, 4);
-	gameObjects[5]->setPosition(20, 0);
-	gameObjects[6]->setPosition(30, 2);
-	gameObjects[14]->setPosition(17, 0);
-	gameObjects[15]->setPosition(9, 0);
-	gameObjects[16]->setPosition(35, 0);
-	gameObjects[17]->setPosition(23, 0); //rock
-	gameObjects[18]->setPosition(10, 0);
-	gameObjects[19]->setPosition(35, 4);
-	gameObjects[20]->setPosition(37, 0);
-	gameObjects[21]->setPosition(10, 0);
-	gameObjects[22]->setPosition(19, 4);
-	gameObjects[23]->setPosition(25, 0);
-	gameObjects[24]->setPosition(25, 4);
-	gameObjects[25]->setPosition(39, 0);
+	gameObjects[2]->setPosition(23, 4); //villager
+	gameObjects[3]->setPosition(8, 1); //villager
+	gameObjects[4]->setPosition(13, 4); //villager
+	gameObjects[5]->setPosition(20, 0); //villager
+	gameObjects[6]->setPosition(30, 2); //villager
+	gameObjects[14]->setPosition(17, 0); //guys at the table
+	gameObjects[15]->setPosition(9, 0); //go back to inn
+	gameObjects[16]->setPosition(35, 0); // the house in town
+	gameObjects[17]->setPosition(23, 0); // forest rock
+	gameObjects[18]->setPosition(10, 0); // the birds
+	gameObjects[19]->setPosition(35, 4); // the thing on forest floor
+	gameObjects[20]->setPosition(37, 0); // the captain
+	gameObjects[21]->setPosition(10, 0); // the ship
+	gameObjects[22]->setPosition(19, 4); // the barrel
+	gameObjects[23]->setPosition(25, 0); // go into the cave
+	gameObjects[24]->setPosition(25, 4); // the view
+	gameObjects[25]->setPosition(39, 0); // the rock
 
 	Merchant* john = static_cast<Merchant*>(gameObjects[11]);
 	Player* player = static_cast<Player*>(gameObjects[0]);
@@ -355,6 +352,7 @@ void Game::doTurn() {
 			if (gameObjects[13]->getX() < 26) {
 				gameObjects[13]->pos.x++;
 				drawWorld();
+				std::this_thread::sleep_for(std::chrono::milliseconds(200));
 				return;
 			}
 		}
@@ -468,6 +466,7 @@ void Game::doTurn() {
 						InTown = false;
 						InInn = true;
 						player->setPosition(8, 0);
+						player->addPlayerHP(5);
 					}
 				}
 			}
@@ -584,7 +583,7 @@ void Game::doTurn() {
 					bear->NPCtalk();
 					
 					//Added Bear Attack
-				   battleArenaBearForest(player);
+					battleArenaBearForest(player);
 
 					BearAlive = false;
 					return;
@@ -817,7 +816,7 @@ void Game::doTurn() {
 void Game::clearDialogue() { // clears after 22st line which is where dialogue is at 
 	for (int i = 0; i < 100; i++) {//clear for 100 lines
 		std::cout << "\033[" << (22 + i) << ";1H";   // move to each line start
-		std::cout << std::string(100, ' '); // clear each line and replace with space
+		std::cout << std::string(110, ' '); // clear each line and replace with space
 	}
 	std::cout.flush();
 }
