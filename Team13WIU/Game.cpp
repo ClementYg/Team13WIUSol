@@ -38,7 +38,7 @@ Game::Game()
 	BKAlive = true;
 	BearAlive = true;
 
-	for (int i = 0; i < 24; ++i)
+	for (int i = 0; i < 26; ++i)
 
 	{
 		gameObjects[i] = nullptr;
@@ -46,7 +46,7 @@ Game::Game()
 }
 
 Game::~Game() {
-	for (int i = 0; i < 24; ++i) {
+	for (int i = 0; i < 26; ++i) {
 		delete gameObjects[i];
 		gameObjects[i] = nullptr;
 	}
@@ -76,7 +76,7 @@ void Game::initGame() {
 	gameObjects[11] = new Merchant("Travelling Merchant", 0, 28, '!', MerchantSpeech);
 	gameObjects[12] = new NPC("Old Man", 0, 10, 'M', OldManSpeech);
 	gameObjects[13] = new Enemy("Hero", 2, 5, 'H');
-	for (int i = 14; i < 24; i++) {
+	for (int i = 14; i < 26; i++) {
 		gameObjects[i] = new NPC("Interaction", 1, 1, '!');
 	}
 
@@ -88,13 +88,15 @@ void Game::initGame() {
 	gameObjects[14]->setPosition(17, 0);
 	gameObjects[15]->setPosition(9, 0);
 	gameObjects[16]->setPosition(35, 0);
-	gameObjects[17]->setPosition(23, 0);
-	gameObjects[18]->setPosition(37, 0);
-	gameObjects[19]->setPosition(10, 0);
-	gameObjects[20]->setPosition(19, 4);
-	gameObjects[21]->setPosition(25, 0);
-	gameObjects[22]->setPosition(25, 4);
-	gameObjects[23]->setPosition(39, 0);
+	gameObjects[17]->setPosition(23, 0); //rock
+	gameObjects[18]->setPosition(10, 0);
+	gameObjects[19]->setPosition(35, 4);
+	gameObjects[20]->setPosition(37, 0);
+	gameObjects[21]->setPosition(10, 0);
+	gameObjects[22]->setPosition(19, 4);
+	gameObjects[23]->setPosition(25, 0);
+	gameObjects[24]->setPosition(25, 4);
+	gameObjects[25]->setPosition(39, 0);
 
 	Merchant* john = static_cast<Merchant*>(gameObjects[11]);
 	Player* player = static_cast<Player*>(gameObjects[0]);
@@ -127,7 +129,7 @@ void Game::drawWorld() {
 		for (int c = 0; c < 49; ++c)
 			grid[r][c] = ' ';
 
-	for (int i = 23; i > -1; --i) {
+	for (int i = 25; i > -1; --i) {
 		if (gameObjects[i] != nullptr) {
 			if (gameObjects[i]->getActive()) {
 				int r = gameObjects[i]->getY();
@@ -230,7 +232,7 @@ void Game::doTurn() {
 	if (InInn == true)
 	{
 		mapObj.Inn();
-		for (int i = 0;i < 24;i++) {
+		for (int i = 0;i < 26;i++) {
 			if (i == 0 || i == 1 || i == 14) {
 				gameObjects[i]->setActive(true);
 			}
@@ -243,7 +245,7 @@ void Game::doTurn() {
 	{
 		mapObj.townMap();
 		if (BKAlive) {
-			for (int i = 0;i < 24;i++) {
+			for (int i = 0;i < 26;i++) {
 				if (i == 0 || i == 7 || i == 15 || i == 16) {
 					gameObjects[i]->setActive(true);
 				}
@@ -256,7 +258,7 @@ void Game::doTurn() {
 			}
 		}
 		else {
-			for (int i = 0;i < 24;i++) {
+			for (int i = 0;i < 26;i++) {
 				if (i == 0 || i == 15 || i == 16) {
 					gameObjects[i]->setActive(true);
 				}
@@ -284,8 +286,8 @@ void Game::doTurn() {
 	{
 		mapObj.ForestMap();
 		if (BearAlive) {
-			for (int i = 0;i < 24;i++) {
-				if (i == 0 || i == 8 || i == 9 || i == 17) {
+			for (int i = 0;i < 26;i++) {
+				if (i == 0 || i == 8 || i == 9 || i == 17 || i == 18 || i == 19) {
 					gameObjects[i]->setActive(true);
 				}
 				else {
@@ -294,8 +296,8 @@ void Game::doTurn() {
 			}
 		}
 		else {
-			for (int i = 0;i < 24;i++) {
-				if (i == 0 || i == 9 || i == 17) {
+			for (int i = 0;i < 26;i++) {
+				if (i == 0 || i == 9 || i == 17 || i == 18 || i == 19) {
 					gameObjects[i]->setActive(true);
 				}
 				else {
@@ -307,8 +309,8 @@ void Game::doTurn() {
 	else if (InHarbour == true)
 	{
 		mapObj.HarbourMap();
-		for (int i = 0;i < 24;i++) {
-			if (i == 0 || i == 10 || i == 11 || i == 18 || i == 19 || i == 20) {
+		for (int i = 0;i < 26;i++) {
+			if (i == 0 || i == 10 || i == 11 || i == 18 /*20*/ || i == 19 /*21*/ || i == 20 /*22*/) {
 				gameObjects[i]->setActive(true);
 			}
 			else {
@@ -319,8 +321,8 @@ void Game::doTurn() {
 	else if (InOusideCave == true)
 	{
 		mapObj.EntranceCaveMap();
-		for (int i = 0;i < 24;i++) {
-			if (i == 0 || i == 12 || i == 21 || i == 22 || i == 23) {
+		for (int i = 0;i < 26;i++) {
+			if (i == 0 || i == 12 || i == 21 /*23*/ || i == 22 /*24*/ || i == 23 /*25*/) {
 				gameObjects[i]->setActive(true);
 			}
 			else {
@@ -331,7 +333,7 @@ void Game::doTurn() {
 	else if (InInsideCave == true)
 	{
 		mapObj.InnerCaveMap();
-		for (int i = 0;i < 24;i++) {
+		for (int i = 0;i < 26;i++) {
 			if (i == 0 || (i == 13 && gameObjects[0]->getX() > 27)) {
 				gameObjects[i]->setActive(true);
 			}
@@ -494,8 +496,43 @@ void Game::doTurn() {
 				{
 					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 					GtypeLine("This is an ordinary rock. However, there's something ominous about it that keeps your guard up.", 1);
+					std::cout << " " << std::endl;
+					playerInv->setGold(30);//plus 30 gold
+					GtypeLine("+30 gold", 1);
 				}
 			}
+
+			if (gameObjects[0]->getX() == 10 && gameObjects[0]->getY() == 0)
+			{
+				std::cout << "Press SPACE to observe" << std::endl;
+				if (player->interactionGet())
+				{
+					std::cout << "\033[1;31m" << "Bird" << ": " << "\033[0m";
+					GtypeLine("Chirp Chirp.", 1);
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("These birds seem to be hiding something valuable with them.", 1);
+					std::cout << " " << std::endl;
+					playerInv->setGold(30);
+					GtypeLine("+30 gold", 1);
+				}
+				
+			}
+
+			if (gameObjects[0]->getX() == 35 && gameObjects[0]->getY() == 4)
+			{
+				std::cout << "Press SPACE to pick up" << std::endl;
+				if (player->interactionGet())
+				{
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("Oh, who left this here? ", 1);
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("Well, as they always say, finders keepers.", 1);
+					std:;cout << " " << std::endl;
+					playerInv->setGold(30);
+					GtypeLine("+30 gold", 1);
+				}
+			}
+
 			if (gameObjects[0]->getY() == gameObjects[8]->getY() && (gameObjects[0]->getX() == gameObjects[8]->getX() + 1 || gameObjects[0]->getX() == gameObjects[8]->getX() - 1)) {
 				if (BearAlive) {
 					bear->NPCtalk();
@@ -549,7 +586,19 @@ void Game::doTurn() {
 					std::cout << "\033[1;35m" << "Captain" << ": " << "\033[0m";
 					GtypeLine("Dang it, I wanted to set sail too! I guess next time...", 1);
 				}
+			}
 
+			if (gameObjects[0]->getX() == 19 && gameObjects[0]->getY() == 4)
+			{
+				std::cout << "Press SPACE to search" << std::endl;
+				if (player->interactionGet())
+				{
+					std::cout << "\033[1;34m" << "Barrel" << ": " << "\033[0m";
+					GtypeLine("This barrel is full of fish. However, there’s a glowing item hidden in the fishes…", 1);
+					std::cout << " " << std::endl;
+					playerInv->setGold(30);
+					GtypeLine("+30 gold", 1);
+				}
 			}
 
 			if (gameObjects[0]->getX() == 28 && gameObjects[0]->getY() == 0) {
@@ -670,12 +719,12 @@ void Game::doTurn() {
 
 
 	if (player != nullptr) {
-		player->move(gameObjects, 23);
+		player->move(gameObjects, 25);
 	}
 
 
 	// Move enemies
-	for (int i = 1; i < 23; ++i) {
+	for (int i = 1; i < 25; ++i) {
 		if (gameObjects[i] != nullptr && player != nullptr) {
 			Enemy1* enemy1 = static_cast<Enemy1*>(gameObjects[i]);
 			// capture player's position before any possible deletion later
