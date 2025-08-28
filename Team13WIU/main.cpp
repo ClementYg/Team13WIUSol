@@ -4,7 +4,8 @@
 #include "Inventory.h"
 #include "Map.h"
 #include "startScreen.h"
-
+#include "TownSquareBurning.h"
+#include "GrowingUpCutscene.h"
 #include <string>
 #include "NPC.h"
 #include "Merchant.h"
@@ -35,6 +36,10 @@ int main() {
 	//MapObj.ShipCutscene();
 
 	//startScreen();	
+
+	// playTownsquareBurning();  //  the burning town scene
+
+	// evilHeroCutscene();
 
 
 	Game game;

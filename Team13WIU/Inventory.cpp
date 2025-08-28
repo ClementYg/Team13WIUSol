@@ -4,12 +4,12 @@
 #include "conio.h"
 
 
-void Inventory::showInventory()
+void Inventory::showInventory(Player* playerRef)
 {
 	bool exitInventory = false; //local variable declaration
 
 	while (!exitInventory) {
-		printInventory();
+		printInventory(playerRef);
 
 		std::cout << "What do you wish to do with your backpack?\n" << "Press any button to close your Bag.\nPress C to select an item.\n\n";
 		char userChoice = _getch();
@@ -20,11 +20,11 @@ void Inventory::showInventory()
 	}
 }
 
-void Inventory::requestInventory() {
+void Inventory::requestInventory(Player* playerRef) {
 	std::cout << "What do you wish to do with your backpack? Press E to Open, Press X to Close.\n";
 	char userChoice = _getch();
 	if (userChoice == 'E' || userChoice == 'e') {
-		showInventory(); //signify open 
+		showInventory(playerRef); //signify open 
 	}
 	else {}
 }
@@ -42,7 +42,7 @@ void Inventory::selectItem()
 	}
 } //tells user to select and also deselects previously selected
 
-void Inventory::printInventory()
+void Inventory::printInventory(Player* playerRef)
 {
 	//display stuff
 	std::cout << "You currently have " << getGold() << " Gold and " << getTotalItems() << " Items in your Bag\n";
@@ -71,7 +71,7 @@ void Inventory::printInventory()
 				std::cout << "Do you wish to use this item? [Y/N] \n";
 				char choice = _getch();
 				if (choice == 'Y' || choice == 'y') {
-					useItem(i); //use item with that index
+					useItem(i, playerRef); //use item with that index
 				}
 				else container[i]->select(0);
 				//deselect everything
@@ -113,12 +113,12 @@ void Inventory::addItem(Item* itemObj, int qty)
 
 }
 
-void Inventory::useItem(int slot) {
+void Inventory::useItem(int slot, Player* playerRef) {
 	if (!container[slot]->checkItemSelect()) {
 		return;
 	} //check if selected
 
-	container[slot]->useItem();
+	container[slot]->useItem(playerRef);
 
 	if (container[slot]->getQuantity() <= 0) {
 		delete container[slot];

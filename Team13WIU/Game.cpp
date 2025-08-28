@@ -5,12 +5,15 @@
 #include "Merchant.h"
 #include "Enemy.h"
 #include "Map.h"
+#include "BattleArena.h" 
+#include "BearBattle.h"
 #include <conio.h>
 #include <chrono>
 #include <thread>
 #include <iostream>
 #include <cstdlib>
 #include <Windows.h>
+
 using namespace std;
 
 
@@ -300,7 +303,8 @@ void Game::doTurn() {
 				}
 			}
 		}
-	}	  
+	}
+	  
 	else if (InHarbour == true)
 	{
 		mapObj.HarbourMap();
@@ -422,6 +426,10 @@ void Game::doTurn() {
 				if (BKAlive) {
 					braveknight->NPCtalk();
 					std::cout << "Go into combat scene" << std::endl;
+
+					// Launch the combat mini-game
+					battleArenaScene(player);
+
 					BKAlive = false;
 					return;
 				}
@@ -430,6 +438,10 @@ void Game::doTurn() {
 				if (BKAlive) {
 					braveknight->NPCtalk();
 					std::cout << "Go into combat scene" << std::endl;
+
+					// Launch the combat mini-game
+					battleArenaScene(player);
+
 					BKAlive = false;
 					return;
 				}
@@ -507,6 +519,9 @@ void Game::doTurn() {
 				if (BearAlive) {
 					bear->NPCtalk();
 					std::cout << "Go into Combat scene" << std::endl;
+					//Added Bear Attack
+				   battleArenaBearForest(player);
+
 					BearAlive = false;
 					return;
 				}
@@ -515,6 +530,9 @@ void Game::doTurn() {
 				if (BearAlive) {
 					bear->NPCtalk();
 					std::cout << "Go into Combat scene" << std::endl;
+					//Added Bear Attack
+					battleArenaBearForest(player);
+
 					BearAlive = false;
 					return;
 				}

@@ -6,7 +6,7 @@ class Consumable : public Item
 public:
 	std::string getItemName();
 
-	void useItem();
+	void useItem(Player* playerRef);
 
 	Consumable* duplicate();
 
