@@ -17,9 +17,9 @@ using namespace std;
 
 Game::Game() : RiverPuzzle(nullptr)
 {
-	InInn = true;
+	InInn = false;
 	InTown = false;
-	InForest = false;
+	InForest = true;
 	InHarbour = false;
 	InOusideCave = false;
 	InInsideCave = false;
@@ -728,7 +728,7 @@ void Game::doTurn() {
 					if (player->interactionGet())
 					{
 						std::cout << "\033[1;34m" << "Barrel" << ": " << "\033[0m";
-						GtypeLine("This barrel is full of fish. However, there’s a glowing item hidden in the fishes…", 1);
+						GtypeLine("This barrel is full of fish. However, there's a glowing item hidden in the fish...", 1);
 						std::cout << " " << std::endl;
 						playerInv->setGold(30);
 						GtypeLine("+30 gold", 1);
@@ -964,7 +964,7 @@ void Game::doTurn() {
 						GtypeLine("However, I cannot fully clear all your wrongdoings though.", 1);
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
-						GtypeLine("Let’s go back to the town alright?", 1);
+						GtypeLine("Let's go back to the town alright?", 1);
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 						GtypeLine("Yeah...", 1);
@@ -1032,7 +1032,7 @@ void Game::doTurn() {
 						GtypeLine("However, I cannot fully clear all your wrongdoings though.", 1);
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
-						GtypeLine("Let’s go back to the town alright?", 1);
+						GtypeLine("Let's go back to the town alright?", 1);
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 						GtypeLine("Yeah...", 1);
