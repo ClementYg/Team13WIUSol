@@ -17,9 +17,9 @@ using namespace std;
 
 Game::Game()
 {
-	InInn = false;
+	InInn = true;
 	InTown = false;
-	InForest = true;
+	InForest = false;
 	InHarbour = false;
 	InOusideCave = false;
 	InInsideCave = false;
@@ -235,7 +235,7 @@ void Game::doTurn() {
 		gameObjects[0]->setPosition(1, gameObjects[0]->getY()); // Set player position in town
 	}
 	// if player go left of the Forest, go to Harbour (but initially blocked)
-	else if (InForest == true && gameObjects[0]->getX() < 1 && BearAlive == false)
+	else if (InForest == true && gameObjects[0]->getX() < 1 && BearAlive == false && KidTriggered == true)
 	{
 		InForest = false;
 		InHarbour = true;
@@ -480,7 +480,7 @@ void Game::doTurn() {
 						InTown = false;
 						InInn = true;
 						player->setPosition(8, 0);
-						player->addPlayerHP(5);
+						player->addPlayerHP(50);
 					}
 				}
 			}
@@ -499,7 +499,7 @@ void Game::doTurn() {
 						InTown = false;
 						InInn = true;
 						player->setPosition(8, 0);
-						player->addPlayerHP(5);
+						player->addPlayerHP(50);
 					}
 				}
 			}
@@ -638,7 +638,7 @@ void Game::doTurn() {
 						InForest = false;
 						InTown = true;
 						player->setPosition(39, 2);
-						player->addPlayerHP(5);
+						player->addPlayerHP(50);
 					}
 				}
 			}
@@ -657,7 +657,7 @@ void Game::doTurn() {
 						InForest = false;
 						InTown = true;
 						player->setPosition(39, 2);
-						player->addPlayerHP(5);
+						player->addPlayerHP(50);
 					}
 				}
 			}
