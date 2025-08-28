@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "Puzzle.h"
 #include <vector>
 #include <string>
 #include <windows.h>
@@ -8,6 +9,7 @@ class Game
 private:
 	Entity* gameObjects[26];
 	Position playerPos;
+	//Puzzle* RiverPuzzle;
 
 	std::vector<std::string> InnKeeperSpeech =
 	{
@@ -98,6 +100,7 @@ private:
 	bool InInsideCave;
 	bool NarraInn;
 	bool NarraTown;
+	bool puzzleActive;
 	bool NarraForest;
 	bool NarraHarbour;
 	bool NarraOutsideCave;
@@ -106,8 +109,7 @@ private:
 	bool BKAlive;
 	bool BearAlive;
 
-
-	
+//	Puzzle* RiverPuzzle;
 
 public:
 	Game();
@@ -118,4 +120,3 @@ public:
 	void doTurn();
 	void clearDialogue();
 };
-

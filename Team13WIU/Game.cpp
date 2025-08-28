@@ -15,8 +15,6 @@
 
 using namespace std;
 
-
-
 Game::Game()
 {
 	InInn = true;
@@ -28,6 +26,8 @@ Game::Game()
 
 	NarraInn = true;
 	NarraTown = true;
+	puzzleActive = true;
+	
 	NarraForest = true;
 	NarraHarbour = true;
 	NarraOutsideCave = true;
@@ -38,7 +38,7 @@ Game::Game()
 
 
 	BKAlive = true;
-	BearAlive = true;
+	BearAlive = false;
 
 	for (int i = 0; i < 26; ++i)
 
@@ -169,6 +169,7 @@ void Game::doTurn() {
 
 
 	Player* player = static_cast<Player*>(gameObjects[0]);
+
 	NPC* innkeeper = static_cast<NPC*>(gameObjects[1]);
 	NPC* villager1 = static_cast<NPC*>(gameObjects[2]);
 	NPC* villager2 = static_cast<NPC*>(gameObjects[3]);
@@ -178,6 +179,20 @@ void Game::doTurn() {
 	Enemy* braveknight = static_cast<Enemy*>(gameObjects[7]);
 	Enemy* bear = static_cast<Enemy*>(gameObjects[8]);
 	NPC* kid = static_cast<NPC*>(gameObjects[9]);
+
+	//morale
+	
+	std::cout << '|';
+	for (int i = 0;i < player->getMorale();i++)
+	{
+		std::cout << '#';
+	}
+	for (int i = player->getMorale();i < 96;i++)
+	{
+		std::cout << ' ';
+	}
+	std::cout << '|'<<endl;
+
 	NPC* harbourvillager = static_cast<NPC*>(gameObjects[10]);
 	Merchant* merchant = static_cast<Merchant*>(gameObjects[11]);
 	NPC* oldman = static_cast<NPC*>(gameObjects[12]);
@@ -214,13 +229,29 @@ void Game::doTurn() {
 		InForest = false;
 		InHarbour = true;
 		gameObjects[0]->setPosition(47, gameObjects[0]->getY()); // Set player position in town
+		//player->puzzleSet(true);
 	}
 	// if player go right of the Harbour, go back to Forest
+	//else if (puzzleActive == true && gameObjects[0]->getX() < 1)
+	//{
+	//	puzzleActive = false;
+	//	InHarbour = true;
+	//	gameObjects[0]->setPosition(25, 0);
+	//	//player->puzzleSet(false);
+	//}
+	//else if (puzzleActive == true && gameObjects[0]->getX() > 47)
+	//{
+	//	puzzleActive = false;
+	//	InForest = true;
+	//	gameObjects[0]->setPosition(25, 0);
+	//	//player->puzzleSet(false);
+	//}
 	else if (InHarbour == true && gameObjects[0]->getX() > 47)
 	{
 		InHarbour = false;
 		InForest = true;
 		gameObjects[0]->setPosition(1, gameObjects[0]->getY()); // Set player position in town
+		//player->puzzleSet(true);
 	}
 	//if player go left of Inside cave, go back to outside of the cave
 	else if (InInsideCave == true && gameObjects[0]->getX() < 1)
@@ -229,7 +260,6 @@ void Game::doTurn() {
 		InOusideCave = true;
 		gameObjects[0]->setPosition(25, 0);
 	}
-
 
 	if (InInn == true)
 	{
@@ -345,8 +375,11 @@ void Game::doTurn() {
 			}
 		}
 	}
-
-
+	/*else if (puzzleActive == true)
+	{
+		RiverPuzzle->doPuzzle();
+		RiverPuzzle->Print();
+	}*/
 	drawWorld();
 
 	// 30: Black
@@ -767,7 +800,6 @@ void Game::doTurn() {
 	int oldX = player->getX();
 	int oldY = player->getY();
 
-
 	if (player != nullptr) {
 		player->move(gameObjects, 25);
 	}
@@ -785,6 +817,7 @@ void Game::doTurn() {
 			}
 		}
 	}
+
 	clearDialogue();
 	std::cout.flush();
 }

@@ -2,7 +2,6 @@
 #include "Position.h"
 #include <string>
 
-
 class Entity
 {
 protected:

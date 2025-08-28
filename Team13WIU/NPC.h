@@ -17,4 +17,3 @@ public:
 
 	virtual void NPCtalk();
 };
-

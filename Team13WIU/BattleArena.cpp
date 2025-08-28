@@ -169,7 +169,6 @@ void battleArenaScene(Player* playerRef) {
     int MAX_HP = playerRef->getMaxHP();
     int MAX_MANA = playerRef->getMaxMana(); 
 
-    int playerHP = playerRef->getPlayerHP(); //get UNIVERSAL playerHP
     int villainHP = MAX_HP;
 
     int playerMana = playerRef->getPlayerMana();
@@ -189,7 +188,7 @@ void battleArenaScene(Player* playerRef) {
     bool running = true;
     system("cls");
 
-    while (running && playerHP > 0 && villainHP > 0) {
+    while (running && playerRef->getPlayerHP() > 0 && villainHP > 0) {
         // timing
         auto now = chrono::steady_clock::now();
         double delta = chrono::duration<double>(now - lastFrame).count();
@@ -486,7 +485,7 @@ void battleArenaScene(Player* playerRef) {
     } // end loop
 
     moveCursor(0, ARENA_H + 6);
-    if (playerHP <= 0) cout << "\nYou have been defeated!\n";
+    if (playerRef->getPlayerHP() <= 0) cout << "\nYou have been defeated!\n";
     else if (villainHP <= 0) cout << "\nVictory! You defeated the villain!\n";
     else cout << "\nExited.\n";
 }

@@ -45,6 +45,7 @@ void Inventory::selectItem()
 void Inventory::printInventory(Player* playerRef)
 {
 	//display stuff
+	std::cout << "Player HP: " << playerRef->getPlayerHP() << "\nPlayer Mana: " << playerRef->getPlayerMana() << '\n';
 	std::cout << "You currently have " << getGold() << " Gold and " << getTotalItems() << " Items in your Bag\n";
 	for (int i = 0; i < 10; i++) { // SET TO 10 BECAUSE THATS TOTAL SLOTS SO FAR
 		if (container[i] != nullptr) { //check that this slot has an item
@@ -86,6 +87,7 @@ int Inventory::getTotalItems()
 {
 	return totalItems;
 }
+
 
 
 void Inventory::addItem(Item* itemObj, int qty)
