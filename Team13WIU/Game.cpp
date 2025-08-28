@@ -21,10 +21,10 @@ Game::Game()
 {
 	InInn = false;
 	InTown = false;
-	InForest = false;
+	InForest = true;
 	InHarbour = false;
 	InOusideCave = false;
-	InInsideCave = true;
+	InInsideCave = false;
 	
 	NarraInn = true;
 	NarraTown = true;
