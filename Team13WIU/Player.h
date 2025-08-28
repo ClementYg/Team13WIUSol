@@ -53,7 +53,7 @@ public:
 
 
 	void move(Entity* gameObjects[], int entityCount);
-	// int getMorale();
-	// void setMorale(int);
+	int getMorale();
+	void setMorale(int);
 };
 

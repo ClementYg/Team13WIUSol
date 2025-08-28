@@ -503,6 +503,13 @@ void battleArenaBearForest(Player* playerRef) {
 
     moveCursor(0, ARENA_H + 6);
     if (playerHP <= 0) cout << "\nYou have been defeated by the bear!\n";
-    else if (bearHP <= 0) cout << "\nVictory! You defeated the bear!\n";
+    else if (bearHP <= 0) {
+        std::cout << "Do you wish to spare this enemy? [Y/N]\n";
+        char finalChoice = _getch();
+        if (finalChoice == 'Y' || finalChoice == 'y') {
+            playerRef->setMorale(playerRef->getMorale() + 20);
+        }
+        else { playerRef->setMorale(playerRef->getMorale() - 20); }
+    }
     else cout << "\nExited.\n";
 }
