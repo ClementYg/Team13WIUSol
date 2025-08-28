@@ -19,12 +19,12 @@ using namespace std;
 
 Game::Game() : RiverPuzzle(nullptr)
 {
-	InInn = true;
+	InInn = false;
 	InTown = false;
 	InForest = false;
 	InHarbour = false;
 	InOusideCave = false;
-	InInsideCave = false;
+	InInsideCave = true;
 	puzzleActive = false;
 
 
@@ -967,6 +967,7 @@ void Game::doTurn() {
 						GtypeLine("To be continued...", 1);
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
+						system("cls");
 						show_end_cutscene();
 					}
 
@@ -995,6 +996,7 @@ void Game::doTurn() {
 						GtypeLine("To be continued...", 1);
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
+						system("cls");
 						show_end_cutscene();
 					}
 				}
