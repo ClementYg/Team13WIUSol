@@ -434,8 +434,10 @@ void Game::doTurn() {
 				{
 					std::cout << "\033[0;33m" << "Guy on left: " << "\033[0m";
 					GtypeLine("Have you heard? Apparently the hero subdued the notorious killer!", 1);
+					std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 					std::cout << "\033[0;36m" << "Guy on right: " << "\033[0m";
 					GtypeLine("Yeah! Now I can finally sleep in peace knowing I won't be targeted!", 1);
+					std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				}
 			}
 		}
@@ -860,8 +862,10 @@ void Game::doTurn() {
 					if (player->interactionGet()) {
 						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 						GtypeLine("It really is the altar, looks different from before.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 						GtypeLine("Should I use it again? I can get more power if I do.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 						interactedaltar = false;
 						delete gameObjects[26];
 						HeroTriggered = true;
@@ -885,7 +889,7 @@ void Game::doTurn() {
 					if (player->getMorale() <= 48) {
 						hero->dialogue = GHeroSpeech;
 					}
-					else {
+					else{
 						hero->dialogue = BHeroSpeech;
 					}
 					hero->NPCtalk();
@@ -896,6 +900,67 @@ void Game::doTurn() {
 				if (player->interactionGet()) {
 					std::cout << "Go into combat scene" << std::endl;
 					// The call function for combat scene IF WE HAVE
+					HeroAlive = false;
+					if (HeroAlive == false && player->getMorale() <= 48)
+					{
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Ughh....", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("MC...stop this no..w...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("I kn..ow you..s..till...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("c..an...c.ha..ng..e....", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("P...leas....e.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("It's too late hero, give up and pass quietly", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("y..ou....", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Well, I guess it's time...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Time to dominate the world", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << " " << std::endl;
+						std::cout << "\033[1;36m" << "Narration" << ": " << "\033[0m";
+						GtypeLine("To be continued...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+					}
+
+					else //if (HeroAlive == false && player->getMorale() >= 48)
+					{
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Huff ... huff ...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Thank you for saving me MC, I truly owe you one.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("If you like, I can clear some of your misdeeds so that you get a lighter sentence.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("However, I cannot fully clear all your wrongdoings though.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Let’s go back to the town alright?", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Yeah...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << " " << std::endl;
+						std::cout << "\033[1;36m" << "Narration" << ": " << "\033[0m";
+						GtypeLine("To be continued...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+					}
 				}
 			}
 			else if (gameObjects[0]->getY() == gameObjects[13]->getY() && (gameObjects[0]->getX() == gameObjects[13]->getX() + 1 || gameObjects[0]->getX() == gameObjects[13]->getX() - 1)) {
@@ -903,8 +968,70 @@ void Game::doTurn() {
 				if (player->interactionGet()) {
 					std::cout << "Go into combat scene" << std::endl;
 					// The call function for combat scene IF WE HAVE
+					HeroAlive = false;
+					if (HeroAlive == false && player->getMorale() <= 48)
+					{
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Ughh....", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("MC...stop this no..w...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("I kn..ow you..s..till...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("c..an...c.ha..ng..e....", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("P...leas....e.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("It's too late hero, give up and pass quietly", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("y..ou....", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Well, I guess it's time...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Time to dominate the world", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << " " << std::endl;
+						std::cout << "\033[1;36m" << "Narration" << ": " << "\033[0m";
+						GtypeLine("To be continued...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+					}
+
+					else //if(HeroAlive == false && player->getMorale() >= 48)
+					{
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Huff ... huff ...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Thank you for saving me MC, I truly owe you one.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("If you like, I can clear some of your misdeeds so that you get a lighter sentence.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("However, I cannot fully clear all your wrongdoings though.", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
+						GtypeLine("Let’s go back to the town alright?", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Yeah...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+						std::cout << " " << std::endl;
+						std::cout << "\033[1;36m" << "Narration" << ": " << "\033[0m";
+						GtypeLine("To be continued...", 1);
+						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+					}
 				}
 			}
+			
 		}
 	}
 
@@ -942,4 +1069,4 @@ void Game::clearDialogue() { // clears after 22st line which is where dialogue i
 		std::cout << std::string(120, ' '); // clear each line and replace with space
 	}
 	std::cout.flush();
-}z
+}
