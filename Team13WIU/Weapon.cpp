@@ -33,7 +33,7 @@ void Weapon::useItem(Player* playerRef)
 			break;
 
 		}
-		case FIRE_SWORD:
+		case MYTHRIL_SWORD:
 		{
 			playerRef->setWeaponDmg(18); //if equipped, enhance damager
 			break;

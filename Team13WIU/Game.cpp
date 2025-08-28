@@ -118,18 +118,26 @@ void Game::initGame() {
 	Inventory* playerInv = player->getInv();
 
 	//ITEM CREATION AREA
-	Item* FireSword = Item::create("Fire Sword", Item::FIRE_SWORD, 35, 1);
+	Item* MythrilSword = Item::create("Mythril Sword", Item::MYTHRIL_SWORD, 45, 1);
 	Item* SteelSword = Item::create("Steel Sword", Item::STEEL_SWORD, 25, 1);
+	Item* WoodSword = Item::create("Wood Sword", Item::WOOD_SWORD, 5, 1); 
+
 
 	Item* HPpotion = Item::create("HP_Potion", Item::HP_POT, 20, 5);
 	Item* ManaPotion = Item::create("Mana Potion", Item::MANA_POT, 20, 5);
 
 	playerInv->setGold(500); // EDIT LATER THIS IS TESTING MONEY
-	FireSword->addDesc("A blade forged from the depths of the underground\n with molten iron at its peak. +10 DMG.");
+	MythrilSword->addDesc("A blade forged from the depths of the underground\n. Lightweight, Strong, somewhat resembling the texture of steel. +6 DMG.");
+	WoodSword->addDesc("... Why did you buy this? This is a stick. Your fists punch harder than this. -7 DMG.");
+	SteelSword->addDesc("Nothing special, nothing normal either. A metallic sword forged to slice your enemies in half. +3 DMG.");
+
+	HPpotion->addDesc("A simple drink of this potion and you will be A-OK. +10 HP");
+	ManaPotion->addDesc("Run out of mana? Drink up and cast your spells! +20 MANA");
 
 
-	john->addStock(FireSword);
+	john->addStock(MythrilSword);
 	john->addStock(SteelSword);
+	john->addStock(WoodSword);
 	john->addStock(HPpotion);
 	john->addStock(ManaPotion);
 
