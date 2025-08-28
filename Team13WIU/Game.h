@@ -6,7 +6,7 @@
 class Game
 {
 private:
-	Entity* gameObjects[24];
+	Entity* gameObjects[26];
 	Position playerPos;
 
 	std::vector<std::string> InnKeeperSpeech =
@@ -102,8 +102,10 @@ private:
 	bool NarraHarbour;
 	bool NarraOutsideCave;
 	bool NarraInsideCave;
+	bool NarraInsideCave2;
 	bool BKAlive;
 	bool BearAlive;
+
 
 	
 
