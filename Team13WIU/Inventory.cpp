@@ -11,7 +11,7 @@ void Inventory::showInventory(Player* playerRef)
 	while (!exitInventory) {
 		printInventory(playerRef);
 
-		std::cout << "What do you wish to do with your backpack?\n" << "Press any button to close your Bag.\nPress C to select an item.\n\n";
+		std::cout << "\nWhat do you wish to do with your backpack?\n" << "Press any button to close your Bag.\nPress C to select an item.\n\n";
 		char userChoice = _getch();
 		if (userChoice == 'C' || userChoice == 'c') {
 			selectItem();
@@ -55,8 +55,12 @@ void Inventory::printInventory(Player* playerRef)
 				}
 
 				std::cout << "[" << i << "] " << container[i]->getItemName() << " x" << container[i]->getQuantity();
-				if (static_cast<Weapon*>(container[i])->checkWeaponEquipped()) {
-					std::cout << " (E)";
+				for (auto& eachItem : container) {
+					if (Weapon* itemCheck = dynamic_cast<Weapon*>(eachItem)) {
+						if (itemCheck->checkWeaponEquipped()) { //check only weapons
+							std::cout << " (E)";
+						}
+					}
 				}
 				std::cout << std::endl << std::endl;
 
@@ -77,6 +81,7 @@ void Inventory::printInventory(Player* playerRef)
 				else container[i]->select(0);
 				//deselect everything
 			}
+			container[i]->select(0);
 		}
 	}
 }

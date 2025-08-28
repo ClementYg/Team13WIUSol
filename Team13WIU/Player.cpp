@@ -4,7 +4,9 @@
 #include <iostream>
 
 
-Player::Player(std::string n, int y, int x, char s) : Morale(48) /*: Entity(row, col, '@') */
+
+Player::Player(std::string n, int y, int x, char s) : Morale(48), playerX(0), playerY(0) /*: Entity(row, col, '@') */
+
 {
 	name = n;
 	pos.x = x;
@@ -16,10 +18,16 @@ Player::Player(std::string n, int y, int x, char s) : Morale(48) /*: Entity(row,
 	playerInv = new Inventory;
 	playerHP = MAX_HP;
 	playerMana = MAX_MANA; 
+	weaponDmg = 12; //inital weapon damage
 }
 
 Player::~Player() {
 	delete playerInv;
+}
+
+void Player::puzzleSet(bool Setpuzzle)
+{
+	inPuzzle = Setpuzzle;
 }
 
 Inventory* Player::getInv()
@@ -80,11 +88,15 @@ bool Player::movingGet()
 {
 	return moveinter;
 }
-// void Player::puzzleSet(int newPuzzle)
-// {
-// 	inPuzzle = newPuzzle;
-// }
-
+ //void Player::puzzleSet(int newPuzzle)
+ //{
+ //	inPuzzle = newPuzzle;
+ //}
+void Player::move(int xchange, int ychange)
+{
+	pos.x += xchange;
+	pos.y += ychange;
+}
 int Player::getMaxHP()
 {
 	return MAX_HP;
@@ -110,6 +122,15 @@ int Player::getPlayerHP()
 
 int Player::getPlayerMana() {
 	return playerMana;
+}
+
+int Player::getWeaponDmg()
+{
+	return weaponDmg;
+}
+
+void Player::setWeaponDmg(int newValue) {
+	weaponDmg = newValue;
 }
 
 void Player::addPlayerHP(int change)
