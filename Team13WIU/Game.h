@@ -47,8 +47,8 @@ private:
 	std::vector<std::string> KidSpeech =
 	{
 		"OH MY GOD! That was so scary",
-		"Thank you my hero, can you bring me back to my village?",
-		"In case there are more monsters."
+		"Thank you my hero!",
+		"I will go back home now."
 	};
 
 	std::vector<std::string> HvillagersSpeech =
@@ -109,7 +109,7 @@ private:
 	bool BKAlive;
 	bool HeroAlive;
 	bool BearAlive;
-	bool KidSent;
+	bool KidTriggered;
 	bool HeroTriggered;
 	bool HeroTalk;
 	bool interactedrock;
@@ -118,7 +118,7 @@ private:
 	bool interactedbarrel;
 	bool interactedaltar;
 
-//	Puzzle* RiverPuzzle;
+	Puzzle* RiverPuzzle;
 
 public:
 	Game();

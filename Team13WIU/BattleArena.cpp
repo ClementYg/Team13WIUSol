@@ -349,7 +349,7 @@ void battleArenaScene(Player* playerRef) {
                         p.x = playerX + (projDx > 0 ? 4 : (projDx < 0 ? -1 : 0));
                         p.y = playerY;
                         p.dx = (projDx != 0 ? (projDx > 0 ? 2 : -2) : (projDy != 0 ? (projDy > 0 ? 0 : 0) : 2));
-                        // if vertical, dx=0 and dy set via glyph movement — but for simplicity we'll use dx only left/right,
+                        // if vertical, dx=0 and dy set via glyph movement ï¿½ but for simplicity we'll use dx only left/right,
                         // for up/down we simulate vertical by moving y each frame:
                         p.dmg = 10;
                         p.glyph = '~';

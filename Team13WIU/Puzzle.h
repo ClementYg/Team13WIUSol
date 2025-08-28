@@ -9,7 +9,9 @@ private:
 	int oldplayerX;
 	int oldplayerY;
 	obstacle* obstacleList[2];
-
+	char grid[20][49];
+	bool hole1active;
+	bool hole2active;
 public:
 	Puzzle(Entity*);
 	void Print();
