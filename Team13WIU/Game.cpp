@@ -17,10 +17,10 @@ using namespace std;
 
 Game::Game()
 {
-	InInn = true;
+	InInn = false;
 	InTown = false;
 	InForest = false;
-	InHarbour = false;
+	InHarbour = true;
 	InOusideCave = false;
 	InInsideCave = false;
 
