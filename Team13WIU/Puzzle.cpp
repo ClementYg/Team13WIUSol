@@ -59,7 +59,7 @@ void Puzzle::Print() {
 
 	for (int i = 0; i < 98; i++) {
 		std::cout << '-';
-		if (i == 97) std::cout << "\n" << "Push the rocks (#) into the holes (O) to continue."; // New line after the border
+		if (i == 97) std::cout << "\n" << "Push the rocks (#) into the holes (O) to continue.                                                "; // New line after the border
 	}
 }
 
@@ -81,6 +81,14 @@ void Puzzle::doPuzzle()
 				{
 					obstacleList[i]->setActive(false);
 					grid[obstacleList[i]->getY()][obstacleList[i]->getX()] = ' ';
+				}
+				if (obstacleList[i]->getY() < 0)
+				{
+					obstacleList[i]->setPosition(obstacleList[i]->getX(), 1);
+				}
+				if (obstacleList[i]->getY() > 17)
+				{
+					obstacleList[i]->setPosition(obstacleList[i]->getX(), 16);
 				}
 			}
 		}
