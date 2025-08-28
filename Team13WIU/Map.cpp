@@ -3,8 +3,6 @@
 #include <fstream>
 #include <sstream> //stringstreams, allows strings to be used for reading/writing. similar to fstream for strings
 #include <Windows.h>
-
-
 #include <thread>
 #include <chrono>
 
@@ -199,11 +197,6 @@ void Map::ForestMap() {
 		}
 		std::cout << std::endl;
 	}
-
-
-
-
-
 	townMap.close(); // closes file successfully
 }
 
@@ -619,7 +612,6 @@ void Map::ShipCutscene()
 		std::this_thread::sleep_for(std::chrono::milliseconds(500)); // adjust speed
 	}
 	std::this_thread::sleep_for(std::chrono::milliseconds(500));
-
 }
 
 void Map::clearScreen()

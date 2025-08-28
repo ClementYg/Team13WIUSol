@@ -7,7 +7,7 @@ public:
 	std::string getItemName();
 	bool checkWeaponEquipped();
 
-	void useItem();
+	void useItem(Player* playerRef);
 
 	Weapon* duplicate();
 

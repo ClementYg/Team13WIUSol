@@ -70,5 +70,5 @@ Item::~Item() {
 	std::cout << "item deleted\n";
 }
 
-void Item::useItem() {}
+void Item::useItem(Player* playerRef) {}
 
