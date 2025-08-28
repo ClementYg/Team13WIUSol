@@ -17,10 +17,10 @@ using namespace std;
 
 Game::Game() : RiverPuzzle(nullptr)
 {
-	InInn = true;
+	InInn = false;
 	InTown = false;
 	InForest = false;
-	InHarbour = false;
+	InHarbour = true;
 	InOusideCave = false;
 	InInsideCave = false;
 	puzzleActive = false;
@@ -127,7 +127,6 @@ void Game::initGame() {
 	Item* HPpotion = Item::create("HP_Potion", Item::HP_POT, 20, 5);
 	Item* ManaPotion = Item::create("Mana Potion", Item::MANA_POT, 20, 5);
 
-	playerInv->setGold(500); // EDIT LATER THIS IS TESTING MONEY
 	MythrilSword->addDesc("A blade forged from the depths of the underground\n. Lightweight, Strong, somewhat resembling the texture of steel. +6 DMG.");
 	WoodSword->addDesc("... Why did you buy this? This is a stick. Your fists punch harder than this. -7 DMG.");
 	SteelSword->addDesc("Nothing special, nothing normal either. A metallic sword forged to slice your enemies in half. +3 DMG.");

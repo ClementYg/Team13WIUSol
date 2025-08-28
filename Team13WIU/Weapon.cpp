@@ -47,6 +47,8 @@ void Weapon::useItem(Player* playerRef)
 		weaponEquipped = false;
 		currentWep = nullptr;
 		playerRef->setWeaponDmg(12);
+		std::cout << "Weapon Unequipped\n";
+
 	}
 
 }
