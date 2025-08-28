@@ -104,7 +104,7 @@ void startScreen() {
     Sleep(1000);
     std::cout << "\n\n";
 
-    std::cout << "\033[33mIn the dark ages, a hero has arrived...\033[0m\n";
+    std::cout << "\033[33mIn the dark ages, a Villain has arrived...\033[0m\n";
     Beep(400, 300); Sleep(400);
 
     std::cout << "\033[33mEvil King Vortigen still holds the throne...\033[0m\n";
@@ -116,7 +116,7 @@ void startScreen() {
     std::cout << "\033[33mSoldiers of the palace have set fire to the town square...\033[0m\n";
     Beep(500, 300); Sleep(500);
 
-    std::cout << "\033[33mThe hero now witnesses his people burned alive...\033[0m\n";
+    std::cout << "\033[33mThe Villain now witnesses his people burned alive...\033[0m\n";
     Beep(450, 400); Sleep(800);
 
     std::cout << "\033[33mHis journey begins.\033[0m\n\n";

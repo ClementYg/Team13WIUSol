@@ -17,19 +17,19 @@ const string heroStages[3][4] = {
         "  O  ",
         " /|\\ ",
         " / \\ ",
-        "Innocent Hero"
+        "Traumatised child"
     },
     { // stage 2: tempted
         "  O  ",
         " /|\\ ",
         " / \\  ",
-        "Tempted Hero"
+        "Vengeful teen"
     },
     { // stage 3: dark/evil
         "  X  ",
         " /|\\ ",
         " / \\ ",
-        "Evil Hero"
+        "Evil villain"
     }
 };
 
