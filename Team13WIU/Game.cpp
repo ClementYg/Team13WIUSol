@@ -1,6 +1,5 @@
 #include "Game.h"
 #include "Player.h"
-#include "Enemy1.h"
 #include "NPC.h"
 #include "Merchant.h"
 #include "Enemy.h"
@@ -33,20 +32,25 @@ Game::Game()
 	NarraHarbour = true;
 	NarraOutsideCave = true;
 	NarraInsideCave = true;
+	NarraInsideCave2 = true;
+	
+	for (int i = 0; i < 4; ++i)
+
 
 	BKAlive = true;
 	BearAlive = true;
 	KidSent = false;
 	HeroTriggered = false;
 
-	for (int i = 0; i < 24; ++i)
+	for (int i = 0; i < 26; ++i)
+
 	{
 		gameObjects[i] = nullptr;
 	}
 }
 
 Game::~Game() {
-	for (int i = 0; i < 24; ++i) {
+	for (int i = 0; i < 26; ++i) {
 		delete gameObjects[i];
 		gameObjects[i] = nullptr;
 	}
@@ -76,7 +80,7 @@ void Game::initGame() {
 	gameObjects[11] = new Merchant("Travelling Merchant", 0, 28, '!', MerchantSpeech);
 	gameObjects[12] = new NPC("Old Man", 0, 10, 'M', OldManSpeech);
 	gameObjects[13] = new Enemy("Hero", 2, 0, 'H');
-	for (int i = 14; i < 24; i++) {
+	for (int i = 14; i < 26; i++) {
 		gameObjects[i] = new NPC("Interaction", 1, 1, '!');
 	}
 
@@ -88,13 +92,15 @@ void Game::initGame() {
 	gameObjects[14]->setPosition(17, 0);
 	gameObjects[15]->setPosition(9, 0);
 	gameObjects[16]->setPosition(35, 0);
-	gameObjects[17]->setPosition(23, 0);
-	gameObjects[18]->setPosition(37, 0);
-	gameObjects[19]->setPosition(10, 0);
-	gameObjects[20]->setPosition(19, 4);
-	gameObjects[21]->setPosition(25, 0);
-	gameObjects[22]->setPosition(25, 4);
-	gameObjects[23]->setPosition(39, 0);
+	gameObjects[17]->setPosition(23, 0); //rock
+	gameObjects[18]->setPosition(10, 0);
+	gameObjects[19]->setPosition(35, 4);
+	gameObjects[20]->setPosition(37, 0);
+	gameObjects[21]->setPosition(10, 0);
+	gameObjects[22]->setPosition(19, 4);
+	gameObjects[23]->setPosition(25, 0);
+	gameObjects[24]->setPosition(25, 4);
+	gameObjects[25]->setPosition(39, 0);
 
 	Merchant* john = static_cast<Merchant*>(gameObjects[11]);
 	Player* player = static_cast<Player*>(gameObjects[0]);
@@ -127,7 +133,7 @@ void Game::drawWorld() {
 		for (int c = 0; c < 49; ++c)
 			grid[r][c] = ' ';
 
-	for (int i = 23; i > -1; --i) {
+	for (int i = 25; i > -1; --i) {
 		if (gameObjects[i] != nullptr) {
 			if (gameObjects[i]->getActive()) {
 				int r = gameObjects[i]->getY();
@@ -230,7 +236,7 @@ void Game::doTurn() {
 	if (InInn == true)
 	{
 		mapObj.Inn();
-		for (int i = 0;i < 24;i++) {
+		for (int i = 0;i < 26;i++) {
 			if (i == 0 || i == 1 || i == 14) {
 				gameObjects[i]->setActive(true);
 			}
@@ -243,7 +249,7 @@ void Game::doTurn() {
 	{
 		mapObj.townMap();
 		if (BKAlive) {
-			for (int i = 0;i < 24;i++) {
+			for (int i = 0;i < 26;i++) {
 				if (i == 0 || i == 7 || i == 15 || i == 16) {
 					gameObjects[i]->setActive(true);
 				}
@@ -256,7 +262,7 @@ void Game::doTurn() {
 			}
 		}
 		else {
-			for (int i = 0;i < 24;i++) {
+			for (int i = 0;i < 26;i++) {
 				if (i == 0 || i == 15 || i == 16) {
 					gameObjects[i]->setActive(true);
 				}
@@ -284,8 +290,8 @@ void Game::doTurn() {
 	{
 		mapObj.ForestMap();
 		if (BearAlive) {
-			for (int i = 0;i < 24;i++) {
-				if (i == 0 || i == 8 || i == 9 || i == 17) {
+			for (int i = 0;i < 26;i++) {
+				if (i == 0 || i == 8 || i == 9 || i == 17 || i == 18 || i == 19) {
 					gameObjects[i]->setActive(true);
 				}
 				else {
@@ -294,8 +300,8 @@ void Game::doTurn() {
 			}
 		}
 		else {
-			for (int i = 0;i < 24;i++) {
-				if (i == 0 || i == 9 || i == 17) {
+			for (int i = 0;i < 26;i++) {
+				if (i == 0 || i == 9 || i == 17 || i == 18 || i == 19) {
 					gameObjects[i]->setActive(true);
 				}
 				else {
@@ -308,8 +314,8 @@ void Game::doTurn() {
 	else if (InHarbour == true)
 	{
 		mapObj.HarbourMap();
-		for (int i = 0;i < 24;i++) {
-			if (i == 0 || i == 10 || i == 11 || i == 18 || i == 19 || i == 20) {
+		for (int i = 0;i < 26;i++) {
+			if (i == 0 || i == 10 || i == 11 || i ==  20 || i == 21 || i ==  22) {
 				gameObjects[i]->setActive(true);
 			}
 			else {
@@ -320,8 +326,8 @@ void Game::doTurn() {
 	else if (InOusideCave == true)
 	{
 		mapObj.EntranceCaveMap();
-		for (int i = 0;i < 24;i++) {
-			if (i == 0 || i == 12 || i == 21 || i == 22 || i == 23) {
+		for (int i = 0;i < 26;i++) {
+			if (i == 0 || i == 12 || i == 23 || i == 24 || i == 25) {
 				gameObjects[i]->setActive(true);
 			}
 			else {
@@ -332,7 +338,7 @@ void Game::doTurn() {
 	else if (InInsideCave == true)
 	{
 		mapObj.InnerCaveMap();
-		for (int i = 0;i < 24;i++) {
+		for (int i = 0;i < 26;i++) {
 			if (i == 0) {
 				gameObjects[i]->setActive(true);
 			}
@@ -371,12 +377,14 @@ void Game::doTurn() {
 	if (gameObjects[0] != nullptr && InInn == true) {
 		if (gameObjects[0]->getActive()) {
 			if (NarraInn) {
-				GtypeLine("(WASD to move, SPACE to interact, I to open inventory)", 1);
+				GtypeLine("(WASD to move, SPACE to interact, I to open inventory, ! are interactables)", 1);
 				GtypeLine("(If player presses WASD while text is writing, the player will move immediately after it finishes)", 1);
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("How did I get here? Wasn't I knocked unconscious by the hero?", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("I should talk to the Inn Keeper for more details.", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				NarraInn = false;
 			}
 			if (gameObjects[0]->getX() == 39 && gameObjects[0]->getY() == 0) {
@@ -404,8 +412,10 @@ void Game::doTurn() {
 			if (NarraTown) {
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("What should I do now? I need to get more leads on who helped me.", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("I should ask around town for more information.", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				NarraTown = false;
 			}
 			if (gameObjects[0]->getX() == 9 && gameObjects[0]->getY() == 0) {
@@ -512,13 +522,17 @@ void Game::doTurn() {
 		if (gameObjects[0]->getActive()) {
 			if (NarraForest) {
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				GtypeLine("Phew, that was close", 1);
+				GtypeLine("Phew, that was close.", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("Wait, what's happening over there?", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("Is someone being attacked?", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("I got to go help them!", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				NarraForest = false;
 			}
 			if (gameObjects[0]->getX() == 23 && gameObjects[0]->getY() == 0)
@@ -528,8 +542,43 @@ void Game::doTurn() {
 				{
 					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 					GtypeLine("This is an ordinary rock. However, there's something ominous about it that keeps your guard up.", 1);
+					std::cout << " " << std::endl;
+					playerInv->setGold(30);//plus 30 gold
+					GtypeLine("+30 gold", 1);
 				}
 			}
+
+			if (gameObjects[0]->getX() == 10 && gameObjects[0]->getY() == 0)
+			{
+				std::cout << "Press SPACE to observe" << std::endl;
+				if (player->interactionGet())
+				{
+					std::cout << "\033[1;31m" << "Bird" << ": " << "\033[0m";
+					GtypeLine("Chirp Chirp.", 1);
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("These birds seem to be hiding something valuable with them.", 1);
+					std::cout << " " << std::endl;
+					playerInv->setGold(30);
+					GtypeLine("+30 gold", 1);
+				}
+				
+			}
+
+			if (gameObjects[0]->getX() == 35 && gameObjects[0]->getY() == 4)
+			{
+				std::cout << "Press SPACE to pick up" << std::endl;
+				if (player->interactionGet())
+				{
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("Oh, who left this here? ", 1);
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("Well, as they always say, finders keepers.", 1);
+					std:;cout << " " << std::endl;
+					playerInv->setGold(30);
+					GtypeLine("+30 gold", 1);
+				}
+			}
+
 			if (gameObjects[0]->getY() == gameObjects[8]->getY() && (gameObjects[0]->getX() == gameObjects[8]->getX() + 1 || gameObjects[0]->getX() == gameObjects[8]->getX() - 1)) {
 				if (BearAlive) {
 					bear->NPCtalk();
@@ -572,10 +621,13 @@ void Game::doTurn() {
 			if (NarraHarbour) {
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("Wow, I didn't know this place existed, is this a harbour?", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("Maybe the villagers here would have an idea on where the hero might be.", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("Let me explore the area first.", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				NarraHarbour = false;
 			}
 
@@ -589,7 +641,19 @@ void Game::doTurn() {
 					std::cout << "\033[1;35m" << "Captain" << ": " << "\033[0m";
 					GtypeLine("Dang it, I wanted to set sail too! I guess next time...", 1);
 				}
+			}
 
+			if (gameObjects[0]->getX() == 19 && gameObjects[0]->getY() == 4)
+			{
+				std::cout << "Press SPACE to search" << std::endl;
+				if (player->interactionGet())
+				{
+					std::cout << "\033[1;34m" << "Barrel" << ": " << "\033[0m";
+					GtypeLine("This barrel is full of fish. However, there’s a glowing item hidden in the fishes…", 1);
+					std::cout << " " << std::endl;
+					playerInv->setGold(30);
+					GtypeLine("+30 gold", 1);
+				}
 			}
 
 			if (gameObjects[0]->getX() == 28 && gameObjects[0]->getY() == 0) {
@@ -646,10 +710,13 @@ void Game::doTurn() {
 			if (NarraOutsideCave) {
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("I'm lucky that I wasn't discovered sneaking onto that ship", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("Or else I was as good as dead", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("This island is pretty big, let's start finding the cave.", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				NarraOutsideCave = false;
 			}
 			if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 4) {
@@ -658,6 +725,15 @@ void Game::doTurn() {
 				{
 					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 					GtypeLine("The view looks nice on this island, but it gives off an unsettling energy.", 1);
+				}
+			}
+			else if (gameObjects[0]->getX() == 39 && gameObjects[0]->getY() == 0)
+			{
+				std::cout << "Press SPACE to interact" << std::endl;
+				if (player->interactionGet())
+				{
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("This rock has a person's name written on it. However, I can't make out the name as it has long faded.", 1);
 				}
 			}
 			else if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 0) {
@@ -669,14 +745,14 @@ void Game::doTurn() {
 					return;
 				}
 			}
-			else if (gameObjects[0]->getX() == gameObjects[12]->getX() && (gameObjects[0]->getY() == gameObjects[12]->getY() + 1 || gameObjects[0]->getY() == gameObjects[12]->getY() - 1)) {
-				std::cout << "Press SPACE to talk to the Old Man" << std::endl;
+			if (gameObjects[0]->getY() == gameObjects[12]->getY() && (gameObjects[0]->getX() == gameObjects[12]->getX() + 1 || gameObjects[0]->getX() == gameObjects[12]->getX() - 1)) {
+				std::cout << "Press SPACE to interact with the old man" << std::endl;
 				if (player->interactionGet()) {
 					oldman->NPCtalk();
 				}
 			}
-			else if (gameObjects[0]->getY() == gameObjects[12]->getY() && (gameObjects[0]->getX() == gameObjects[12]->getX() + 1 || gameObjects[0]->getX() == gameObjects[12]->getX() - 1)) {
-				std::cout << "Press SPACE to talk to the Old Man" << std::endl;
+			else if (gameObjects[0]->getX() == gameObjects[12]->getX() && (gameObjects[0]->getY() == gameObjects[12]->getY() + 1 || gameObjects[0]->getY() == gameObjects[12]->getY() - 1)) {
+				std::cout << "Press SPACE to interact with the old man" << std::endl;
 				if (player->interactionGet()) {
 					oldman->NPCtalk();
 				}
@@ -688,15 +764,26 @@ void Game::doTurn() {
 			if (NarraInsideCave) {
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("Woah, this cave looks really big, I wonder where the hero might be.", 1);
-				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				GtypeLine("Wait a second ... is that what I think it is?", 1);
-				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				GtypeLine("What is the demon altar doing here?", 1);
-				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				GtypeLine("I remember using it back then, but I don't remember using it here.", 1);
-				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				GtypeLine("I need to check it out to make sure it actually is the altar.", 1);
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				NarraInsideCave = false;
+			}
+			if (gameObjects[0]->getX() == 10 && InInsideCave == true) {
+				if (NarraInsideCave2)
+				{
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("Wait a second ... is that what I think it is?", 1);
+					std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("What is the demon altar doing here?", 1);
+					std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("I remember using it back then, but I don't remember using it here.", 1);
+					std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+					GtypeLine("I need to check it out to make sure it actually is the altar.", 1);
+					std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+					NarraInsideCave2 = false;
+				}
 			}
 		}
 	}
@@ -707,19 +794,7 @@ void Game::doTurn() {
 
 
 	if (player != nullptr) {
-		player->move(gameObjects, 23);
-	}
-
-
-	// Move enemies
-	for (int i = 1; i < 23; ++i) {
-		if (gameObjects[i] != nullptr && player != nullptr) {
-			Enemy1* enemy1 = static_cast<Enemy1*>(gameObjects[i]);
-			// capture player's position before any possible deletion later
-			int playerX = player->getX();
-			int playerY = player->getY();
-			enemy1->move(playerPos, gameObjects, 13);
-		}
+		player->move(gameObjects, 25);
 	}
 
 	// Check collisions

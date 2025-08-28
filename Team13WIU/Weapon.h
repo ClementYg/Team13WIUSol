@@ -15,7 +15,7 @@ public:
 	virtual ~Weapon();
 private:
 	weaponType itemWType; 
-	bool weaponEquipped;
+	static bool weaponEquipped;
 	bool FSequipped; 
 	bool WSequipped; //check weapon in use
 };
