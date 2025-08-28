@@ -42,7 +42,6 @@ void show_end_cutscene() {
         "          Clement Yong",
         "          Wong Kai Zher",
         "          Amanda Joseph",
-        "          Kai Zhe",
         "          Poh Yu Jie",
         "          Spencer Ang",
         "",
