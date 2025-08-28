@@ -485,7 +485,7 @@ void battleArenaScene(Player* playerRef) {
     } // end loop
 
     moveCursor(0, ARENA_H + 6);
-    if (playerHP <= 0) cout << "\nYou have been defeated!\n";
+    if (playerRef->getPlayerHP() <= 0) cout << "\nYou have been defeated!\n";
     else if (villainHP <= 0) cout << "\nVictory! You defeated the villain!\n";
     else cout << "\nExited.\n";
 }
