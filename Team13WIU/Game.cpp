@@ -24,24 +24,33 @@ Game::Game()
 	InOusideCave = false;
 	InInsideCave = true;
 
+	
+
 	NarraInn = true;
 	NarraTown = true;
 	puzzleActive = true;
-	
 	NarraForest = true;
 	NarraHarbour = true;
 	NarraOutsideCave = true;
 	NarraInsideCave = true;
 	NarraInsideCave2 = true;
 
+
 	BKAlive = true;
-	BearAlive = false;
-	HeroAlive == true;
+	BearAlive = true;
+	HeroAlive = true;
 
 	interactedrock = true;
 	interactedground = true;
 	interactedbird = true;
 	interactedbarrel = true;
+	interactedaltar = true;
+
+	BearAlive = true;
+	KidSent = false;
+	HeroTriggered = false;
+	HeroTalk = true;
+
 
 	for (int i = 0; i < 27; ++i)
 	{
@@ -75,33 +84,33 @@ void Game::initGame() {
 	}
 	gameObjects[7] = new Enemy("Brave Knight", 2, 40, 'K', TSBraveKnightSpeech);
 	gameObjects[8] = new Enemy("Bear", 2, 17, 'B', BearSpeech);
-	gameObjects[9] = new NPC("Kid", 2, 15, 'k', KidSpeech);
+	gameObjects[9] = new NPC("Kid", 2, 15, 'C', KidSpeech);
 	gameObjects[10] = new NPC("Villager", 4, 40, 'V', HvillagersSpeech);
 	gameObjects[11] = new Merchant("Travelling Merchant", 0, 28, '!', MerchantSpeech);
 	gameObjects[12] = new NPC("Old Man", 0, 10, 'M', OldManSpeech);
-	gameObjects[13] = new Enemy("Hero", 2, 5, 'H');
+	gameObjects[13] = new Enemy("Hero", 0, 0, 'H');
 	for (int i = 14; i < 27; i++) {
 		gameObjects[i] = new NPC("Interaction", 1, 1, '!');
 	}
 
-	gameObjects[2]->setPosition(23, 4);
-	gameObjects[3]->setPosition(8, 1);
-	gameObjects[4]->setPosition(13, 4);
-	gameObjects[5]->setPosition(20, 0);
-	gameObjects[6]->setPosition(30, 2);
-	gameObjects[14]->setPosition(17, 0);
-	gameObjects[15]->setPosition(9, 0);
-	gameObjects[16]->setPosition(35, 0);
-	gameObjects[17]->setPosition(23, 0); //rock
-	gameObjects[18]->setPosition(10, 0);
-	gameObjects[19]->setPosition(35, 4);
-	gameObjects[20]->setPosition(37, 0);
-	gameObjects[21]->setPosition(10, 0);
-	gameObjects[22]->setPosition(19, 4);
-	gameObjects[23]->setPosition(25, 0);
-	gameObjects[24]->setPosition(25, 4);
-	gameObjects[25]->setPosition(39, 0);
-	gameObjects[26]->setPosition(28, 0);
+	gameObjects[2]->setPosition(23, 4); //villager
+	gameObjects[3]->setPosition(8, 1); //villager
+	gameObjects[4]->setPosition(13, 4); //villager
+	gameObjects[5]->setPosition(20, 0); //villager
+	gameObjects[6]->setPosition(30, 2); //villager
+	gameObjects[14]->setPosition(17, 0); //guys at the table
+	gameObjects[15]->setPosition(9, 0); //go back to inn
+	gameObjects[16]->setPosition(35, 0); // the house in town
+	gameObjects[17]->setPosition(23, 0); // forest rock
+	gameObjects[18]->setPosition(10, 0); // the birds
+	gameObjects[19]->setPosition(35, 4); // the thing on forest floor
+	gameObjects[20]->setPosition(37, 0); // the captain
+	gameObjects[21]->setPosition(10, 0); // the ship
+	gameObjects[22]->setPosition(19, 4); // the barrel
+	gameObjects[23]->setPosition(25, 0); // go into the cave
+	gameObjects[24]->setPosition(25, 4); // the view
+	gameObjects[25]->setPosition(39, 0); // the rock
+	gameObjects[26]->setPosition(28, 0); //altar
 
 	Merchant* john = static_cast<Merchant*>(gameObjects[11]);
 	Player* player = static_cast<Player*>(gameObjects[0]);
@@ -182,6 +191,10 @@ void Game::doTurn() {
 	Enemy* braveknight = static_cast<Enemy*>(gameObjects[7]);
 	Enemy* bear = static_cast<Enemy*>(gameObjects[8]);
 	NPC* kid = static_cast<NPC*>(gameObjects[9]);
+	NPC* harbourvillager = static_cast<NPC*>(gameObjects[10]);
+	Merchant* merchant = static_cast<Merchant*>(gameObjects[11]);
+	NPC* oldman = static_cast<NPC*>(gameObjects[12]);
+	Enemy* hero = static_cast<Enemy*>(gameObjects[13]);
 
 	//morale
 	
@@ -195,11 +208,6 @@ void Game::doTurn() {
 		std::cout << ' ';
 	}
 	std::cout << '|'<<endl;
-
-	NPC* harbourvillager = static_cast<NPC*>(gameObjects[10]);
-	Merchant* merchant = static_cast<Merchant*>(gameObjects[11]);
-	NPC* oldman = static_cast<NPC*>(gameObjects[12]);
-	Enemy* hero = static_cast<Enemy*>(gameObjects[13]);
 
 
 	Inventory* playerInv = player->getInv();
@@ -370,10 +378,14 @@ void Game::doTurn() {
 	{
 		mapObj.InnerCaveMap();
 		for (int i = 0;i < 27;i++) {
-			if (i == 0 || i == 26 || (i == 13 && gameObjects[0]->getX() > 27)) {
+
+
+			if (i == 0 || i == 26) {
+
+
 				gameObjects[i]->setActive(true);
 			}
-			else {
+			else if (i != 13) {
 				gameObjects[i]->setActive(false);
 			}
 		}
@@ -459,25 +471,39 @@ void Game::doTurn() {
 			else if (gameObjects[0]->getX() == gameObjects[7]->getX() && (gameObjects[0]->getY() == gameObjects[7]->getY() + 1 || gameObjects[0]->getY() == gameObjects[7]->getY() - 1)) {
 				if (BKAlive) {
 					braveknight->NPCtalk();
-					std::cout << "Go into combat scene" << std::endl;
 
 					// Launch the combat mini-game
 					battleArenaScene(player);
 
-					BKAlive = false;
-					return;
+					if (player->getPlayerHP() != 0) {
+						BKAlive = false;
+						return;
+					}
+					else {
+						InTown = false;
+						InInn = true;
+						player->setPosition(8, 0);
+						player->addPlayerHP(5);
+					}
 				}
 			}
 			else if (gameObjects[0]->getY() == gameObjects[7]->getY() && (gameObjects[0]->getX() == gameObjects[7]->getX() + 1 || gameObjects[0]->getX() == gameObjects[7]->getX() - 1)) {
 				if (BKAlive) {
 					braveknight->NPCtalk();
-					std::cout << "Go into combat scene" << std::endl;
 
 					// Launch the combat mini-game
 					battleArenaScene(player);
 
-					BKAlive = false;
-					return;
+					if (player->getPlayerHP() != 0) {
+						BKAlive = false;
+						return;
+					}
+					else {
+						InTown = false;
+						InInn = true;
+						player->setPosition(8, 0);
+						player->addPlayerHP(5);
+					}
 				}
 			}
 			else {
@@ -591,7 +617,7 @@ void Game::doTurn() {
 						GtypeLine("Oh, who left this here? ", 1);
 						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 						GtypeLine("Well, as they always say, finders keepers.", 1);
-						std:;cout << " " << std::endl;
+						std::cout << " " << std::endl;
 						playerInv->setGold(30);
 						GtypeLine("+30 gold", 1);
 						interactedbird = false;
@@ -603,23 +629,39 @@ void Game::doTurn() {
 			if (gameObjects[0]->getY() == gameObjects[8]->getY() && (gameObjects[0]->getX() == gameObjects[8]->getX() + 1 || gameObjects[0]->getX() == gameObjects[8]->getX() - 1)) {
 				if (BearAlive) {
 					bear->NPCtalk();
-					std::cout << "Go into Combat scene" << std::endl;
+					
 					//Added Bear Attack
-				   battleArenaBearForest(player);
+					battleArenaBearForest(player);
 
-					BearAlive = false;
-					return;
+					if (player->getPlayerHP() != 0) {
+						BearAlive = false;
+						return;
+					}
+					else {
+						InForest = false;
+						InTown = true;
+						player->setPosition(39, 2);
+						player->addPlayerHP(5);
+					}
 				}
 			}
 			else if (gameObjects[0]->getX() == gameObjects[8]->getX() && (gameObjects[0]->getY() == gameObjects[8]->getY() + 1 || gameObjects[0]->getY() == gameObjects[8]->getY() - 1)) {
 				if (BearAlive) {
 					bear->NPCtalk();
-					std::cout << "Go into Combat scene" << std::endl;
+
 					//Added Bear Attack
 					battleArenaBearForest(player);
 
-					BearAlive = false;
-					return;
+					if (player->getPlayerHP() != 0) {
+						BearAlive = false;
+						return;
+					}
+					else {
+						InForest = false;
+						InTown = true;
+						player->setPosition(39, 2);
+						player->addPlayerHP(5);
+					}
 				}
 			}
 			if (gameObjects[0]->getY() == gameObjects[9]->getY() && (gameObjects[0]->getX() == gameObjects[9]->getX() + 1 || gameObjects[0]->getX() == gameObjects[9]->getX() - 1) && BearAlive == false) {
@@ -744,9 +786,7 @@ void Game::doTurn() {
 				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				NarraOutsideCave = false;
 			}
-
-			if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 4)
-			{
+			if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 4) {
 				std::cout << "Press SPACE to intertact." << std::endl;
 				if (player->interactionGet())
 				{
@@ -754,7 +794,7 @@ void Game::doTurn() {
 					GtypeLine("The view looks nice on this island, but it gives off an unsettling energy.", 1);
 				}
 			}
-			if (gameObjects[0]->getX() == 39 && gameObjects[0]->getY() == 0)
+			else if (gameObjects[0]->getX() == 39 && gameObjects[0]->getY() == 0)
 			{
 				std::cout << "Press SPACE to interact" << std::endl;
 				if (player->interactionGet())
@@ -763,7 +803,7 @@ void Game::doTurn() {
 					GtypeLine("This rock has a person's name written on it. However, I can't make out the name as it has long faded.", 1);
 				}
 			}
-			if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 0) {
+			else if (gameObjects[0]->getX() == 25 && gameObjects[0]->getY() == 0) {
 				std::cout << "Press SPACE to enter the cave" << std::endl << std::endl;
 				if (player->movingGet()) {
 					InOusideCave = false;
@@ -794,7 +834,7 @@ void Game::doTurn() {
 				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				NarraInsideCave = false;
 			}
-			if (gameObjects[0]->getX() == 10 && InInsideCave == true) {
+			if (gameObjects[0]->getX() == 10) {
 				if (NarraInsideCave2)
 				{
 					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
@@ -812,21 +852,58 @@ void Game::doTurn() {
 					NarraInsideCave2 = false;
 				}
 			}
-			if (gameObjects[0]->getX() == 28) 
+
+			if (gameObjects[0]->getX() == 28 && gameObjects[0]->getY() == 0 && HeroTriggered == false)
 			{
-				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				GtypeLine("It really is the altar, looks different from before.", 1);
-				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				GtypeLine("Should I use it again? I can get more power if I do.", 1);
+				if (interactedaltar) {
+					std::cout << "Press SPACE to check if it is an altar" << std::endl;
+					if (player->interactionGet()) {
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("It really is the altar, looks different from before.", 1);
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Should I use it again? I can get more power if I do.", 1);
+						interactedaltar = false;
+						delete gameObjects[26];
+						HeroTriggered = true;
+						return;
+					}
+				}
 			}
-
-
-
-
-
-			//battle over
-			if (HeroAlive == false /* && morality = good */ ) {
-				
+			if (HeroTriggered) {
+				gameObjects[13]->setActive(true);
+				if (gameObjects[13]->getX() < 26) {
+					gameObjects[13]->pos.x++;
+					std::this_thread::sleep_for(std::chrono::milliseconds(50));
+					if (gameObjects[13]->getX() == 15)
+					{
+						clearDialogue();
+					}
+					return;
+				}
+				else {
+					HeroTriggered = false;
+					if (player->getMorale() <= 48) {
+						hero->dialogue = GHeroSpeech;
+					}
+					else {
+						hero->dialogue = BHeroSpeech;
+					}
+					hero->NPCtalk();
+				}
+			}
+			if (gameObjects[0]->getX() == gameObjects[13]->getX() && (gameObjects[0]->getY() == gameObjects[13]->getY() + 1 || gameObjects[0]->getY() == gameObjects[13]->getY() - 1)) {
+				std::cout << "Press SPACE to fight with the Hero" << std::endl;
+				if (player->interactionGet()) {
+					std::cout << "Go into combat scene" << std::endl;
+					// The call function for combat scene IF WE HAVE
+				}
+			}
+			else if (gameObjects[0]->getY() == gameObjects[13]->getY() && (gameObjects[0]->getX() == gameObjects[13]->getX() + 1 || gameObjects[0]->getX() == gameObjects[13]->getX() - 1)) {
+				std::cout << "Press SPACE to fight with the Hero" << std::endl;
+				if (player->interactionGet()) {
+					std::cout << "Go into combat scene" << std::endl;
+					// The call function for combat scene IF WE HAVE
+				}
 			}
 		}
 	}
@@ -836,7 +913,7 @@ void Game::doTurn() {
 	int oldY = player->getY();
 
 	if (player != nullptr) {
-		player->move(gameObjects, 26);
+		player->move(gameObjects, 27);
 	}
 
 	// Check collisions
@@ -859,8 +936,10 @@ void Game::doTurn() {
 
 void Game::clearDialogue() { // clears after 22st line which is where dialogue is at 
 	for (int i = 0; i < 100; i++) {//clear for 100 lines
-		std::cout << "\033[" << (22 + i) << ";1H";   // move to each line start
-		std::cout << std::string(100, ' '); // clear each line and replace with space
+
+
+		std::cout << "\033[" << (23 + i) << ";1H";   // move to each line start
+		std::cout << std::string(120, ' '); // clear each line and replace with space
 	}
 	std::cout.flush();
-}
+}z
