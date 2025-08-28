@@ -47,7 +47,7 @@ Game::Game() : RiverPuzzle(nullptr)
 	interactedbarrel = true;
 	interactedaltar = true;
 
-	KidTriggered = true;
+	KidTriggered = false;
 	HeroTriggered = false;
 	HeroTalk = true;
 
