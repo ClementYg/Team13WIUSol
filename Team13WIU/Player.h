@@ -26,7 +26,7 @@ public:
 	std::string name;
 	Player(std::string n, int y, int x, char s);
 	~Player();
-	// void puzzleSet(int);
+	void puzzleSet(bool);
 
 
 	Inventory* getInv();
@@ -53,6 +53,7 @@ public:
 
 
 	void move(Entity* gameObjects[], int entityCount);
+	void move(int, int);
 	int getMorale();
 	void setMorale(int);
 };

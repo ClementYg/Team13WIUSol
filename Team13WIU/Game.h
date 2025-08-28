@@ -109,7 +109,7 @@ private:
 	bool BKAlive;
 	bool BearAlive;
 
-//	Puzzle* RiverPuzzle;
+	Puzzle* RiverPuzzle;
 
 public:
 	Game();

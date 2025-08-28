@@ -17,26 +17,23 @@ using namespace std;
 
 Game::Game()
 {
-	InInn = true;
+	InInn = false;
 	InTown = false;
-	InForest = false;
+	InForest = true;
 	InHarbour = false;
 	InOusideCave = false;
 	InInsideCave = false;
 
 	NarraInn = true;
 	NarraTown = true;
-	puzzleActive = true;
+	puzzleActive = false;
 	
-	NarraForest = true;
+	NarraForest = false;
 	NarraHarbour = true;
 	NarraOutsideCave = true;
 	NarraInsideCave = true;
 	NarraInsideCave2 = true;
 	
-	for (int i = 0; i < 4; ++i)
-
-
 	BKAlive = true;
 	BearAlive = false;
 
@@ -104,6 +101,8 @@ void Game::initGame() {
 	Player* player = static_cast<Player*>(gameObjects[0]);
 
 	Inventory* playerInv = player->getInv();
+
+	RiverPuzzle = new Puzzle(player);
 
 	//ITEM CREATION AREA
 	Item* FireSword = Item::create("Fire Sword", Item::FIRE_SWORD, 35, 1);
@@ -227,31 +226,31 @@ void Game::doTurn() {
 	else if (InForest == true && gameObjects[0]->getX() < 1 && BearAlive == false)
 	{
 		InForest = false;
-		InHarbour = true;
+		puzzleActive = true;
 		gameObjects[0]->setPosition(47, gameObjects[0]->getY()); // Set player position in town
-		//player->puzzleSet(true);
+		player->puzzleSet(true);
 	}
 	// if player go right of the Harbour, go back to Forest
-	//else if (puzzleActive == true && gameObjects[0]->getX() < 1)
-	//{
-	//	puzzleActive = false;
-	//	InHarbour = true;
-	//	gameObjects[0]->setPosition(25, 0);
-	//	//player->puzzleSet(false);
-	//}
-	//else if (puzzleActive == true && gameObjects[0]->getX() > 47)
-	//{
-	//	puzzleActive = false;
-	//	InForest = true;
-	//	gameObjects[0]->setPosition(25, 0);
-	//	//player->puzzleSet(false);
-	//}
+	else if (puzzleActive == true && gameObjects[0]->getX() < 1)
+	{
+		puzzleActive = false;
+		InHarbour = true;
+		gameObjects[0]->setPosition(25, 0);
+		player->puzzleSet(false);
+	}
+	else if (puzzleActive == true && gameObjects[0]->getX() > 47)
+	{
+		puzzleActive = false;
+		InForest = true;
+		gameObjects[0]->setPosition(25, 0);
+		player->puzzleSet(false);
+	}
 	else if (InHarbour == true && gameObjects[0]->getX() > 47)
 	{
 		InHarbour = false;
 		InForest = true;
 		gameObjects[0]->setPosition(1, gameObjects[0]->getY()); // Set player position in town
-		//player->puzzleSet(true);
+		player->puzzleSet(true);
 	}
 	//if player go left of Inside cave, go back to outside of the cave
 	else if (InInsideCave == true && gameObjects[0]->getX() < 1)
@@ -375,12 +374,15 @@ void Game::doTurn() {
 			}
 		}
 	}
-	/*else if (puzzleActive == true)
+	else if (puzzleActive == true)
 	{
 		RiverPuzzle->doPuzzle();
 		RiverPuzzle->Print();
-	}*/
+	}
+	if (puzzleActive == false)
+	{
 	drawWorld();
+	}
 
 	// 30: Black
 	// 31: Red

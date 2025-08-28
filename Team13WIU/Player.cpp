@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-Player::Player(std::string n, int y, int x, char s) : Morale(43) /*: Entity(row, col, '@') */
+Player::Player(std::string n, int y, int x, char s) : Morale(48) /*: Entity(row, col, '@') */
 {
 	name = n;
 	pos.x = x;
@@ -20,6 +20,11 @@ Player::Player(std::string n, int y, int x, char s) : Morale(43) /*: Entity(row,
 
 Player::~Player() {
 	delete playerInv;
+}
+
+void Player::puzzleSet(bool Setpuzzle)
+{
+	inPuzzle = Setpuzzle;
 }
 
 Inventory* Player::getInv()
@@ -80,11 +85,15 @@ bool Player::movingGet()
 {
 	return moveinter;
 }
-// void Player::puzzleSet(int newPuzzle)
-// {
-// 	inPuzzle = newPuzzle;
-// }
-
+ //void Player::puzzleSet(int newPuzzle)
+ //{
+ //	inPuzzle = newPuzzle;
+ //}
+void Player::move(int xchange, int ychange)
+{
+	pos.x += xchange;
+	pos.y += ychange;
+}
 int Player::getMaxHP()
 {
 	return MAX_HP;
