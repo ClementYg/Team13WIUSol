@@ -7,7 +7,7 @@
 class Game
 {
 private:
-	Entity* gameObjects[26];
+	Entity* gameObjects[27];
 	Position playerPos;
 	//Puzzle* RiverPuzzle;
 
@@ -107,10 +107,15 @@ private:
 	bool NarraInsideCave;
 	bool NarraInsideCave2;
 	bool BKAlive;
+	bool HeroAlive;
 	bool BearAlive;
 	bool KidSent;
 	bool HeroTriggered;
 	bool HeroTalk;
+	bool interactedrock;
+	bool interactedground;
+	bool interactedbird;
+	bool interactedbarrel;
 
 //	Puzzle* RiverPuzzle;
 

@@ -17,12 +17,12 @@ using namespace std;
 
 Game::Game()
 {
-	InInn = false;
+	InInn = true;
 	InTown = false;
 	InForest = false;
 	InHarbour = false;
 	InOusideCave = false;
-	InInsideCave = true;
+	InInsideCave = false;
 
 	
 
@@ -38,7 +38,7 @@ Game::Game()
 
 	BKAlive = true;
 	BearAlive = false;
-	HeroAlive == true;
+	HeroAlive = true;
 
 	interactedrock = true;
 	interactedground = true;
@@ -50,7 +50,7 @@ Game::Game()
 	HeroTriggered = false;
 	HeroTalk = true;
 
-	for (int i = 0; i < 26; ++i)
+	for (int i = 0; i < 27; ++i)
 	{
 		gameObjects[i] = nullptr;
 	}
@@ -626,7 +626,7 @@ void Game::doTurn() {
 						GtypeLine("Oh, who left this here? ", 1);
 						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 						GtypeLine("Well, as they always say, finders keepers.", 1);
-						std:;cout << " " << std::endl;
+						std::cout << " " << std::endl;
 						playerInv->setGold(30);
 						GtypeLine("+30 gold", 1);
 						interactedbird = false;
@@ -900,7 +900,7 @@ void Game::doTurn() {
 	int oldY = player->getY();
 
 	if (player != nullptr) {
-		player->move(gameObjects, 26);
+		player->move(gameObjects, 27);
 	}
 
 	// Check collisions
