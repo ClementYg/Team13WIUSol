@@ -54,7 +54,7 @@ void Merchant::sellStock(int ID, Inventory& playerInv, int qty = 1) // What item
 	Item* itemDupe = itemBought->duplicate(); 
 	itemDupe->setQuantity(qty);
 	playerInv.addItem(itemDupe, qty); //add amount of items into playerInv
-	std::cout << "Thanks for purchasing!\n";
+
 	itemBought->addQuantity(-qty); //decrease shop stock.
 
 	//if no more stock

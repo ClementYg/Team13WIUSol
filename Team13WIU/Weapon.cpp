@@ -33,7 +33,7 @@ void Weapon::useItem(Player* playerRef)
 			break;
 
 		}
-		case MYTHRIL_SWORD:
+		case FIRE_SWORD:
 		{
 			playerRef->setWeaponDmg(18); //if equipped, enhance damager
 			break;
@@ -47,8 +47,6 @@ void Weapon::useItem(Player* playerRef)
 		weaponEquipped = false;
 		currentWep = nullptr;
 		playerRef->setWeaponDmg(12);
-		std::cout << "Weapon Unequipped\n";
-
 	}
 
 }
@@ -65,6 +63,7 @@ Weapon::Weapon(std::string n, weaponType type, int price, int qty)
 	this->price = price;
 	quantity = qty;
 	weaponEquipped = false;
+	std::cout << "A weapon created\n";
 }
 
 Weapon::~Weapon() {}

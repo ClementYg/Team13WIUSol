@@ -18,12 +18,13 @@ public:
 	enum consumeType {
 		HP_POT,
 		MANA_POT,
+		STRENGTH_POT,
 		C_UNKNOWN
 	};
 
 	enum weaponType {
 		WOOD_SWORD,
-		MYTHRIL_SWORD,
+		FIRE_SWORD,
 		STEEL_SWORD,
 		W_UNKNOWN
 	};
