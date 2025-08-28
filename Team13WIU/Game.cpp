@@ -248,14 +248,14 @@ void Game::doTurn() {
 	{
 		puzzleActive = false;
 		InHarbour = true;
-		gameObjects[0]->setPosition(25, 0);
+		gameObjects[0]->setPosition(47, 2);
 		player->puzzleSet(false);
 	}
 	else if (puzzleActive == true && gameObjects[0]->getX() > 47)
 	{
 		puzzleActive = false;
 		InForest = true;
-		gameObjects[0]->setPosition(25, 0);
+		gameObjects[0]->setPosition(0, 2);
 		player->puzzleSet(false);
 	}
 	else if (InHarbour == true && gameObjects[0]->getX() > 47)
