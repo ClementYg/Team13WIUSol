@@ -17,12 +17,12 @@ using namespace std;
 
 Game::Game()
 {
-	InInn = true;
+	InInn = false;
 	InTown = false;
 	InForest = false;
 	InHarbour = false;
 	InOusideCave = false;
-	InInsideCave = false;
+	InInsideCave = true;
 
 	NarraInn = true;
 	NarraTown = true;
@@ -33,11 +33,20 @@ Game::Game()
 	NarraOutsideCave = true;
 	NarraInsideCave = true;
 	NarraInsideCave2 = true;
+	
+	for (int i = 0; i < 4; ++i)
+
 
 	BKAlive = true;
-	BearAlive = true;
+	BearAlive = false;
+	HeroAlive == true;
 
-	for (int i = 0; i < 26; ++i)
+	interactedrock = true;
+	interactedground = true;
+	interactedbird = true;
+	interactedbarrel = true;
+
+	for (int i = 0; i < 27; ++i)
 
 	{
 		gameObjects[i] = nullptr;
@@ -45,7 +54,7 @@ Game::Game()
 }
 
 Game::~Game() {
-	for (int i = 0; i < 26; ++i) {
+	for (int i = 0; i < 27; ++i) {
 		delete gameObjects[i];
 		gameObjects[i] = nullptr;
 	}
@@ -75,7 +84,7 @@ void Game::initGame() {
 	gameObjects[11] = new Merchant("Travelling Merchant", 0, 28, '!', MerchantSpeech);
 	gameObjects[12] = new NPC("Old Man", 0, 10, 'M', OldManSpeech);
 	gameObjects[13] = new Enemy("Hero", 2, 5, 'H');
-	for (int i = 14; i < 26; i++) {
+	for (int i = 14; i < 27; i++) {
 		gameObjects[i] = new NPC("Interaction", 1, 1, '!');
 	}
 
@@ -96,6 +105,7 @@ void Game::initGame() {
 	gameObjects[23]->setPosition(25, 0);
 	gameObjects[24]->setPosition(25, 4);
 	gameObjects[25]->setPosition(39, 0);
+	gameObjects[26]->setPosition(28, 0);
 
 	Merchant* john = static_cast<Merchant*>(gameObjects[11]);
 	Player* player = static_cast<Player*>(gameObjects[0]);
@@ -128,7 +138,7 @@ void Game::drawWorld() {
 		for (int c = 0; c < 49; ++c)
 			grid[r][c] = ' ';
 
-	for (int i = 25; i > -1; --i) {
+	for (int i = 26; i > -1; --i) {
 		if (gameObjects[i] != nullptr) {
 			if (gameObjects[i]->getActive()) {
 				int r = gameObjects[i]->getY();
@@ -261,7 +271,7 @@ void Game::doTurn() {
 	if (InInn == true)
 	{
 		mapObj.Inn();
-		for (int i = 0;i < 26;i++) {
+		for (int i = 0;i < 27;i++) {
 			if (i == 0 || i == 1 || i == 14) {
 				gameObjects[i]->setActive(true);
 			}
@@ -274,7 +284,7 @@ void Game::doTurn() {
 	{
 		mapObj.townMap();
 		if (BKAlive) {
-			for (int i = 0;i < 26;i++) {
+			for (int i = 0;i < 27;i++) {
 				if (i == 0 || i == 7 || i == 15 || i == 16) {
 					gameObjects[i]->setActive(true);
 				}
@@ -287,7 +297,7 @@ void Game::doTurn() {
 			}
 		}
 		else {
-			for (int i = 0;i < 26;i++) {
+			for (int i = 0;i < 27;i++) {
 				if (i == 0 || i == 15 || i == 16) {
 					gameObjects[i]->setActive(true);
 				}
@@ -315,7 +325,7 @@ void Game::doTurn() {
 	{
 		mapObj.ForestMap();
 		if (BearAlive) {
-			for (int i = 0;i < 26;i++) {
+			for (int i = 0;i < 27;i++) {
 				if (i == 0 || i == 8 || i == 9 || i == 17 || i == 18 || i == 19) {
 					gameObjects[i]->setActive(true);
 				}
@@ -325,7 +335,7 @@ void Game::doTurn() {
 			}
 		}
 		else {
-			for (int i = 0;i < 26;i++) {
+			for (int i = 0;i < 27;i++) {
 				if (i == 0 || i == 9 || i == 17 || i == 18 || i == 19) {
 					gameObjects[i]->setActive(true);
 				}
@@ -339,7 +349,7 @@ void Game::doTurn() {
 	else if (InHarbour == true)
 	{
 		mapObj.HarbourMap();
-		for (int i = 0;i < 26;i++) {
+		for (int i = 0;i < 27;i++) {
 			if (i == 0 || i == 10 || i == 11 || i ==  20 || i == 21 || i ==  22) {
 				gameObjects[i]->setActive(true);
 			}
@@ -351,7 +361,7 @@ void Game::doTurn() {
 	else if (InOusideCave == true)
 	{
 		mapObj.EntranceCaveMap();
-		for (int i = 0;i < 26;i++) {
+		for (int i = 0;i < 27;i++) {
 			if (i == 0 || i == 12 || i == 23 || i == 24 || i == 25) {
 				gameObjects[i]->setActive(true);
 			}
@@ -363,8 +373,8 @@ void Game::doTurn() {
 	else if (InInsideCave == true)
 	{
 		mapObj.InnerCaveMap();
-		for (int i = 0;i < 26;i++) {
-			if (i == 0 || (i == 13 && gameObjects[0]->getX() > 27)) {
+		for (int i = 0;i < 27;i++) {
+			if (i == 0 || i == 26 || (i == 13 && gameObjects[0]->getX() > 27)) {
 				gameObjects[i]->setActive(true);
 			}
 			else {
@@ -538,47 +548,59 @@ void Game::doTurn() {
 				std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 				NarraForest = false;
 			}
-			if (gameObjects[0]->getX() == 23 && gameObjects[0]->getY() == 0)
-			{
-				std::cout << "Press SPACE to interact" << std::endl;
-				if (player->interactionGet())
+			if (interactedrock) {
+				if (gameObjects[0]->getX() == 23 && gameObjects[0]->getY() == 0)
 				{
-					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-					GtypeLine("This is an ordinary rock. However, there's something ominous about it that keeps your guard up.", 1);
-					std::cout << " " << std::endl;
-					playerInv->setGold(30);//plus 30 gold
-					GtypeLine("+30 gold", 1);
+					std::cout << "Press SPACE to interact" << std::endl;
+					if (player->interactionGet())
+					{
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("This is an ordinary rock. However, there's something ominous about it that keeps your guard up.", 1);
+						std::cout << " " << std::endl;
+						playerInv->setGold(30);//plus 30 gold
+						GtypeLine("+30 gold", 1);
+						interactedrock = false;
+						delete gameObjects[17];
+					}
 				}
 			}
 
-			if (gameObjects[0]->getX() == 10 && gameObjects[0]->getY() == 0)
-			{
-				std::cout << "Press SPACE to observe" << std::endl;
-				if (player->interactionGet())
+			if (interactedground) {
+				if (gameObjects[0]->getX() == 10 && gameObjects[0]->getY() == 0)
 				{
-					std::cout << "\033[1;31m" << "Bird" << ": " << "\033[0m";
-					GtypeLine("Chirp Chirp.", 1);
-					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-					GtypeLine("These birds seem to be hiding something valuable with them.", 1);
-					std::cout << " " << std::endl;
-					playerInv->setGold(30);
-					GtypeLine("+30 gold", 1);
+					std::cout << "Press SPACE to observe" << std::endl;
+					if (player->interactionGet())
+					{
+						std::cout << "\033[1;31m" << "Bird" << ": " << "\033[0m";
+						GtypeLine("Chirp Chirp.", 1);
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("These birds seem to be hiding something valuable with them.", 1);
+						std::cout << " " << std::endl;
+						playerInv->setGold(30);
+						GtypeLine("+30 gold", 1);
+						interactedground = false;
+						delete gameObjects[18];
+					}
+
 				}
-				
 			}
 
-			if (gameObjects[0]->getX() == 35 && gameObjects[0]->getY() == 4)
-			{
-				std::cout << "Press SPACE to pick up" << std::endl;
-				if (player->interactionGet())
+			if (interactedbird) {
+				if (gameObjects[0]->getX() == 35 && gameObjects[0]->getY() == 4)
 				{
-					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-					GtypeLine("Oh, who left this here? ", 1);
-					std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-					GtypeLine("Well, as they always say, finders keepers.", 1);
-					std:;cout << " " << std::endl;
-					playerInv->setGold(30);
-					GtypeLine("+30 gold", 1);
+					std::cout << "Press SPACE to pick up" << std::endl;
+					if (player->interactionGet())
+					{
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Oh, who left this here? ", 1);
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Well, as they always say, finders keepers.", 1);
+						std:;cout << " " << std::endl;
+						playerInv->setGold(30);
+						GtypeLine("+30 gold", 1);
+						interactedbird = false;
+						delete gameObjects[19];
+					}
 				}
 			}
 
@@ -646,16 +668,20 @@ void Game::doTurn() {
 				}
 			}
 
-			if (gameObjects[0]->getX() == 19 && gameObjects[0]->getY() == 4)
-			{
-				std::cout << "Press SPACE to search" << std::endl;
-				if (player->interactionGet())
+			if (interactedbarrel) {
+				if (gameObjects[0]->getX() == 19 && gameObjects[0]->getY() == 4)
 				{
-					std::cout << "\033[1;34m" << "Barrel" << ": " << "\033[0m";
-					GtypeLine("This barrel is full of fish. However, there’s a glowing item hidden in the fishes…", 1);
-					std::cout << " " << std::endl;
-					playerInv->setGold(30);
-					GtypeLine("+30 gold", 1);
+					std::cout << "Press SPACE to search" << std::endl;
+					if (player->interactionGet())
+					{
+						std::cout << "\033[1;34m" << "Barrel" << ": " << "\033[0m";
+						GtypeLine("This barrel is full of fish. However, there’s a glowing item hidden in the fishes…", 1);
+						std::cout << " " << std::endl;
+						playerInv->setGold(30);
+						GtypeLine("+30 gold", 1);
+						interactedbarrel = false;
+						delete gameObjects[22];
+					}
 				}
 			}
 
@@ -790,6 +816,22 @@ void Game::doTurn() {
 					NarraInsideCave2 = false;
 				}
 			}
+			if (gameObjects[0]->getX() == 28 && InInsideCave == true) 
+			{
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("It really is the altar, looks different from before.", 1);
+				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+				GtypeLine("Should I use it again? I can get more power if I do.", 1);
+			}
+
+
+
+
+
+			//battle over
+			if (HeroAlive == false /* && morality = good */ ) {
+				
+			}
 		}
 	}
 
@@ -798,7 +840,7 @@ void Game::doTurn() {
 	int oldY = player->getY();
 
 	if (player != nullptr) {
-		player->move(gameObjects, 25);
+		player->move(gameObjects, 26);
 	}
 
 	// Check collisions
@@ -821,8 +863,8 @@ void Game::doTurn() {
 
 void Game::clearDialogue() { // clears after 22st line which is where dialogue is at 
 	for (int i = 0; i < 100; i++) {//clear for 100 lines
-		std::cout << "\033[" << (23 + i) << ";1H";   // move to each line start
-		std::cout << std::string(130, ' '); // clear each line and replace with space
+		std::cout << "\033[" << (22 + i) << ";1H";   // move to each line start
+		std::cout << std::string(100, ' '); // clear each line and replace with space
 	}
 	std::cout.flush();
 }
