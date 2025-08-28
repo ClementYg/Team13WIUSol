@@ -53,7 +53,6 @@ Item::Item()
 	itemID = IDCounter;
 	IDCounter++;
 	IDCounter %= 10; //Check if reach max ID already
-	std::cout << "A normal item created\n";
 }
 
 Item* Item::create(std::string name, consumeType consumableType, int price, int qty)
@@ -66,9 +65,7 @@ Item* Item::create(std::string name, weaponType wType, int price, int qty) {
 }
 
 
-Item::~Item() {
-	std::cout << "item deleted\n";
-}
+Item::~Item() {}
 
 void Item::useItem(Player* playerRef) {}
 
