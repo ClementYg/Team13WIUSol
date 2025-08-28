@@ -82,6 +82,14 @@ void Puzzle::doPuzzle()
 					obstacleList[i]->setActive(false);
 					grid[obstacleList[i]->getY()][obstacleList[i]->getX()] = ' ';
 				}
+				if (obstacleList[i]->getY() < 0)
+				{
+					obstacleList[i]->setPosition(obstacleList[i]->getX(), 1);
+				}
+				if (obstacleList[i]->getY() > 17)
+				{
+					obstacleList[i]->setPosition(obstacleList[i]->getX(), 16);
+				}
 			}
 		}
 	}
