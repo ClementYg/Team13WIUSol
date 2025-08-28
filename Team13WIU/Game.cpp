@@ -17,9 +17,9 @@ using namespace std;
 
 Game::Game() : RiverPuzzle(nullptr)
 {
-	InInn = true;
+	InInn = false;
 	InTown = false;
-	InForest = false;
+	InForest = true;
 	InHarbour = false;
 	InOusideCave = false;
 	InInsideCave = false;
@@ -27,7 +27,7 @@ Game::Game() : RiverPuzzle(nullptr)
 
 	NarraInn = true;
 	NarraTown = true;
-	NarraForest = true;
+	NarraForest = false;
 	NarraHarbour = true;
 	NarraOutsideCave = true;
 	NarraInsideCave = true;
@@ -35,7 +35,7 @@ Game::Game() : RiverPuzzle(nullptr)
 
 	
 	BKAlive = true;
-	BearAlive = true;
+	BearAlive = false;
 	HeroAlive = true;
 
 	interactedrock = true;
@@ -44,8 +44,8 @@ Game::Game() : RiverPuzzle(nullptr)
 	interactedbarrel = true;
 	interactedaltar = true;
 
-	BearAlive = true;
-	KidTriggered = false;
+	BearAlive = false;
+	KidTriggered = true;
 	HeroTriggered = false;
 	HeroTalk = true;
 

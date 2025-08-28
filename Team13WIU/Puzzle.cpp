@@ -59,7 +59,7 @@ void Puzzle::Print() {
 
 	for (int i = 0; i < 98; i++) {
 		std::cout << '-';
-		if (i == 97) std::cout << "\n" << "Push the rocks (#) into the holes (O) to continue."; // New line after the border
+		if (i == 97) std::cout << "\n" << "Push the rocks (#) into the holes (O) to continue.                                                "; // New line after the border
 	}
 }
 
