@@ -169,7 +169,7 @@ void battleArenaScene(Player* playerRef) {
     int MAX_HP = playerRef->getMaxHP();
     int MAX_MANA = playerRef->getMaxMana(); 
 
-    int villainHP = MAX_HP;
+    int villainHP = 50;
 
     int playerMana = playerRef->getPlayerMana();
     const int MANA_COST_WATER = 25;
@@ -234,7 +234,7 @@ void battleArenaScene(Player* playerRef) {
                     drawBuffer(base);
 
                     printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-                    printHealthBar("Villain", villainHP, MAX_HP, ARENA_H + 1);
+                    printHealthBar("Brave Knight", villainHP, MAX_HP, ARENA_H + 1);
                     printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                     moveCursor(0, ARENA_H + 4); cout << "Slash (H) executed!";
@@ -253,7 +253,7 @@ void battleArenaScene(Player* playerRef) {
                             if (abs(sx - villainX) <= 1 && abs(sy - villainY) <= 1) { hit = true; break; }
                         }
                     }
-                    if (hit && villainHP > 0) { villainHP = max(0, villainHP - 1); moveCursor(0, ARENA_H + 4); cout << "Slash hit!           "; Beep(800, 120); }
+                    if (hit && villainHP > 0) { villainHP = max(0, villainHP - playerRef->getWeaponDmg()); moveCursor(0, ARENA_H + 4); cout << "Slash hit!           "; Beep(800, 120); }
                     else { moveCursor(0, ARENA_H + 4); cout << "Slash missed!        "; }
                     this_thread::sleep_for(chrono::milliseconds(180));
                 }
@@ -283,7 +283,7 @@ void battleArenaScene(Player* playerRef) {
                         else stamp(frame, HERO_D, playerX, playerY);
                         drawBuffer(frame);
                         printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-                        printHealthBar("Villain", villainHP, MAX_HP, ARENA_H + 1);
+                        printHealthBar("Brave Knight", villainHP, MAX_HP, ARENA_H + 1);
                         printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                         moveCursor(0, ARENA_H + 4); cout << "Lunging... ";
@@ -291,7 +291,7 @@ void battleArenaScene(Player* playerRef) {
                         this_thread::sleep_for(chrono::milliseconds(100));
                         // if landed close to villain, damage
                         if (abs(playerX - villainX) <= 1 && abs(playerY - villainY) <= 1 && villainHP > 0) {
-                            villainHP = max(0, villainHP - 1);
+                            villainHP = max(0, villainHP - playerRef->getWeaponDmg());
                             moveCursor(0, ARENA_H + 4); cout << "Lunge hit! ";
                             Beep(900, 120);
                             break;
@@ -310,7 +310,7 @@ void battleArenaScene(Player* playerRef) {
                         drawBuffer(buf);
 
                         printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-                        printHealthBar("Villain", villainHP, MAX_HP, ARENA_H + 1);
+                        printHealthBar("Brave Knight", villainHP, MAX_HP, ARENA_H + 1);
                         printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
                         moveCursor(0, ARENA_H + 4);
                         cout << "Slash attack!       ";
@@ -331,14 +331,14 @@ void battleArenaScene(Player* playerRef) {
                             if (abs(sx - villainX) <= 1 && abs(sy - villainY) <= 1) hit = true;
                         }
                     }
-                    if (hit) { villainHP = max(0, villainHP - 1); moveCursor(0, ARENA_H + 4); cout << "Slash hit!       "; Beep(800, 120); }
+                    if (hit) { villainHP = max(0, villainHP - playerRef->getWeaponDmg()); moveCursor(0, ARENA_H + 4); cout << "Slash hit!       "; Beep(800, 120); }
                 }
 
 
 
                 // K = water magic (projectile). Blue color
                 else if (ch == 'k') {
-                    if (playerMana >= MANA_COST_WATER) {
+                    if (playerRef->getPlayerMana() >= MANA_COST_WATER) {
                         playerRef->addPlayerMana(MANA_COST_WATER * -1);
                         int projDx = 0, projDy = 0;
                         if (facing == 0) projDx = 2;
@@ -351,7 +351,7 @@ void battleArenaScene(Player* playerRef) {
                         p.dx = (projDx != 0 ? (projDx > 0 ? 2 : -2) : (projDy != 0 ? (projDy > 0 ? 0 : 0) : 2));
                         // if vertical, dx=0 and dy set via glyph movement — but for simplicity we'll use dx only left/right,
                         // for up/down we simulate vertical by moving y each frame:
-                        p.dmg = 1;
+                        p.dmg = 10;
                         p.glyph = '~';
                         p.active = true;
                         p.color = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
@@ -396,15 +396,15 @@ void battleArenaScene(Player* playerRef) {
                     drawBuffer(f);
 
                     printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-                    printHealthBar("Villain", villainHP, MAX_HP, ARENA_H + 1);
+                    printHealthBar("Brave Knight", villainHP, MAX_HP, ARENA_H + 1);
                     printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                     Beep(400, 80);
                     this_thread::sleep_for(chrono::milliseconds(80));
                     // if overlap: damage AKA CHECK COLLISION
                     if (abs(villainX - playerX) <= 1 && abs(villainY - playerY) <= 1 && villainHP > 0) {
-                        playerRef->addPlayerHP(-1); //reduce universal health 
-                        moveCursor(0, ARENA_H + 4); cout << "Villain lunges - You took 1 dmg! ";
+                        playerRef->addPlayerHP(-10); //reduce universal health 
+                        moveCursor(0, ARENA_H + 4); cout << "Brave Knight lunges - You took 1 dmg! ";
                         Beep(450, 120);
                         this_thread::sleep_for(chrono::milliseconds(180));
                     }
@@ -432,9 +432,9 @@ void battleArenaScene(Player* playerRef) {
         if (abs(playerX - villainX) <= 1 && abs(playerY - villainY) <= 1 && villainHP > 0) {
             auto nowAtk = chrono::steady_clock::now();
             if (chrono::duration_cast<chrono::milliseconds>(nowAtk - lastVillainAttack).count() >= 900) {
-                playerRef->addPlayerHP(-1);
+                playerRef->addPlayerHP(-10);
                 lastVillainAttack = nowAtk;
-                moveCursor(0, ARENA_H + 4); cout << "Villain hits you! -1 HP    ";
+                moveCursor(0, ARENA_H + 4); cout << "Brave Knight hits you! -10 HP    ";
                 Beep(450, 100);
             }
         }
@@ -476,9 +476,9 @@ void battleArenaScene(Player* playerRef) {
 
         // UI
         printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-        printHealthBar("Villain", villainHP, MAX_HP, ARENA_H + 1);
+        printHealthBar("Brave Knight", villainHP, MAX_HP, ARENA_H + 1);
         printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
-        moveCursor(0, ARENA_H + 4);
+        moveCursor(0, ARENA_H + 5);
         cout << "WASD=move  Arrows=face  G=SwordHit  H=Slash  J=Lunge  K=Water  Q=Quit            ";
 
         this_thread::sleep_for(chrono::milliseconds(FRAME_MS));
@@ -492,7 +492,7 @@ void battleArenaScene(Player* playerRef) {
         if (finalChoice == 'Y' || finalChoice == 'y') {
             playerRef->setMorale(playerRef->getMorale() + 20); 
         }
-        else { playerRef->setMorale(playerRef->getMorale() - 20); }
+        else if (finalChoice == 'N' || finalChoice == 'n') { playerRef->setMorale(playerRef->getMorale() - 20); }
     }
     else cout << "\nExited.\n";
 }

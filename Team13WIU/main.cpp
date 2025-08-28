@@ -26,7 +26,7 @@ int main() {
 	//sword->addDesc("SWORD");
 	//
 	//Bag.requestInventory();
-	
+
 
 	//// STEPS FOR MAP 
 	//Map MapObj;
@@ -35,18 +35,18 @@ int main() {
 	//MapObj.Inn();
 	//MapObj.ShipCutscene();
 
-	//startScreen();	
+	startScreen();
 
-	// playTownsquareBurning();  //  the burning town scene
+	playTownsquareBurning();  //  the burning town scene
 
-	// evilHeroCutscene();
+	evilHeroCutscene();
 
 
 	Game game;
 	game.initGame();
-	
+
 
 	while (true) {
- 		game.doTurn();
+		game.doTurn();
 	}
 }

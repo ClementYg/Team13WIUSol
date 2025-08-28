@@ -822,7 +822,7 @@ void Game::doTurn() {
 void Game::clearDialogue() { // clears after 22st line which is where dialogue is at 
 	for (int i = 0; i < 100; i++) {//clear for 100 lines
 		std::cout << "\033[" << (23 + i) << ";1H";   // move to each line start
-		std::cout << std::string(130, ' '); // clear each line and replace with space
+		std::cout << std::string(120, ' '); // clear each line and replace with space
 	}
 	std::cout.flush();
 }

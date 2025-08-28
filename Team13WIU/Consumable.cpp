@@ -22,14 +22,14 @@ void Consumable::useItem(Player* playerRef) {
 	switch (itemCType) {
 	case HP_POT:
 	{
-		std::cout << "HP RECOVERED BY 10 HERE\n";
+		std::cout << "HP RECOVERED BY 10 \n";
 		//player restore health function here
-		playerRef->addPlayerHP(20);
+		playerRef->addPlayerHP(10);
 		addQuantity(-1);
 		break;
 	}
 	case MANA_POT: {
-		std::cout << "MANA RECOVERED BY 10 HERE\n";
+		std::cout << "MANA RECOVERED BY 20\n";
 		//player restore mana here
 		playerRef->addPlayerMana(20);
 		addQuantity(-1);
