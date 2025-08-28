@@ -38,13 +38,13 @@ void clearScreen() {
 void animateVortigen() {
     setRed();
     std::vector<std::string> lines = {
-        "V     V   OOOOO    RRRRR    TTTTTTT   IIIII    GGGGG   EEEEEEE   N     N",
+        "V     V   OOOOO    RRRRR    TTTTTTT  IIIII     GGGGG   EEEEEEE  N     N",
         "V     V  O     O   R    R      T       I     G     G  E         NN    N",
         "V     V  O     O   R    R      T       I     G        E         N N   N",
         " V   V   O     O   RRRRR       T       I     G  GGG   EEEEEE    N  N  N",
         "  V V    O     O   R R         T       I     G    G   E         N   N N",
         "   V     O     O   R  R        T       I     G    G   E         N    NN",
-        "   V      OOOOO    R   R       T      IIIII    GGGG    EEEEEEE  N     N"
+        "   V      OOOOO    R   R       T     IIIII     GGGG    EEEEEEE  N     N"
     };
 
     std::vector<std::string> display = lines;
