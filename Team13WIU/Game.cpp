@@ -19,12 +19,12 @@ using namespace std;
 
 Game::Game() : RiverPuzzle(nullptr)
 {
-	InInn = false;
+	InInn = true;
 	InTown = false;
 	InForest = false;
 	InHarbour = false;
 	InOusideCave = false;
-	InInsideCave = true;
+	InInsideCave = false;
 	puzzleActive = false;
 
 
