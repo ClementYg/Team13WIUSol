@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include "Player.h"
+class Player; //forward declare 
 
 class Item
 {
@@ -45,7 +47,7 @@ public:
 
 
 	virtual Item* duplicate() = 0;
-	virtual void useItem();
+	virtual void useItem(Player* playerRef);
 
 	static Item* create(std::string name, consumeType consumableType = consumeType::C_UNKNOWN, int price = 0, int qty = 1);
 	static Item* create(std::string name, weaponType wType = weaponType::W_UNKNOWN, int price = 0, int qty = 1);

@@ -17,20 +17,22 @@ Consumable::Consumable(std::string n, consumeType type, int price, int qty)
 
 }
 
-void Consumable::useItem() {
+void Consumable::useItem(Player* playerRef) {
 
 	switch (itemCType) {
 	case HP_POT:
 	{
 		std::cout << "HP RECOVERED BY 10 HERE\n";
 		//player restore health function here
+		playerRef->addPlayerHP(20);
 		addQuantity(-1);
 		break;
 	}
 	case MANA_POT: {
 		std::cout << "MANA RECOVERED BY 10 HERE\n";
 		//player restore mana here
-
+		playerRef->addPlayerMana(20);
+		addQuantity(-1);
 		break;
 	}
 	case STRENGTH_POT: {

@@ -11,7 +11,7 @@ bool Weapon::checkWeaponEquipped()
 	return weaponEquipped;
 }
 
-void Weapon::useItem()
+void Weapon::useItem(Player* playerRef)
 {
 	switch (itemWType) {
 	case WOOD_SWORD:
@@ -21,7 +21,7 @@ void Weapon::useItem()
 		weaponEquipped = true;
 		break;
 	}
-	case STEEL_SWORD:
+	case STEEL_SWORD:	
 	{
 		std::cout << "Steel Sword equipped\n";
 
@@ -42,6 +42,8 @@ Weapon* Weapon::duplicate() {
 	return new Weapon(*this);
 }
 
+bool Weapon::weaponEquipped = false;
+
 Weapon::Weapon(std::string n, weaponType type,int price,int qty)
 {
 	itemWType = type;
@@ -50,7 +52,6 @@ Weapon::Weapon(std::string n, weaponType type,int price,int qty)
 	quantity = qty;
 	FSequipped = false; 
 	WSequipped = false;
-	weaponEquipped = false;
 	std::cout << "A weapon created\n";
 }
 

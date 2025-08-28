@@ -1,5 +1,9 @@
 #pragma once
 #include "Item.h"
+#include "Player.h"
+class Player;
+class Item;
+
 class Inventory // is just a storage of items
 {
 private:
@@ -9,14 +13,14 @@ private:
 	static int totalItems; 
 public: 
 
-	void showInventory();
-	void requestInventory();
+	void showInventory(Player* playerRef);
+	void requestInventory(Player* playerRef);
 	void selectItem();
-	void printInventory();
+	void printInventory(Player* playerRef);
 	int getTotalItems();
 
 	void addItem(Item* itemObj, int);
-	void useItem(int slot);
+	void useItem(int slot, Player* playerRef);
 	void removeItem(Item* itemObj);
 	
 	int getGold();
