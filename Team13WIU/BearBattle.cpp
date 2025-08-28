@@ -187,7 +187,7 @@ void battleArenaBearForest(Player* playerRef) {
     int MAX_MANA = playerRef->getMaxMana();
 
     int playerHP = playerRef->getPlayerHP(); //get UNIVERSAL playerHP
-    int bearHP = MAX_HP;
+    int bearHP = 40;
 
     int playerMana = playerRef->getPlayerMana();
     const int MANA_COST_WATER = 25;
@@ -205,7 +205,7 @@ void battleArenaBearForest(Player* playerRef) {
     bool running = true;
     system("cls");
 
-    while (running && playerHP > 0 && bearHP > 0) {
+    while (running && playerRef->getPlayerHP() > 0 && bearHP > 0) {
         // timing
         auto now = chrono::steady_clock::now();
         double delta = chrono::duration<double>(now - lastFrame).count();
@@ -251,7 +251,7 @@ void battleArenaBearForest(Player* playerRef) {
                     drawBuffer(base);
 
                     printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-                    printHealthBar("Villain", bearHP, MAX_HP, ARENA_H + 1);
+                    printHealthBar("Bear", bearHP, 40, ARENA_H + 1);
                     printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                     moveCursor(0, ARENA_H + 4); cout << "Slash (H) executed!";
@@ -270,7 +270,7 @@ void battleArenaBearForest(Player* playerRef) {
                             if (abs(sx - bearX) <= 1 && abs(sy - bearY) <= 1) { hit = true; break; }
                         }
                     }
-                    if (hit && bearHP > 0) { bearHP = max(0, bearHP - 1); moveCursor(0, ARENA_H + 4); cout << "Slash hit!           "; Beep(800, 120); }
+                    if (hit && bearHP > 0) { bearHP = max(0, bearHP - playerRef->getWeaponDmg()); moveCursor(0, ARENA_H + 4); cout << "Slash hit!           "; Beep(800, 120); }
                     else { moveCursor(0, ARENA_H + 4); cout << "Slash missed!        "; }
                     this_thread::sleep_for(chrono::milliseconds(180));
                 }
@@ -300,7 +300,7 @@ void battleArenaBearForest(Player* playerRef) {
                         else stamp(frame, HERO_D, playerX, playerY);
                         drawBuffer(frame);
                         printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-                        printHealthBar("Villain", bearHP, MAX_HP, ARENA_H + 1);
+                        printHealthBar("Bear", bearHP, 40, ARENA_H + 1);
                         printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                         moveCursor(0, ARENA_H + 4); cout << "Lunging... ";
@@ -308,7 +308,7 @@ void battleArenaBearForest(Player* playerRef) {
                         this_thread::sleep_for(chrono::milliseconds(100));
                         // if landed close to villain, damage
                         if (abs(playerX - bearX) <= 1 && abs(playerY - bearY) <= 1 && bearHP > 0) {
-                            bearHP = max(0, bearHP - 1);
+                            bearHP = max(0, bearHP - playerRef->getWeaponDmg());
                             moveCursor(0, ARENA_H + 4); cout << "Lunge hit! ";
                             Beep(900, 120);
                             break;
@@ -327,7 +327,7 @@ void battleArenaBearForest(Player* playerRef) {
                         drawBuffer(buf);
 
                         printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-                        printHealthBar("Villain", bearHP, MAX_HP, ARENA_H + 1);
+                        printHealthBar("Bear", bearHP, 40, ARENA_H + 1);
                         printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
                         moveCursor(0, ARENA_H + 4);
                         cout << "Slash attack!       ";
@@ -348,14 +348,14 @@ void battleArenaBearForest(Player* playerRef) {
                             if (abs(sx - bearX) <= 1 && abs(sy - bearY) <= 1) hit = true;
                         }
                     }
-                    if (hit) { bearHP = max(0, bearHP - 1); moveCursor(0, ARENA_H + 4); cout << "Slash hit!       "; Beep(800, 120); }
+                    if (hit) { bearHP = max(0, bearHP - playerRef->getWeaponDmg()); moveCursor(0, ARENA_H + 4); cout << "Slash hit!       "; Beep(800, 120); }
                 }
 
 
 
                 // K = water magic (projectile). Blue color
                 else if (ch == 'k') {
-                    if (playerMana >= MANA_COST_WATER) {
+                    if (playerRef->getPlayerMana() >= MANA_COST_WATER) {
                         playerRef->addPlayerMana(-MANA_COST_WATER);
                         int projDx = 0, projDy = 0;
                         if (facing == 0) projDx = 2;
@@ -368,7 +368,7 @@ void battleArenaBearForest(Player* playerRef) {
                         p.dx = (projDx != 0 ? (projDx > 0 ? 2 : -2) : (projDy != 0 ? (projDy > 0 ? 0 : 0) : 2));
                         // if vertical, dx=0 and dy set via glyph movement — but for simplicity we'll use dx only left/right,
                         // for up/down we simulate vertical by moving y each frame:
-                        p.dmg = 1;
+                        p.dmg = 10;
                         p.glyph = '~';
                         p.active = true;
                         p.color = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
@@ -413,14 +413,14 @@ void battleArenaBearForest(Player* playerRef) {
                     drawBuffer(f);
 
                     printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-                    printHealthBar("Bear", bearHP, MAX_HP, ARENA_H + 1);
+                    printHealthBar("Bear", bearHP, 40, ARENA_H + 1);
                     printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                     Beep(400, 80);
                     this_thread::sleep_for(chrono::milliseconds(80));
                     // if overlap: damage
                     if (abs(bearX - playerX) <= 1 && abs(bearY - playerY) <= 1 && bearHP > 0) {
-                        playerRef->addPlayerHP(-1);
+                        playerRef->addPlayerHP(-10);
                         moveCursor(0, ARENA_H + 4); cout << "Bear lunges - You took 1 dmg! ";
                         Beep(450, 120);
                         this_thread::sleep_for(chrono::milliseconds(180));
@@ -449,7 +449,7 @@ void battleArenaBearForest(Player* playerRef) {
         if (abs(playerX - bearX) <= 1 && abs(playerY - bearY) <= 1 && bearHP > 0) {
             auto nowAtk = chrono::steady_clock::now();
             if (chrono::duration_cast<chrono::milliseconds>(nowAtk - lastBearAttack).count() >= 900) {
-                playerRef->addPlayerHP(-1);
+                playerRef->addPlayerHP(-10);
                 lastBearAttack = nowAtk;
                 moveCursor(0, ARENA_H + 4); cout << "Bear hits you! -1 HP    ";
                 Beep(450, 100);
@@ -493,9 +493,9 @@ void battleArenaBearForest(Player* playerRef) {
 
         // UI
         printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-        printHealthBar("Bear", bearHP, MAX_HP, ARENA_H + 1);
+        printHealthBar("Bear", bearHP, 40, ARENA_H + 1);
         printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
-        moveCursor(0, ARENA_H + 4);
+        moveCursor(0, ARENA_H + 5);
         cout << "WASD=move  Arrows=face  G=SwordHit  H=Slash  J=Lunge  K=Water  Q=Quit            ";
 
         this_thread::sleep_for(chrono::milliseconds(FRAME_MS));
@@ -503,6 +503,17 @@ void battleArenaBearForest(Player* playerRef) {
 
     moveCursor(0, ARENA_H + 6);
     if (playerHP <= 0) cout << "\nYou have been defeated by the bear!\n";
-    else if (bearHP <= 0) cout << "\nVictory! You defeated the bear!\n";
+    else if (bearHP <= 0) {
+        std::cout << "Do you wish to spare this enemy? [Y/N]\n";
+        bool validChoice = false;
+        while (!validChoice) {
+            char finalChoice = _getch();
+            if (finalChoice == 'Y' || finalChoice == 'y') {
+                playerRef->setMorale(playerRef->getMorale() + 20);
+                validChoice = true;
+            }
+            else if (finalChoice == 'N' || finalChoice == 'n') { playerRef->setMorale(playerRef->getMorale() - 20); validChoice = true; }
+        }
+    }
     else cout << "\nExited.\n";
 }

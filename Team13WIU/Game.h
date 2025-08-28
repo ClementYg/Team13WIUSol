@@ -1,13 +1,15 @@
 #pragma once
 #include "Entity.h"
+#include "Puzzle.h"
 #include <vector>
 #include <string>
 #include <windows.h>
 class Game
 {
 private:
-	Entity* gameObjects[24];
+	Entity* gameObjects[27];
 	Position playerPos;
+	//Puzzle* RiverPuzzle;
 
 	std::vector<std::string> InnKeeperSpeech =
 	{
@@ -45,8 +47,8 @@ private:
 	std::vector<std::string> KidSpeech =
 	{
 		"OH MY GOD! That was so scary",
-		"Thank you my hero, can you bring me back to my village?",
-		"In case there are more monsters."
+		"Thank you my hero!",
+		"I will go back home now."
 	};
 
 	std::vector<std::string> HvillagersSpeech =
@@ -68,8 +70,8 @@ private:
 	std::vector<std::string> OldManSpeech =
 	{
 		"Be wary traveller, this cave has a dark history.",
-		"It is said that whoever enters the cave, doesn't make it out alive",
-		"I wish you all the best"
+		"It is said that whoever enters the cave, doesn't make it out alive.",
+		"I wish you all the best."
 	};
 
 	std::vector<std::string> GHeroSpeech =
@@ -98,14 +100,25 @@ private:
 	bool InInsideCave;
 	bool NarraInn;
 	bool NarraTown;
+	bool puzzleActive;
 	bool NarraForest;
 	bool NarraHarbour;
 	bool NarraOutsideCave;
 	bool NarraInsideCave;
+	bool NarraInsideCave2;
 	bool BKAlive;
+	bool HeroAlive;
 	bool BearAlive;
+	bool KidTriggered;
+	bool HeroTriggered;
+	bool HeroTalk;
+	bool interactedrock;
+	bool interactedground;
+	bool interactedbird;
+	bool interactedbarrel;
+	bool interactedaltar;
 
-	
+	Puzzle* RiverPuzzle;
 
 public:
 	Game();
@@ -116,4 +129,3 @@ public:
 	void doTurn();
 	void clearDialogue();
 };
-

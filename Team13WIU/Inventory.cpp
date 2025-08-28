@@ -11,7 +11,7 @@ void Inventory::showInventory(Player* playerRef)
 	while (!exitInventory) {
 		printInventory(playerRef);
 
-		std::cout << "What do you wish to do with your backpack?\n" << "Press any button to close your Bag.\nPress C to select an item.\n\n";
+		std::cout << "\nWhat do you wish to do with your backpack?\n" << "Press any button to close your Bag.\nPress C to select an item.\n\n";
 		char userChoice = _getch();
 		if (userChoice == 'C' || userChoice == 'c') {
 			selectItem();
@@ -45,6 +45,7 @@ void Inventory::selectItem()
 void Inventory::printInventory(Player* playerRef)
 {
 	//display stuff
+	std::cout << "Player HP: " << playerRef->getPlayerHP() << "\nPlayer Mana: " << playerRef->getPlayerMana() << '\n';
 	std::cout << "You currently have " << getGold() << " Gold and " << getTotalItems() << " Items in your Bag\n";
 	for (int i = 0; i < 10; i++) { // SET TO 10 BECAUSE THATS TOTAL SLOTS SO FAR
 		if (container[i] != nullptr) { //check that this slot has an item
@@ -54,8 +55,12 @@ void Inventory::printInventory(Player* playerRef)
 				}
 
 				std::cout << "[" << i << "] " << container[i]->getItemName() << " x" << container[i]->getQuantity();
-				if (static_cast<Weapon*>(container[i])->checkWeaponEquipped()) {
-					std::cout << " (E)";
+				for (auto& eachItem : container) {
+					if (Weapon* itemCheck = dynamic_cast<Weapon*>(eachItem)) {
+						if (itemCheck->checkWeaponEquipped()) { //check only weapons
+							std::cout << " (E)";
+						}
+					}
 				}
 				std::cout << std::endl << std::endl;
 
@@ -76,6 +81,7 @@ void Inventory::printInventory(Player* playerRef)
 				else container[i]->select(0);
 				//deselect everything
 			}
+			container[i]->select(0);
 		}
 	}
 }
@@ -86,6 +92,7 @@ int Inventory::getTotalItems()
 {
 	return totalItems;
 }
+
 
 
 void Inventory::addItem(Item* itemObj, int qty)
