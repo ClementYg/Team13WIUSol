@@ -488,11 +488,15 @@ void battleArenaScene(Player* playerRef) {
     if (playerRef->getPlayerHP() <= 0) cout << "\nYou have been defeated!\n";
     else if (villainHP <= 0) {
         std::cout << "Do you wish to spare this enemy? [Y/N]\n";
-        char finalChoice = _getch();
-        if (finalChoice == 'Y' || finalChoice == 'y') {
-            playerRef->setMorale(playerRef->getMorale() + 20); 
+        bool validChoice = false;
+        while (!validChoice) {
+            char finalChoice = _getch();
+            if (finalChoice == 'Y' || finalChoice == 'y') {
+                playerRef->setMorale(playerRef->getMorale() + 20);
+                validChoice = true;
+            }
+            else if (finalChoice == 'N' || finalChoice == 'n') { playerRef->setMorale(playerRef->getMorale() - 20); validChoice = true; }
         }
-        else if (finalChoice == 'N' || finalChoice == 'n') { playerRef->setMorale(playerRef->getMorale() - 20); }
     }
     else cout << "\nExited.\n";
 }
