@@ -140,8 +140,10 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Merchant.cpp" />
     <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="obstacle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="Puzzle.cpp" />
     <ClCompile Include="startScreen.cpp" />
     <ClCompile Include="TownSquareBurning.cpp" />
     <ClCompile Include="Weapon.cpp" />
@@ -159,8 +161,10 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Merchant.h" />
     <ClInclude Include="NPC.h" />
+    <ClInclude Include="obstacle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="Puzzle.h" />
     <ClInclude Include="startScreen.h" />
     <ClInclude Include="TownSquareBurning.h" />
     <ClInclude Include="Weapon.h" />

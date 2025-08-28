@@ -56,7 +56,7 @@ Map::textType Map::translateText(std::string string) { //return enum textType. T
 
 
 void Map::townMap() {
-
+	 
 	std::fstream townMap; //creates fstream variable townMap
 	townMap.open("townMap.csv", std::fstream::in); //uses townMap to open townMap.csv file and allow for output.
 	if (!townMap.is_open()) { //if couldn't open map then dont print anything
@@ -628,7 +628,6 @@ Map::Map() {
 			townGameMap[row][col] = ' ';
 		}
 	}
-
 }
 
 Map::~Map()

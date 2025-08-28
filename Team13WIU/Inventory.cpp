@@ -89,6 +89,7 @@ int Inventory::getTotalItems()
 }
 
 
+
 void Inventory::addItem(Item* itemObj, int qty)
 {
 	int usableSlot = -1;
