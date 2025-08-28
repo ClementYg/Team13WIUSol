@@ -35,11 +35,6 @@ void Consumable::useItem(Player* playerRef) {
 		addQuantity(-1);
 		break;
 	}
-	case STRENGTH_POT: {
-		std::cout << "STRENGTH INCREASE BY 10 HERE\n";
-
-		break;
-	}
 	default: {
 		std::cout << "Invalid ItemType given\n";
 	}

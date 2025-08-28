@@ -514,6 +514,9 @@ void battleArenaBearForest(Player* playerRef) {
             }
             else if (finalChoice == 'N' || finalChoice == 'n') { playerRef->setMorale(playerRef->getMorale() - 20); validChoice = true; }
         }
+        std::cout << "You have been rewarded with 10 gold\n";
+        playerRef->getInv()->setGold(10); //is increment system, not actually set. 
+
     }
     else cout << "\nExited.\n";
 }
