@@ -116,6 +116,7 @@ private:
 	bool interactedground;
 	bool interactedbird;
 	bool interactedbarrel;
+	bool interactedaltar;
 
 //	Puzzle* RiverPuzzle;
 

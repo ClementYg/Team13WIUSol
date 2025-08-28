@@ -37,13 +37,14 @@ Game::Game()
 
 
 	BKAlive = true;
-	BearAlive = false;
+	BearAlive = true;
 	HeroAlive = true;
 
 	interactedrock = true;
 	interactedground = true;
 	interactedbird = true;
 	interactedbarrel = true;
+	interactedaltar = true;
 
 	BearAlive = true;
 	KidSent = false;
@@ -86,7 +87,7 @@ void Game::initGame() {
 	gameObjects[10] = new NPC("Villager", 4, 40, 'V', HvillagersSpeech);
 	gameObjects[11] = new Merchant("Travelling Merchant", 0, 28, '!', MerchantSpeech);
 	gameObjects[12] = new NPC("Old Man", 0, 10, 'M', OldManSpeech);
-	gameObjects[13] = new Enemy("Hero", 2, 0, 'H');
+	gameObjects[13] = new Enemy("Hero", 0, 0, 'H');
 	for (int i = 14; i < 27; i++) {
 		gameObjects[i] = new NPC("Interaction", 1, 1, '!');
 	}
@@ -377,25 +378,12 @@ void Game::doTurn() {
 	{
 		mapObj.InnerCaveMap();
 		for (int i = 0;i < 27;i++) {
-			if (i == 0 || i == 26 || (i == 13 && gameObjects[0]->getX() > 27)) {
+			if (i == 0 || i == 26) {
 
 				gameObjects[i]->setActive(true);
 			}
 			else if (i != 13) {
 				gameObjects[i]->setActive(false);
-			}
-		}
-		if (gameObjects[0]->getX() > 27) {
-			HeroTriggered = true;
-		}
-		if (HeroTriggered) {
-			gameObjects[13]->setActive(true);
-
-			if (gameObjects[13]->getX() < 26) {
-				gameObjects[13]->pos.x++;
-				drawWorld();
-				std::this_thread::sleep_for(std::chrono::milliseconds(50));
-				return;
 			}
 		}
 	}
@@ -861,31 +849,52 @@ void Game::doTurn() {
 					NarraInsideCave2 = false;
 				}
 			}
-			if (gameObjects[0]->getX() == 28) 
+			if (gameObjects[0]->getX() == 28 && gameObjects[0]->getY() == 0 && HeroTriggered == false)
 			{
-				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				GtypeLine("It really is the altar, looks different from before.", 1);
-				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
-				GtypeLine("Should I use it again? I can get more power if I do.", 1);
+				if (interactedaltar) {
+					std::cout << "Press SPACE to check if it is an altar" << std::endl;
+					if (player->interactionGet()) {
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("It really is the altar, looks different from before.", 1);
+						std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
+						GtypeLine("Should I use it again? I can get more power if I do.", 1);
+						interactedaltar = false;
+						delete gameObjects[26];
+						HeroTriggered = true;
+						return;
+					}
+				}
 			}
-			if (gameObjects[13]->getActive() == true && gameObjects[13]->getX() == 26 && HeroTalk == true) {
-				if (player->getMorale() <= 48) {
-					hero->dialogue = GHeroSpeech;
+			if (HeroTriggered) {
+				gameObjects[13]->setActive(true);
+				if (gameObjects[13]->getX() < 26) {
+					gameObjects[13]->pos.x++;
+					std::this_thread::sleep_for(std::chrono::milliseconds(50));
+					if (gameObjects[13]->getX() == 15)
+					{
+						clearDialogue();
+					}
+					return;
 				}
 				else {
-					hero->dialogue = BHeroSpeech;
+					HeroTriggered = false;
+					if (player->getMorale() <= 48) {
+						hero->dialogue = GHeroSpeech;
+					}
+					else {
+						hero->dialogue = BHeroSpeech;
+					}
+					hero->NPCtalk();
 				}
-				hero->NPCtalk();
-				HeroTalk = false;
 			}
-			if (gameObjects[0]->getX() == gameObjects[13]->getX() && (gameObjects[0]->getY() == gameObjects[13]->getY() + 1 || gameObjects[0]->getY() == gameObjects[13]->getY() - 1) && HeroTalk == false) {
+			if (gameObjects[0]->getX() == gameObjects[13]->getX() && (gameObjects[0]->getY() == gameObjects[13]->getY() + 1 || gameObjects[0]->getY() == gameObjects[13]->getY() - 1)) {
 				std::cout << "Press SPACE to fight with the Hero" << std::endl;
 				if (player->interactionGet()) {
 					std::cout << "Go into combat scene" << std::endl;
 					// The call function for combat scene IF WE HAVE
 				}
 			}
-			else if (gameObjects[0]->getY() == gameObjects[13]->getY() && (gameObjects[0]->getX() == gameObjects[13]->getX() + 1 || gameObjects[0]->getX() == gameObjects[13]->getX() - 1) && HeroTalk == false) {
+			else if (gameObjects[0]->getY() == gameObjects[13]->getY() && (gameObjects[0]->getX() == gameObjects[13]->getX() + 1 || gameObjects[0]->getX() == gameObjects[13]->getX() - 1)) {
 				std::cout << "Press SPACE to fight with the Hero" << std::endl;
 				if (player->interactionGet()) {
 					std::cout << "Go into combat scene" << std::endl;
