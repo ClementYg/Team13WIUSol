@@ -5,11 +5,12 @@
 class Entity
 {
 protected:
-	Position pos;
 	char symbol;
 	bool IsActive;
 
 public:
+	Position pos;
+
 	Entity();
 	~Entity();
 	int getX() const;

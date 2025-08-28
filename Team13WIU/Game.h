@@ -7,7 +7,7 @@
 class Game
 {
 private:
-	Entity* gameObjects[26];
+	Entity* gameObjects[27];
 	Position playerPos;
 	//Puzzle* RiverPuzzle;
 
@@ -70,8 +70,8 @@ private:
 	std::vector<std::string> OldManSpeech =
 	{
 		"Be wary traveller, this cave has a dark history.",
-		"It is said that whoever enters the cave, doesn't make it out alive",
-		"I wish you all the best"
+		"It is said that whoever enters the cave, doesn't make it out alive.",
+		"I wish you all the best."
 	};
 
 	std::vector<std::string> GHeroSpeech =
@@ -107,7 +107,16 @@ private:
 	bool NarraInsideCave;
 	bool NarraInsideCave2;
 	bool BKAlive;
+	bool HeroAlive;
 	bool BearAlive;
+	bool KidSent;
+	bool HeroTriggered;
+	bool HeroTalk;
+	bool interactedrock;
+	bool interactedground;
+	bool interactedbird;
+	bool interactedbarrel;
+	bool interactedaltar;
 
 //	Puzzle* RiverPuzzle;
 
