@@ -167,7 +167,7 @@ static int getKeyNonBlocking() {
     int MAX_HP = playerRef->getMaxHP();
     int MAX_MANA = playerRef->getMaxMana();
 
-    int villainHP = 50;
+    int villainHP = 75;
 
     int playerMana = playerRef->getPlayerMana();
     const int MANA_COST_WATER = 25;
@@ -232,7 +232,7 @@ static int getKeyNonBlocking() {
                     drawBuffer(base);
 
                     printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-                    printHealthBar("Brave Knight", villainHP, MAX_HP, ARENA_H + 1);
+                    printHealthBar("Hero", villainHP, 75, ARENA_H + 1);
                     printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                     moveCursor(0, ARENA_H + 4); cout << "Slash (H) executed!";
@@ -281,7 +281,7 @@ static int getKeyNonBlocking() {
                         else stamp(frame, HERO_D, playerX, playerY);
                         drawBuffer(frame);
                         printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-                        printHealthBar("Brave Knight", villainHP, MAX_HP, ARENA_H + 1);
+                        printHealthBar("Hero", villainHP, 75, ARENA_H + 1);
                         printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                         moveCursor(0, ARENA_H + 4); cout << "Lunging... ";
@@ -308,7 +308,7 @@ static int getKeyNonBlocking() {
                         drawBuffer(buf);
 
                         printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-                        printHealthBar("Brave Knight", villainHP, MAX_HP, ARENA_H + 1);
+                        printHealthBar("Hero", villainHP, 75, ARENA_H + 1);
                         printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
                         moveCursor(0, ARENA_H + 4);
                         cout << "Slash attack!       ";
@@ -394,7 +394,7 @@ static int getKeyNonBlocking() {
                     drawBuffer(f);
 
                     printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-                    printHealthBar("Brave Knight", villainHP, MAX_HP, ARENA_H + 1);
+                    printHealthBar("Hero", villainHP, 75, ARENA_H + 1);
                     printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
 
                     Beep(400, 80);
@@ -402,7 +402,7 @@ static int getKeyNonBlocking() {
                     // if overlap: damage AKA CHECK COLLISION
                     if (abs(villainX - playerX) <= 1 && abs(villainY - playerY) <= 1 && villainHP > 0) {
                         playerRef->addPlayerHP(-10); //reduce universal health 
-                        moveCursor(0, ARENA_H + 4); cout << "Brave Knight lunges - You took 1 dmg! ";
+                        moveCursor(0, ARENA_H + 4); cout << "Hero lunges - You took 1 dmg! ";
                         Beep(450, 120);
                         this_thread::sleep_for(chrono::milliseconds(180));
                     }
@@ -432,7 +432,7 @@ static int getKeyNonBlocking() {
             if (chrono::duration_cast<chrono::milliseconds>(nowAtk - lastVillainAttack).count() >= 900) {
                 playerRef->addPlayerHP(-10);
                 lastVillainAttack = nowAtk;
-                moveCursor(0, ARENA_H + 4); cout << "Brave Knight hits you! -10 HP    ";
+                moveCursor(0, ARENA_H + 4); cout << "Hero hits you! -10 HP    ";
                 Beep(450, 100);
             }
         }
@@ -474,7 +474,7 @@ static int getKeyNonBlocking() {
 
         // UI
         printHealthBar("Player", playerRef->getPlayerHP(), MAX_HP, ARENA_H);
-        printHealthBar("Brave Knight", villainHP, MAX_HP, ARENA_H + 1);
+        printHealthBar("Hero", villainHP, 75, ARENA_H + 1);
         printManaBar(playerRef->getPlayerMana(), MAX_MANA, ARENA_H + 2);
         moveCursor(0, ARENA_H + 5);
         cout << "WASD=move  Arrows=face  G=SwordHit  H=Slash  J=Lunge  K=Water  Q=Quit            ";
