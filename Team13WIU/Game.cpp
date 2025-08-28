@@ -33,9 +33,6 @@ Game::Game()
 	NarraOutsideCave = true;
 	NarraInsideCave = true;
 	NarraInsideCave2 = true;
-	
-	for (int i = 0; i < 4; ++i)
-
 
 	BKAlive = true;
 	BearAlive = false;
@@ -47,7 +44,6 @@ Game::Game()
 	interactedbarrel = true;
 
 	for (int i = 0; i < 27; ++i)
-
 	{
 		gameObjects[i] = nullptr;
 	}
@@ -816,7 +812,7 @@ void Game::doTurn() {
 					NarraInsideCave2 = false;
 				}
 			}
-			if (gameObjects[0]->getX() == 28 && InInsideCave == true) 
+			if (gameObjects[0]->getX() == 28) 
 			{
 				std::cout << "\033[1;34m" << player->name << ": " << "\033[0m";
 				GtypeLine("It really is the altar, looks different from before.", 1);
