@@ -485,7 +485,6 @@ static int getKeyNonBlocking() {
     moveCursor(0, ARENA_H + 6);
     if (playerRef->getPlayerHP() <= 0) cout << "\nYou have been defeated!\n";
     else if (villainHP <= 0) {
-        return;
     }
     else cout << "\nExited.\n";
 }

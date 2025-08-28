@@ -935,6 +935,7 @@ void Game::doTurn() {
 					}
 					if (HeroAlive == false && player->getMorale() <= 48)
 					{
+						clearDialogue();
 						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
 						GtypeLine("Ughh....", 1);
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -973,6 +974,7 @@ void Game::doTurn() {
 
 					else if (HeroAlive == false && player->getMorale() >= 48)
 					{
+						clearDialogue();
 						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
 						GtypeLine("Huff ... huff ...", 1);
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -1006,7 +1008,6 @@ void Game::doTurn() {
 				if (player->interactionGet()) {
 					if (HeroAlive) {
 						FinalBattle(player); // launches the ASCII battle scene (blocking until win/lose/quit)
-						clearDialogue();
 
 						if (player->getPlayerHP() != 0) {
 							HeroAlive = false;
@@ -1019,6 +1020,7 @@ void Game::doTurn() {
 					}
 					if (HeroAlive == false && player->getMorale() <= 48)
 					{
+						clearDialogue();
 						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
 						GtypeLine("Ughh....", 1);
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -1058,6 +1060,7 @@ void Game::doTurn() {
 
 					else if(HeroAlive == false && player->getMorale() >= 48)
 					{
+						clearDialogue();
 						std::cout << "\033[1;33m" << "Hero" << ": " << "\033[0m";
 						GtypeLine("Huff ... huff ...", 1);
 						std::this_thread::sleep_for(std::chrono::milliseconds(1000));
