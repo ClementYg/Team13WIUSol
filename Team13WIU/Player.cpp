@@ -16,6 +16,7 @@ Player::Player(std::string n, int y, int x, char s) : Morale(43) /*: Entity(row,
 	playerInv = new Inventory;
 	playerHP = MAX_HP;
 	playerMana = MAX_MANA; 
+	weaponDmg = 12; //inital weapon damage
 }
 
 Player::~Player() {
@@ -110,6 +111,15 @@ int Player::getPlayerHP()
 
 int Player::getPlayerMana() {
 	return playerMana;
+}
+
+int Player::getWeaponDmg()
+{
+	return weaponDmg;
+}
+
+void Player::setWeaponDmg(int newValue) {
+	weaponDmg = newValue;
 }
 
 void Player::addPlayerHP(int change)
