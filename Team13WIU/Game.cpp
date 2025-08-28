@@ -300,7 +300,7 @@ void Game::doTurn() {
 				}
 			}
 		}
-	}
+	}	  
 	else if (InHarbour == true)
 	{
 		mapObj.HarbourMap();
@@ -588,6 +588,8 @@ void Game::doTurn() {
 					InHarbour = false;
 					InOusideCave = true;
 					gameObjects[0]->setPosition(1, 2);
+					system("cls");
+					mapObj.ShipCutscene(); 
 					return;
 				}
 			}

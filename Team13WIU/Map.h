@@ -22,6 +22,12 @@ public:
 		ATSIGN,
 		MORETHAN,
 		LESSTHAN,
+		GRAVE,
+		RIGHTCURLY,
+		PERIOD,
+		LEFTSQUAREB,
+		RIGHTSQUAREB,
+		UPGRAVE,
 		SPACE
 	};
 
@@ -31,6 +37,11 @@ public:
 	void EntranceCaveMap();
 	void InnerCaveMap();
 	void Inn();
+
+	std::vector<std::vector<std::string>> ShipF1();
+
+	void printCutscene(std::vector<std::string>& frames);
+	void ShipCutscene();
 
 	void clearScreen();
 

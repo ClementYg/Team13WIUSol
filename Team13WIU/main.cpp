@@ -9,6 +9,7 @@
 #include "NPC.h"
 #include "Merchant.h"
 #include "Position.h"
+#include <windows.h>
 
 int main() {
 	// STEPS FOR INVENTORY. CREATE(NAME, ITEM, PRICE, QUANTITY)
@@ -26,11 +27,12 @@ int main() {
 	//Bag.requestInventory();
 	
 
-	////// STEPS FOR MAP 
+	//// STEPS FOR MAP 
 	//Map MapObj;
 	//MapObj.HarbourMap();
 	//MapObj.ForestMap();
 	//MapObj.Inn();
+	//MapObj.ShipCutscene();
 
 	//startScreen();	
 
