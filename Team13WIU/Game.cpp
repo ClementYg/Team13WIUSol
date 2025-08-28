@@ -17,9 +17,9 @@ using namespace std;
 
 Game::Game()
 {
-	InInn = false;
+	InInn = true;
 	InTown = false;
-	InForest = true;
+	InForest = false;
 	InHarbour = false;
 	InOusideCave = false;
 	InInsideCave = false;
@@ -27,7 +27,6 @@ Game::Game()
 	NarraInn = true;
 	NarraTown = true;
 	puzzleActive = true;
-	
 	NarraForest = true;
 	NarraHarbour = true;
 	NarraOutsideCave = true;
@@ -178,6 +177,10 @@ void Game::doTurn() {
 	Enemy* braveknight = static_cast<Enemy*>(gameObjects[7]);
 	Enemy* bear = static_cast<Enemy*>(gameObjects[8]);
 	NPC* kid = static_cast<NPC*>(gameObjects[9]);
+	NPC* harbourvillager = static_cast<NPC*>(gameObjects[10]);
+	Merchant* merchant = static_cast<Merchant*>(gameObjects[11]);
+	NPC* oldman = static_cast<NPC*>(gameObjects[12]);
+	Enemy* hero = static_cast<Enemy*>(gameObjects[13]);
 
 	//morale
 	
@@ -191,11 +194,6 @@ void Game::doTurn() {
 		std::cout << ' ';
 	}
 	std::cout << '|'<<endl;
-
-	NPC* harbourvillager = static_cast<NPC*>(gameObjects[10]);
-	Merchant* merchant = static_cast<Merchant*>(gameObjects[11]);
-	NPC* oldman = static_cast<NPC*>(gameObjects[12]);
-	Enemy* hero = static_cast<Enemy*>(gameObjects[13]);
 
 
 	Inventory* playerInv = player->getInv();
@@ -618,8 +616,16 @@ void Game::doTurn() {
 					//Added Bear Attack
 					battleArenaBearForest(player);
 
-					BearAlive = false;
-					return;
+					if (player->getPlayerHP() != 0) {
+						BearAlive = false;
+						return;
+					}
+					else {
+						InForest = false;
+						InTown = true;
+						player->setPosition(39, 2);
+						player->addPlayerHP(5);
+					}
 				}
 			}
 			else if (gameObjects[0]->getX() == gameObjects[8]->getX() && (gameObjects[0]->getY() == gameObjects[8]->getY() + 1 || gameObjects[0]->getY() == gameObjects[8]->getY() - 1)) {
@@ -629,8 +635,16 @@ void Game::doTurn() {
 					//Added Bear Attack
 					battleArenaBearForest(player);
 
-					BearAlive = false;
-					return;
+					if (player->getPlayerHP() != 0) {
+						BearAlive = false;
+						return;
+					}
+					else {
+						InForest = false;
+						InTown = true;
+						player->setPosition(39, 2);
+						player->addPlayerHP(5);
+					}
 				}
 			}
 			if (gameObjects[0]->getY() == gameObjects[9]->getY() && (gameObjects[0]->getX() == gameObjects[9]->getX() + 1 || gameObjects[0]->getX() == gameObjects[9]->getX() - 1) && BearAlive == false) {
@@ -818,9 +832,28 @@ void Game::doTurn() {
 				}
 			}
 			if (gameObjects[13]->getActive() == true && gameObjects[13]->getX() == 26 && HeroTalk == true) {
-				hero->dialogue = BHeroSpeech;
+				if (player->getMorale() <= 48) {
+					hero->dialogue = GHeroSpeech;
+				}
+				else {
+					hero->dialogue = BHeroSpeech;
+				}
 				hero->NPCtalk();
 				HeroTalk = false;
+			}
+			if (gameObjects[0]->getX() == gameObjects[13]->getX() && (gameObjects[0]->getY() == gameObjects[13]->getY() + 1 || gameObjects[0]->getY() == gameObjects[13]->getY() - 1) && HeroTalk == false) {
+				std::cout << "Press SPACE to fight with the Hero" << std::endl;
+				if (player->interactionGet()) {
+					std::cout << "Go into combat scene" << std::endl;
+					// The call function for combat scene IF WE HAVE
+				}
+			}
+			else if (gameObjects[0]->getY() == gameObjects[13]->getY() && (gameObjects[0]->getX() == gameObjects[13]->getX() + 1 || gameObjects[0]->getX() == gameObjects[13]->getX() - 1) && HeroTalk == false) {
+				std::cout << "Press SPACE to fight with the Hero" << std::endl;
+				if (player->interactionGet()) {
+					std::cout << "Go into combat scene" << std::endl;
+					// The call function for combat scene IF WE HAVE
+				}
 			}
 		}
 	}
@@ -854,7 +887,7 @@ void Game::doTurn() {
 void Game::clearDialogue() { // clears after 22st line which is where dialogue is at 
 	for (int i = 0; i < 100; i++) {//clear for 100 lines
 		std::cout << "\033[" << (23 + i) << ";1H";   // move to each line start
-		std::cout << std::string(130, ' '); // clear each line and replace with space
+		std::cout << std::string(120, ' '); // clear each line and replace with space
 	}
 	std::cout.flush();
 }
